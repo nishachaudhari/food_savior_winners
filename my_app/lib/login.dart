@@ -12,12 +12,23 @@ const LoginPage({Key key}) : super(key: key);
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Center(
-                child: AppCard(
-                  child: Text("FoodSavior", style: TextStyle(fontSize:32.0), textAlign: TextAlign.center,)
+              AppCard(
+                  child: Text("FoodSavior", style: TextStyle(fontSize:32.0), textAlign: TextAlign.center,),
+                ),
+              AppCard(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        decoration: InputDecoration(labelText: "Email") ,
+                        ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: "Password") ,
+                        ),
+                    ],
+                    )
+                ),
                 )
-              )
-
 
             ],
             ),)
