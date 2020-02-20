@@ -4,7 +4,7 @@ import 'package:my_app/common/app_card.dart';
 class LoginPage extends StatelessWidget 
 {
 const LoginPage({Key key}) : super(key: key);
-
+  //Change in login.dart within lib
   @override
   Widget build(BuildContext context) {
     return Scaffold(
