@@ -17,7 +17,7 @@ User _userFromFirebaseUser(FirebaseUser user){
 Stream <User> get user{   //returns user everytime auth state changes if signing in and null if signing out
 
   return _auth.onAuthStateChanged
-    .map (_userFromFirebaseUser);  //takes info from firebase user and puts it in our user model
+    .map(_userFromFirebaseUser);  //takes info from firebase user and puts it in our user model
 
 }
 
