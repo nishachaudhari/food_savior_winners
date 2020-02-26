@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/common/app_card.dart';
+import 'common/app_card.dart';
+import 'NewAccount.dart';
+import 'HomeScreen.dart';
 
 class LoginPage extends StatelessWidget 
 {
@@ -28,8 +31,35 @@ const LoginPage({Key key}) : super(key: key);
                     ],
                     )
                 ),
-                )
-
+                ),
+              AppCard(
+                child: Container(
+                child: Column(
+                children: <Widget> [
+                  RaisedButton(
+                  onPressed: (){
+                     Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewAccount()),
+                     );
+                  },
+                  child: Text('Create New Account'),
+                  color: Colors.lightGreen[300],
+                ),
+                  RaisedButton(
+                  onPressed: (){
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                     );
+                  },
+                  child: Text('Login'),
+                  color: Colors.lightGreen[300],
+                ),
+                ],
+                ),
+                ),
+              ),
             ],
             ),)
     );
