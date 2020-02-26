@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:my_app/models/user.dart';
 import 'package:my_app/services/auth.dart';
+import 'package:my_app/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class NewAccount extends StatefulWidget 
 {
@@ -38,6 +39,7 @@ class _NewAccountState extends State<NewAccount>
             onPressed:()async{
               if(_formKey.currentState.validate()) { //validates form when create account pressed
                   dynamic result = await _auth.registerEmail(email, password);
+
                   if(result == null)
                   {
                     setState(()=>error = 'please supply valid email');
