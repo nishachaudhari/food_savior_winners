@@ -34,10 +34,17 @@ class HomeScreen extends StatelessWidget
       body: Center(
         child: Padding (
           padding: const EdgeInsets.all(36.0),
-          child: 
+          child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+          Text('Home Screen', style: TextStyle(color:Colors.green, fontSize: 20, fontWeight: FontWeight.bold) ),
+          SizedBox(height:15),
           logoutButton,
+          ]
         ) 
-          ),
+       ),
+      )
       );
   }
 }

@@ -7,6 +7,7 @@ import 'package:my_app/models/user.dart';
 import 'package:my_app/screens/HomeScreen.dart';
 import 'package:my_app/screens/login.dart';
 import 'package:provider/provider.dart';
+import 'package:my_app/screens/authenticate.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -18,7 +19,7 @@ class Wrapper extends StatelessWidget {
 
     if (user == null)
     {
-      return LoginPage();
+      return Authenticate();
     }
     else{
       return HomeScreen();

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/common/app_card.dart';
 import 'package:my_app/screens/NewAccount.dart';
-import 'package:my_app/screens/HomeScreen.dart';
 import 'package:my_app/services/auth.dart';
+import 'package:my_app/screens/authenticate.dart';
 
 class LoginPage extends StatefulWidget 
 {
+    final Function toggleView;
+  LoginPage({ this.toggleView });
+  
   @override
   _LoginPageState createState() => _LoginPageState();
   }
 
 class _LoginPageState extends State<LoginPage> {
+
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); 
@@ -89,12 +92,7 @@ class _LoginPageState extends State<LoginPage> {
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: (){
-                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewAccount()),
-                     );
-                  },
+            onPressed: () => widget.toggleView(),
             child: Text("Create New Account",
                 textAlign: TextAlign.center,
                 //style: style.copyWith(
@@ -140,75 +138,3 @@ class _LoginPageState extends State<LoginPage> {
     }
     
 
-/*
-    return Scaffold(
-        body:Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              AppCard(
-                  child: Text("FoodSavior", style: TextStyle(fontSize:32.0), textAlign: TextAlign.center,),
-                ),
-              AppCard(
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: "Email",
-                        border:
-                            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-                        ),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: "Password",
-                        border:
-                            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-                        ),
-               AppCard(
-                child: Container(
-                child: Column(
-                children: <Widget> [
-                  RaisedButton(
-                  onPressed: (){
-                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewAccount()),
-                     );
-                  },
-                  child: Text('Create New Account'),
-                  color: Colors.lightGreen[300],
-                ),
-                  RaisedButton(
-                  onPressed: (){
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                     );
-                  },
-                  child: Text('Login'),
-                  color: Colors.lightGreen[300],
-                ),
-                ],
-                ),
-                ),
-              ),
-
-
-
-              ],
-            )
-          ),
-        )
-
-            ],
-            ),)
-    );
-  }
-
-
-}
-*/

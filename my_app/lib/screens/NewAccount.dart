@@ -3,15 +3,22 @@ import 'package:my_app/models/user.dart';
 import 'package:my_app/services/auth.dart';
 import 'package:my_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_app/screens/authenticate.dart';
+
 
 class NewAccount extends StatefulWidget 
 {
+  final Function toggleView;
+  NewAccount({ this.toggleView });
+  
   @override
   _NewAccountState createState() => _NewAccountState();
   }
 
 class _NewAccountState extends State<NewAccount>
 {
+
+
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
 
@@ -36,22 +43,24 @@ class _NewAccountState extends State<NewAccount>
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            child: Text("Create",
+                textAlign: TextAlign.center,
+                //style: style.copyWith(
+                   // color: Colors.white, fontWeight: FontWeight.bold)),
+          ),
             onPressed:()async{
               if(_formKey.currentState.validate()) { //validates form when create account pressed
                   dynamic result = await _auth.registerEmail(email, password);
 
                   if(result == null)
                   {
-                    setState(()=>error = 'please supply valid email');
-                  }
-                
+                    setState(()
+                    {error = 'please supply valid email';}
+                      );
+                      
+                   }
               }
-              },
-            child: Text("Create",
-                textAlign: TextAlign.center,
-                //style: style.copyWith(
-                   // color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
+            }
           )
 
         );
@@ -63,9 +72,7 @@ class _NewAccountState extends State<NewAccount>
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: (){
-            Navigator.pop(context);
-            },
+            onPressed: () => widget.toggleView(),
             child: Text("Return to Login",
                 textAlign: TextAlign.center,
                 //style: style.copyWith(
