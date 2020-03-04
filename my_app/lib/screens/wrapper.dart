@@ -2,10 +2,8 @@
 //or if not logged in goes to login screen
 
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:my_app/models/user.dart';
-import 'package:my_app/screens/HomeScreen.dart';
-import 'package:my_app/screens/login.dart';
+import 'package:my_app/screens/bottombar.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/screens/authenticate.dart';
 
@@ -22,7 +20,7 @@ class Wrapper extends StatelessWidget {
       return Authenticate();
     }
     else{
-      return HomeScreen();
+      return bottombar();
     }
   
 

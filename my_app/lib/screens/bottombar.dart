@@ -24,8 +24,8 @@ class _bottombarState extends State <bottombar>
   final List<Widget> _children = [
     HomeScreen(),
     messages(),
-    account(),
     add(),
+    account(),
   ];
 
 
@@ -55,13 +55,13 @@ class _bottombarState extends State <bottombar>
             icon: new Icon(Icons.mail),
             title: new Text('Messages'),
           ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.person),
-            title: new Text('Account'),
-          ),
          BottomNavigationBarItem(
            icon: new Icon(Icons.add),
            title: new Text('Add'),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.person),
+            title: new Text('Account'),
           ),
         ]
       ),

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/services/auth.dart';
-import 'package:my_app/screens/messages.dart';
-import 'package:my_app/screens/add.dart';
-import 'package:my_app/screens/account.dart';
-import 'package:my_app/screens/bottombar.dart';
 
 class HomeScreen extends StatefulWidget
 {
@@ -17,13 +13,13 @@ class HomeScreen extends StatefulWidget
 class _HomeScreenState extends State <HomeScreen> 
 {
 
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
 
 
   @override
   Widget build(BuildContext context) {
 
-    final logoutButton = Material(
+   /* final logoutButton = Material(
          elevation: 0.0,
           borderRadius: BorderRadius.circular(30.0),
           color: Colors.green,
@@ -39,7 +35,7 @@ class _HomeScreenState extends State <HomeScreen>
                    // color: Colors.white, fontWeight: FontWeight.bold)),
           )
         );
-
+*/
     final label = Center(
         child: Padding (
           padding: const EdgeInsets.all(36.0),
@@ -49,7 +45,7 @@ class _HomeScreenState extends State <HomeScreen>
           children: <Widget>[
           Text('Home Screen', style: TextStyle(color:Colors.green, fontSize: 20, fontWeight: FontWeight.bold) ),
           SizedBox(height:15),
-          logoutButton,
+         // logoutButton,
           ]
         ) 
        ),
