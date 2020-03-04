@@ -3,7 +3,7 @@ import 'package:my_app/services/auth.dart';
 import 'package:my_app/screens/messages.dart';
 import 'package:my_app/screens/add.dart';
 import 'package:my_app/screens/account.dart';
-import 'package:my_app/screens/home.dart';
+import 'package:my_app/screens/bottombar.dart';
 
 class HomeScreen extends StatefulWidget
 {
@@ -19,22 +19,12 @@ class _HomeScreenState extends State <HomeScreen>
 
   final AuthService _auth = AuthService();
 
-  int _currentIndex = 0;
-
-  final List<Widget> _children = [
-    home(),
-    messages(),
-    account(),
-    add(),
-
-  ];
-
 
   @override
   Widget build(BuildContext context) {
 
-    /*final logoutButton = Material(
-          elevation: 0.0,
+    final logoutButton = Material(
+         elevation: 0.0,
           borderRadius: BorderRadius.circular(30.0),
           color: Colors.green,
           child: MaterialButton(
@@ -64,44 +54,10 @@ class _HomeScreenState extends State <HomeScreen>
         ) 
        ),
       );
-*/
-    return Scaffold(
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        
-        onTap: onTappedBar,
-        
-        currentIndex: _currentIndex,
 
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon (Icons.home),
-            title: new Text('Home'),
-            ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
-            title: new Text('Messages'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.person),
-            title: new Text('Account'),
-          ),
-         BottomNavigationBarItem(
-           icon: new Icon(Icons.add),
-           title: new Text('Add'),
-          ),
-        ]
-      ),
-      
-      );
-      
-  }
-   void onTappedBar(int index)
-  {
-    setState((){_currentIndex = index;});
+    return Scaffold(
+      body: label,
+    );
   }
 }
 
