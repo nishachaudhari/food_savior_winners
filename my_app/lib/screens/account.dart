@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:my_app/services/auth.dart';
 
-class HomeScreen extends StatefulWidget
+class account extends StatefulWidget
 {
   @override
   State <StatefulWidget> createState()
   { 
-    return _HomeScreenState();
+    return _account();
   }
 }
 
-class _HomeScreenState extends State <HomeScreen> 
+class _account extends State <account> 
 {
 
-  //final AuthService _auth = AuthService();
-
+  final AuthService _auth = AuthService();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
 
-   /* final logoutButton = Material(
+    final logoutButton = Material(
          elevation: 0.0,
           borderRadius: BorderRadius.circular(30.0),
           color: Colors.green,
@@ -35,26 +36,26 @@ class _HomeScreenState extends State <HomeScreen>
                    // color: Colors.white, fontWeight: FontWeight.bold)),
           )
         );
-*/
-    final label = Center(
+
+        final label = Center(
         child: Padding (
           padding: const EdgeInsets.all(36.0),
           child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          Text('Home Screen', style: TextStyle(color:Colors.green, fontSize: 20, fontWeight: FontWeight.bold) ),
+          Text('Account Screen', style: TextStyle(color:Colors.green, fontSize: 20, fontWeight: FontWeight.bold) ),
           SizedBox(height:15),
-         // logoutButton,
+         logoutButton,
           ]
         ) 
        ),
       );
 
     return Scaffold(
-      body: label,
+      body:
+      label,
     );
+
   }
 }
-
-
