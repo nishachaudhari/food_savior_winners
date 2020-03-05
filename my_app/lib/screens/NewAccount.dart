@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/models/user.dart';
 import 'package:my_app/services/auth.dart';
 import 'package:my_app/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_app/screens/authenticate.dart';
+
 
 
 class NewAccount extends StatefulWidget 
@@ -17,7 +16,6 @@ class NewAccount extends StatefulWidget
 
 class _NewAccountState extends State<NewAccount>
 {
-
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
@@ -35,6 +33,8 @@ class _NewAccountState extends State<NewAccount>
 
   @override
   Widget build(BuildContext context) {
+
+    
 
     final createButton = Material(
           elevation: 5.0,
@@ -176,12 +176,13 @@ class _NewAccountState extends State<NewAccount>
                         SizedBox(height:12.0),
                         Text(error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0)),
-
+                        
             ],
           ),
         ),
       ),
     ),
+    
     );
   }
 }

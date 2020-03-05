@@ -13,29 +13,10 @@ class HomeScreen extends StatefulWidget
 class _HomeScreenState extends State <HomeScreen> 
 {
 
-  //final AuthService _auth = AuthService();
-
-
   @override
   Widget build(BuildContext context) {
 
-   /* final logoutButton = Material(
-         elevation: 0.0,
-          borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
-          child: MaterialButton(
-            minWidth: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: () async{
-              await _auth.signOut(); 
-            },
-            child: Text("Log Out"),
-            //textAlign: TextAlign.center,
-                //style: style.copyWith(
-                   // color: Colors.white, fontWeight: FontWeight.bold)),
-          )
-        );
-*/
+   
     final label = Center(
         child: Padding (
           padding: const EdgeInsets.all(36.0),
