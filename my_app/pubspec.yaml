@@ -20,6 +20,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flappy_search_bar: ^1.7.2
+
     # Check that you have this dependency (added in the previous step)
   firebase_core: ^0.4.0+9
 
