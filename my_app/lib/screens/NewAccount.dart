@@ -25,9 +25,6 @@ class _NewAccountState extends State<NewAccount>
   String email = '';
   String password = '';
   String confirmPassword = '';
-  String firstName = '';
-  String lastName = '';
-  String phone = '';
   String error = '';
 
 
@@ -98,45 +95,6 @@ class _NewAccountState extends State<NewAccount>
                           decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Email Address",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
-                        ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
-                          validator: (val) => val.isEmpty ? 'Enter a First Name' : null,
-                          onChanged: (val){
-                            setState(()=>firstName = val);
-                          },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "First Name",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
-                        ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
-                          validator: (val) => val.isEmpty ? 'Enter a Last Name' : null,
-                          onChanged: (val){
-                            setState(()=>lastName = val);
-                          },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Last Name",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
-                        ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
-                          validator: (val) => val.length<10 ? 'Enter a valid Phone Number' : null,
-                          onChanged: (val){
-                            setState(()=>phone = val);
-                          },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Phone Number",
                           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
                           ) ,
