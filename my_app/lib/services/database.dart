@@ -41,14 +41,15 @@ Future updateUserData(String firstName, String lastName, String phone) async {
 
   final CollectionReference foodCollection = Firestore.instance.collection('food');
 
-  Future updatefoodData(String user, String title, String amount, String location, String description, String time) async {
+  Future updatefoodData(String user, String title, String amount, String location, String description, String time, String photo) async {
   return await foodCollection.document().setData({
     'user' : user,
     'title' :title,
     'amount' :amount,
     'location': location,
     'description': description,
-     'time': time
+     'time': time,
+     'photo':photo
  });
 }
 

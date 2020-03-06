@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:my_app/models/food.dart';
 import 'package:my_app/services/database.dart';
@@ -237,6 +239,7 @@ class _addFormState extends State<addForm>
                                       // color: Colors.white, fontWeight: FontWeight.bold)),
                               ),
                                 onPressed:()async{
+                                  String base64Image = base64Encode(File(_image.path).readAsBytesSync());
                                   if (_formKey.currentState.validate())
                                 {
                                   await DatabaseService().updatefoodData(
@@ -245,7 +248,8 @@ class _addFormState extends State<addForm>
                                     _currentamount,
                                     _currentlocation,  
                                     _currentdescription,
-                                    _currenttime); 
+                                    _currenttime,
+                                    base64Image); 
                                 }
                                 Navigator.pop(context);
                                 _showDialog();

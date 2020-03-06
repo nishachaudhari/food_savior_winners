@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:my_app/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
 
 class HomeScreen extends StatefulWidget
@@ -17,22 +20,6 @@ class _HomeScreenState extends State <HomeScreen>
   @override
   Widget build(BuildContext context) {
 
-   
-    final label = Center(
-        child: Padding (
-          padding: const EdgeInsets.all(36.0),
-          child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          Text('Home Screen', style: TextStyle(color:Colors.green, fontSize: 20, fontWeight: FontWeight.bold) ),
-          SizedBox(height:15),
-         // logoutButton,
-          ]
-        ) 
-       ),
-      );
-
     return Scaffold(
        appBar: AppBar(
          title: Text(""),
@@ -46,7 +33,30 @@ class _HomeScreenState extends State <HomeScreen>
            ],
        ),
 
-       body: label,
+       body: 
+       StreamBuilder(
+         stream: Firestore.instance.collection('food').snapshots(),
+         builder: (context, snapshot){
+           if(!snapshot.hasData) return Text('loading data .... please wait');
+          int length = snapshot.data.documents.length;
+
+          return ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+              Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
+           return Container(
+               padding: EdgeInsets.all(15.0),
+            child: Column(
+             children: <Widget>[
+               Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.white, backgroundColor: Colors.green[900],fontSize: 20)),
+               Image.memory(bytes)
+             ],
+           )
+           );
+          },
+        itemCount: snapshot.data.documents == null ? 0:length,
+          );
+         }  
+       )
      );
    }
    }
