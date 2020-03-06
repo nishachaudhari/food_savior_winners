@@ -47,8 +47,13 @@ class _HomeScreenState extends State <HomeScreen>
                padding: EdgeInsets.all(15.0),
             child: Column(
              children: <Widget>[
-               Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.white, backgroundColor: Colors.green[900],fontSize: 20)),
-               Image.memory(bytes)
+                Container(
+                  color: Colors.blueGrey,
+                  height: 50,
+                  width: 400,
+                  child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.white, fontSize: 30)),
+                ),
+                Image.memory(bytes)
              ],
            )
            );
