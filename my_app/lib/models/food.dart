@@ -5,9 +5,11 @@ class Food{
   final String description;
   final String time;
   final int location;
+  final String tag;
+
  // var tags = new List(10);
 
 
-  Food({ this.user,this.title, this.amount, this.description,this.time, this.location});
+  Food({ this.user,this.title, this.amount, this.description,this.time, this.location, this.tag});
 
 }
