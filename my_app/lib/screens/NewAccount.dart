@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/models/user.dart';
 import 'package:my_app/services/auth.dart';
 import 'package:my_app/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_app/screens/authenticate.dart';
+
 
 
 class NewAccount extends StatefulWidget 
@@ -18,7 +17,6 @@ class NewAccount extends StatefulWidget
 class _NewAccountState extends State<NewAccount>
 {
 
-
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
 
@@ -27,14 +25,13 @@ class _NewAccountState extends State<NewAccount>
   String email = '';
   String password = '';
   String confirmPassword = '';
-  String firstName = '';
-  String lastName = '';
-  String phone = '';
   String error = '';
 
 
   @override
   Widget build(BuildContext context) {
+
+    
 
     final createButton = Material(
           elevation: 5.0,
@@ -104,45 +101,6 @@ class _NewAccountState extends State<NewAccount>
                         ),
                         SizedBox(height: 30.0),
                         TextFormField(
-                          validator: (val) => val.isEmpty ? 'Enter a First Name' : null,
-                          onChanged: (val){
-                            setState(()=>firstName = val);
-                          },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "First Name",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
-                        ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
-                          validator: (val) => val.isEmpty ? 'Enter a Last Name' : null,
-                          onChanged: (val){
-                            setState(()=>lastName = val);
-                          },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Last Name",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
-                        ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
-                          validator: (val) => val.length<10 ? 'Enter a valid Phone Number' : null,
-                          onChanged: (val){
-                            setState(()=>phone = val);
-                          },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Phone Number",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
-                        ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
                           validator: (val) => val.length<6 ? 'Enter a password 6+ characters long' : null,
                           onChanged: (val){
                             setState(()=>password = val);
@@ -176,12 +134,13 @@ class _NewAccountState extends State<NewAccount>
                         SizedBox(height:12.0),
                         Text(error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0)),
-
+                        
             ],
           ),
         ),
       ),
     ),
+    
     );
   }
 }
