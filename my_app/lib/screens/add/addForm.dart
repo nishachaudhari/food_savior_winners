@@ -143,6 +143,7 @@ class _addFormState extends State<addForm>
                               ),
                             ),
                         ),
+                      SizedBox(height: 30.0),  
                       TextFormField(
                           validator: (val) => val.isEmpty ? 'Enter a Title' : null,
                           onChanged: (val){
@@ -222,7 +223,7 @@ class _addFormState extends State<addForm>
                           ) ,
                         ),
                         */
-                        SizedBox(height: 45.0),
+                        SizedBox(height: 38.0),
                         Material(
                               elevation: 5.0,
                               borderRadius: BorderRadius.circular(30.0),
