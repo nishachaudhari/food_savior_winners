@@ -8,6 +8,6 @@ class Food{
  // var tags = new List(10);
 
 
-  Food({ this.user,this.title, this.amount, this.description,this.location, this.time });
+  Food({ this.user,this.title, this.amount, this.description,this.time, this.location});
 
 }

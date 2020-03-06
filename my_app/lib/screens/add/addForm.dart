@@ -3,6 +3,10 @@ import 'package:my_app/models/food.dart';
 import 'package:my_app/services/database.dart';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
+import 'package:my_app/screens/add/image_picker_handler.dart';
+import 'package:my_app/screens/add/image_picker_dialog.dart';
+
 
 
 
@@ -14,7 +18,7 @@ class addForm extends StatefulWidget
   }
 
 class _addFormState extends State<addForm>
-{
+    with TickerProviderStateMixin,ImagePickerListener{
 
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
   
@@ -30,6 +34,26 @@ class _addFormState extends State<addForm>
   String tags = '';
   String error = '';
 
+  File _image;
+  AnimationController _controller;
+  ImagePickerHandler imagePicker;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    imagePicker = ImagePickerHandler(this,_controller);
+    imagePicker.init();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +108,41 @@ class _addFormState extends State<addForm>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+                      GestureDetector(
+                        onTap: () => imagePicker.showDialog(context),
+                        child: Center(
+                          child: _image == null
+                            ? Stack(
+                                children: <Widget>[
+                                  Center(
+                                    child: CircleAvatar(
+                                      radius: 80.0,
+                                      backgroundColor: Color(0xFF778899),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Icon(Icons.photo_camera),
+                                  ),
+
+                                ],
+                              )
+                            : Container(
+                                height: 160.0,
+                                width: 160.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff7c94b6),
+                                  image: DecorationImage(
+                                    image: ExactAssetImage(_image.path),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  border:
+                                      Border.all(color: Colors.red, width: 5.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(80.0)),
+                                ),
+                              ),
+                            ),
+                        ),
                       TextFormField(
                           validator: (val) => val.isEmpty ? 'Enter a Title' : null,
                           onChanged: (val){
@@ -209,5 +268,11 @@ class _addFormState extends State<addForm>
       );
 
     
+  }
+  @override
+  userImage(File _image) {
+    setState(() {
+      this._image = _image;
+    });
   }
 }
