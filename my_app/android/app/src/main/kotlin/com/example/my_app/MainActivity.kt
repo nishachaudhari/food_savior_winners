@@ -1,4 +1,4 @@
-package com.example.my_app
+package com.Food_Savior_Winners.my_app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
