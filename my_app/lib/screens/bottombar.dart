@@ -11,12 +11,12 @@ class bottombar extends StatefulWidget
 {
   @override
   State <StatefulWidget> createState()
-  { 
+  {
     return _bottombarState();
   }
 }
 
-class _bottombarState extends State <bottombar> 
+class _bottombarState extends State <bottombar>
 {
 
   int _currentIndex = 0;
@@ -38,12 +38,12 @@ class _bottombarState extends State <bottombar>
       ),
       //body: logoutButton,
       bottomNavigationBar: BottomNavigationBar(
-        
+
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
-        
+
         onTap: onTappedBar,
-        
+
         currentIndex: _currentIndex,
 
         items: [
@@ -65,14 +65,12 @@ class _bottombarState extends State <bottombar>
           ),
         ]
       ),
-      
+
       );
-      
+
   }
    void onTappedBar(int index)
   {
     setState((){_currentIndex = index;});
   }
 }
-
-
