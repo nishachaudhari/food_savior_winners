@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/services/auth.dart';
+//import 'package:my_app/services/auth.dart';
 import 'package:my_app/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/models/user.dart';
 
-class account extends StatefulWidget
-{
+class accountForm extends StatefulWidget 
+{ 
   @override
-  State <StatefulWidget> createState()
-  { 
-    return _account();
+  _accountFormState createState() => _accountFormState();
   }
-}
 
-class _account extends State <account> 
+class _accountFormState extends State<accountForm> 
 {
 
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
+
 
   //text field state
   
@@ -31,30 +29,47 @@ class _account extends State <account>
   {
        User user = Provider.of<User>(context);
 
-    final logoutButton = Material(
-         elevation: 0.0,
+    void _showDialog(){
+      showDialog(context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: new Text("Account Successfully Updated!"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {Navigator.pop(context);}
+               )
+          ]
+        );
+          }
+        );
+      }
+    final backButton = Material(
+          elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
           color: Colors.green,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: () async{
-              await _auth.signOut(); 
-            },
-            child: Text("Log Out"),
-            //textAlign: TextAlign.center,
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancel",
+                textAlign: TextAlign.center,
                 //style: style.copyWith(
                    // color: Colors.white, fontWeight: FontWeight.bold)),
+          ),
           )
         );
 
+    
+
 
       return StreamBuilder<UserData>(
-          stream: DatabaseService(uid:user.uid).userData,
+          stream: DatabaseService(id:user.uid).userData,
           builder:(context,snapshot){
           if (snapshot.hasData){
             UserData userData = snapshot.data;
-          return Container (
+          return Scaffold (
+          body: Container (
           child: Form(
             key: _formKey,
           child: Padding(
@@ -116,17 +131,19 @@ class _account extends State <account>
                               onPressed:()async{
                                 if (_formKey.currentState.validate())
                                 {
-                                  await DatabaseService(uid:user.uid).updateUserData(
+                                  await DatabaseService(id:user.uid).updateUserData(
                                     _currentFirstName ?? snapshot.data.firstName, 
                                     _currentLastName ?? snapshot.data.lastName, 
                                     _currentPhone ?? snapshot.data.phone);   
                                 }
+                                Navigator.pop(context);
+                                _showDialog();
                               }
                             )
 
                         ),
                         SizedBox(height: 45.0),
-                        logoutButton,
+                        backButton,
                         SizedBox(height: 20.0),
                         Text(error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0)),
@@ -135,7 +152,8 @@ class _account extends State <account>
           ),
         ),
           ),
-      );
+      )
+          );
           }
           else {
             print('no changes made');
