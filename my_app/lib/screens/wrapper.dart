@@ -6,6 +6,7 @@ import 'package:my_app/models/user.dart';
 import 'package:my_app/screens/bottombar.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/screens/authenticate.dart';
+import 'package:my_app/models/food.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -13,6 +14,7 @@ class Wrapper extends StatelessWidget {
 
     final user = Provider.of<User>(context); //accessing user data from provider everytime theres a new value
     
+    //final food = Provider.of<Food>(context);
   
 
     if (user == null)
