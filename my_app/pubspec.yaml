@@ -20,9 +20,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flappy_search_bar: ^1.7.2
-  
-  # Check that you have this dependency (added in the previous step)
+  image_picker: "0.4.5"
+  image_cropper: ^0.0.4
+
+    # Check that you have this dependency (added in the previous step)
   firebase_core: ^0.4.0+9
 
   # Add the dependency for the FlutterFire plugin for Google Analytics
