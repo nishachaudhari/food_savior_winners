@@ -112,27 +112,41 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 155.0,),
+                    Expanded(
+                      child: SizedBox(
+                        height: 155.0,
+                      ),
+                    ),
                     logo,
-                    SizedBox(height: 45.0),
+                    Expanded(
+                        child: SizedBox(height: 45.0),
+                    ),
                     emailField,
-                    SizedBox(height: 25.0),
+                    Expanded(
+                        child: SizedBox(height: 25.0),
+                    ),
                     passwordField,
-                    SizedBox(height: 35.0,),
+                    Expanded(
+                        child: SizedBox(height: 35.0,),
+                    ),
                     loginButton,
-                    SizedBox(height: 25.0,),
+                    Expanded(
+                        child: SizedBox(height: 25.0,),
+                    ),
                     createButton,
-                    SizedBox(height:12.0),
-                        Text(error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0)),
-                  ],
+                    Expanded(
+                        child: SizedBox(height:12.0),
+                    ),
+                    Text(error,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0)),
+                    ]
+                  ),
                 ),
               ),
               ),
             ),
-          ),
-        );
-      }
-    }
+    );
+  }
+}
     
 
