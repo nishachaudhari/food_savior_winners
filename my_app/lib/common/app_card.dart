@@ -33,12 +33,13 @@ class _AppCardState extends State<AppCard> {
                     color: Colors.lightGreen,
                     width: 2,
                   ),
-                  boxShadow: [
+                  /*boxShadow: [
                     new BoxShadow(
                     color: widget.boxShadowColor ?? Colors.orange,
                     offset: new Offset(10.0, 10.0),
                     )
                   ]
+                  */
               )
             )
           )
