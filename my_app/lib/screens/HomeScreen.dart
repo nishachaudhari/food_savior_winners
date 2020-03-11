@@ -22,7 +22,8 @@ class _HomeScreenState extends State <HomeScreen>
 
     return Scaffold(
        appBar: AppBar(
-         title: Text(""),
+         centerTitle: false,
+         title: Text("Pick Up"),
          backgroundColor: Colors.green,
            actions: <Widget>[
              IconButton(
@@ -43,19 +44,23 @@ class _HomeScreenState extends State <HomeScreen>
           return ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
               Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-           return Container(
+           return Card(
+             color: Colors.grey[300],
+             margin: EdgeInsets.all(15.0),
+            child: Container(
                padding: EdgeInsets.all(15.0),
             child: Column(
              children: <Widget>[
                 Container(
-                  color: Colors.blueGrey,
+                  //color: Colors.white,
                   height: 50,
                   width: 400,
-                  child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.white, fontSize: 30)),
+                  child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.green[600], fontSize: 30)),
                 ),
                 Image.memory(bytes)
              ],
            )
+             )
            );
           },
         itemCount: snapshot.data.documents == null ? 0:length,

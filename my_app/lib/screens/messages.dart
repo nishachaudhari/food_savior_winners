@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/HomeScreen.dart';
 
 class messages extends StatelessWidget {
 
@@ -22,6 +23,18 @@ class messages extends StatelessWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+         title: Text("Messages"),
+         backgroundColor: Colors.green,
+           actions: <Widget>[
+             IconButton(
+               icon: Icon(Icons.search),
+               onPressed: (){
+                 showSearch(context: context,delegate: Datasearch());
+               })
+           ],
+       ),
       body:
       label
     );
