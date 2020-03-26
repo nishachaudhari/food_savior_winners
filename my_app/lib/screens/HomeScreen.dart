@@ -3,6 +3,8 @@ import 'package:my_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:my_app/models/user.dart';
+import 'package:provider/provider.dart';
 
 
 class HomeScreen extends StatefulWidget
@@ -19,6 +21,7 @@ class _HomeScreenState extends State <HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
 
     return Scaffold(
        appBar: AppBar(
@@ -44,6 +47,7 @@ class _HomeScreenState extends State <HomeScreen>
           return ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
               Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
+          if (snapshot.data.documents[index]['user']!= user.uid)
            return Card(
              color: Colors.grey[300],
              margin: EdgeInsets.all(15.0),
@@ -62,6 +66,7 @@ class _HomeScreenState extends State <HomeScreen>
            )
              )
            );
+           else return Container();
           },
         itemCount: snapshot.data.documents == null ? 0:length,
           );

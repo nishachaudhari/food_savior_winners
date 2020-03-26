@@ -4,7 +4,8 @@ import 'package:my_app/screens/HomeScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
-
+import 'package:my_app/models/user.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -20,6 +21,7 @@ class _addState extends State<add>
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
 
     final addButton = Container (
         padding: EdgeInsets.all(36.0),
@@ -59,12 +61,14 @@ class _addState extends State<add>
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                       Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
+                      if (snapshot.data.documents[index]['user']== user.uid)
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
                               child:
                               Image.memory(bytes, height: 200, width: 200),  
                         );
+                        else return Container();
                       },
                     itemCount: snapshot.data.documents == null ? 0:length,
                   );
