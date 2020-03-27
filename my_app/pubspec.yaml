@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  image_picker: "0.4.5"
+  image_picker: "0.6.0+9"
   image_cropper: ^0.0.4
   
   # Check that you have this dependency (added in the previous step)
