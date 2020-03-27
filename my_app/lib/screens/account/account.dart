@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:my_app/screens/help.dart';
 
 
 
@@ -25,6 +26,24 @@ class _accountState extends State<account>
   Widget build(BuildContext context) {
 
     User user = Provider.of<User>(context);
+
+    final helpButton = Material(
+          elevation: 5.0,
+          borderRadius: BorderRadius.circular(30.0),
+          color: Colors.green,
+          child: MaterialButton(
+            minWidth: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => help()));
+            },
+            child: Text("Help",
+                textAlign: TextAlign.center,
+                //style: style.copyWith(
+                   // color: Colors.white, fontWeight: FontWeight.bold)),
+          ),
+          )
+        );
 
     final pics =
             Container(
@@ -72,14 +91,16 @@ class _accountState extends State<account>
           ),
 
           body: 
-          Column(
+          Container(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
             children:<Widget>[
                 SizedBox(height:20),
-                Container(
-                  child: Text("Past Orders: ")
-                  ),
+                Text("Past Orders: "),
                 pics, 
+                helpButton
             ]
+            )
           )
         );
     }
