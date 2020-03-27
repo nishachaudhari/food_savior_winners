@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:my_app/services/database.dart';
 
 
 
@@ -56,32 +57,31 @@ class _accountState extends State<account>
               )
             );
 
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: false,
+            title: Text("My Food Savior"),
+            backgroundColor: Colors.green,
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.settings),
+                  onPressed: (){ 
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => accountForm()));
+                  }),
+                FlatButton(onPressed: ()async {await _auth.signOut();},child: Text("Log Out",style: TextStyle(color:Colors.white)))
+              ]
+          ),
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-         title: Text("My Food Savior"),
-         backgroundColor: Colors.green,
-           actions: <Widget>[
-             IconButton(
-               icon: Icon(Icons.settings),
-               onPressed: (){ 
-                Navigator.push(context,MaterialPageRoute(builder: (context) => accountForm()));
-               }),
-             FlatButton(onPressed: ()async {await _auth.signOut();},child: Text("Log Out",style: TextStyle(color:Colors.white)))
-           ]
-       ),
-
-       body: 
-       Column(
-        children:<Widget>[
-            SizedBox(height:20),
-            Container(
-              child: Text("Your Ordered Food Items: ")
-              ),
-            pics, 
-        ]
-      )
-     );
-   }
-   }
+          body: 
+          Column(
+            children:<Widget>[
+                SizedBox(height:20),
+                Container(
+                  child: Text("Past Orders: ")
+                  ),
+                pics, 
+            ]
+          )
+        );
+    }
+}   

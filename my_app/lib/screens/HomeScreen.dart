@@ -23,6 +23,22 @@ class _HomeScreenState extends State <HomeScreen>
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
 
+    void _showDialog(){
+      showDialog(context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: new Text("Account Successfully Updated!"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {Navigator.pop(context);}
+               )
+          ]
+        );
+          }
+        );
+      }
+
     return Scaffold(
        appBar: AppBar(
          centerTitle: false,
@@ -59,7 +75,14 @@ class _HomeScreenState extends State <HomeScreen>
                   //color: Colors.white,
                   height: 50,
                   width: 400,
-                  child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.green[600], fontSize: 30)),
+                  child: 
+                    FlatButton(
+                      onPressed: (){
+                        _showDialog();
+                      },
+                      splashColor: Colors.blueGrey,
+                      child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.green[600], fontSize: 30)),
+                    )
                 ),
                 Image.memory(bytes)
              ],

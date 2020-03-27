@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:my_app/models/food.dart';
 import 'package:my_app/models/user.dart';
 
@@ -41,7 +42,7 @@ Future updateUserData(String firstName, String lastName, String phone) async {
 
   final CollectionReference foodCollection = Firestore.instance.collection('food');
 
-  Future updatefoodData(String user, String title, String amount, String location, String description, String time, String photo) async {
+  Future updatefoodData(String user, String title, String amount, String location, String description, String time, String date, String photo) async {
   return await foodCollection.document().setData({
     'user' : user,
     'title' :title,
@@ -49,6 +50,7 @@ Future updateUserData(String firstName, String lastName, String phone) async {
     'location': location,
     'description': description,
      'time': time,
+     'date': date,
      'photo':photo
  });
 }

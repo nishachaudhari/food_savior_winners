@@ -1,15 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:my_app/models/food.dart';
-import 'package:my_app/services/database.dart';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:my_app/screens/add/image_picker_handler.dart';
-import 'package:my_app/screens/add/image_picker_dialog.dart';
-
-
+import 'package:my_app/services/database.dart';
 
 
 
@@ -24,15 +20,46 @@ class _addFormState extends State<addForm>
 
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
   
+  DateTime selectedDate = DateTime.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
+  TimeOfDay selectedTime =TimeOfDay.now();
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay picked_s = await showTimePicker(
+        context: context,
+        initialTime: selectedTime, 
+        builder: (BuildContext context, Widget child) {
+           return MediaQuery(
+             data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+            child: child,
+          );});
+
+    if (picked_s != null && picked_s != selectedTime )
+      setState(() {
+        selectedTime = picked_s;
+      });
+  }
 
   //text field state
 
   
   String _currenttitle = '';
-  String _currentamount = '';
+  String _currentamount = 'Serving Size';
   String _currentlocation = '';
   String _currentdescription = '';
   String _currenttime = '';
+  String _currentdate = '';
   String tags = '';
   String error = '';
 
@@ -65,7 +92,6 @@ class _addFormState extends State<addForm>
     //Food food = Provider.of<Food>(context);
 
     Food food;
-
 
     void _showDialog(){
       showDialog(context: context,
@@ -108,7 +134,9 @@ class _addFormState extends State<addForm>
           child: Form(
             key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
+            
             children: <Widget>[
                       GestureDetector(
                         onTap: () => imagePicker.showDialog(context),
@@ -145,7 +173,7 @@ class _addFormState extends State<addForm>
                               ),
                             ),
                         ),
-                      SizedBox(height: 30.0),  
+                      SizedBox(height: 20.0),  
                       TextFormField(
                           validator: (val) => val.isEmpty ? 'Enter a Title' : null,
                           onChanged: (val){
@@ -158,20 +186,29 @@ class _addFormState extends State<addForm>
                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
                           ) ,
                         ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
-                          validator: (val) => val.isEmpty ? 'Enter an amount' : null,
+                        SizedBox(height: 20.0),
+                        DropdownButton(
+                          value: _currentamount,
                           onChanged: (val){
-                            setState(()=>_currentamount = val);
+                            setState(()=>_currentamount = val, );
                           },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Amount",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
+                          iconSize: 30,
+                          isExpanded: true,
+                          underline: Container(
+                            height: 1,
+                            color: Colors.black,
+                          ),
+                          icon: Icon(Icons.arrow_drop_down),
+                           items: <String>['Serving Size', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10+']
+                              .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                  );
+                                })
+                              .toList(), 
                         ),
-                        SizedBox(height: 30.0),
+                        SizedBox(height: 20.0),
                         TextFormField(
                           validator: (val) => val.isEmpty ? 'Enter a Location' : null,
                           onChanged: (val){
@@ -184,7 +221,7 @@ class _addFormState extends State<addForm>
                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
                           ) ,
                         ),
-                        SizedBox(height: 30.0),
+                        SizedBox(height: 20.0),
                         TextFormField(
                           validator: (val) => val.length>500 ? 'Enter a Description less than 500 characters' : null,
                           onChanged: (val){
@@ -197,20 +234,18 @@ class _addFormState extends State<addForm>
                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
                           ) ,
                         ),
-                        SizedBox(height: 30.0),
-                        TextFormField(
-                          validator: (val) => val.isEmpty? 'Enter a time' : null,
-                          onChanged: (val){
-                            setState(()=>_currenttime = val);
-                          },
-                          decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Time",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
-                          ) ,
-                        ),
-                        SizedBox(height: 30.0),
+                        SizedBox(height: 20.0),
+                      Text("${selectedDate.toLocal()}".split(' ')[0]),
+                      RaisedButton(
+                        onPressed: () => _selectDate(context),
+                        child: Text('Select date'),
+                        
+                      ),
+                      Text("${selectedTime}"),
+                      RaisedButton(
+                        onPressed: () =>_selectTime(context),
+                        child: Text('Select time'),
+                      ),
                         /*TextFormField(
                           validator: (val) => val.isEmpty ? 'Enter some tags' : null,
                           onChanged: (val){
@@ -225,7 +260,7 @@ class _addFormState extends State<addForm>
                           ) ,
                         ),
                         */
-                        SizedBox(height: 38.0),
+                        SizedBox(height: 30.0),
                         Material(
                               elevation: 5.0,
                               borderRadius: BorderRadius.circular(30.0),
@@ -248,7 +283,8 @@ class _addFormState extends State<addForm>
                                     _currentamount,
                                     _currentlocation,  
                                     _currentdescription,
-                                    _currenttime,
+                                    selectedTime.toString(),
+                                    selectedDate.toString(),
                                     base64Image); 
                                 }
                                 Navigator.pop(context);
