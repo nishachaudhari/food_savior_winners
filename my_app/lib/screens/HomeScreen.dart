@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/foodInfo.dart';
 import 'package:my_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
@@ -78,7 +79,10 @@ class _HomeScreenState extends State <HomeScreen>
                   child: 
                     FlatButton(
                       onPressed: (){
-                        _showDialog();
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => foodInfo(index)),
+                       );
                       },
                       splashColor: Colors.blueGrey,
                       child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.green[600], fontSize: 30)),

@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:my_app/screens/foodInfo.dart';
 
 
 
@@ -65,8 +66,15 @@ class _addState extends State<add>
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
-                              child:
-                              Image.memory(bytes, height: 200, width: 200),  
+                              child: FlatButton (
+                                onPressed: (){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => foodInfo(index)),
+                                  );
+                                },
+                                child: Image.memory(bytes, height: 200, width: 200), 
+                              ) 
                         );
                         else return Container();
                       },
