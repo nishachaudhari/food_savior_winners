@@ -13,11 +13,12 @@ DatabaseService({this.id});
 
 final CollectionReference userAccountCollection = Firestore.instance.collection('users');
 
-Future updateUserData(String firstName, String lastName, String phone) async {
+Future updateUserData(String firstName, String lastName, String phone, String photo) async {
   return await userAccountCollection.document(id).setData({
     'firstName' :firstName,
     'lastName' :lastName,
     'phoneNumber': phone,
+    'photo':photo
  });
 }
 
