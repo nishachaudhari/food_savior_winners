@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:my_app/screens/mapIcon.dart';
 
 
 class HomeScreen extends StatefulWidget
@@ -50,6 +51,12 @@ class _HomeScreenState extends State <HomeScreen>
                icon: Icon(Icons.search),
                onPressed: (){
                  showSearch(context: context,delegate: Datasearch());
+               }),
+               IconButton(
+               icon: Icon(Icons.explore),
+               onPressed: (){
+                 Navigator.push(context,
+                 MaterialPageRoute(builder: (context) => mapIcon()));
                })
            ],
        ),

@@ -41,6 +41,7 @@ class _bottombarState extends State <bottombar>
         
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
         
         onTap: onTappedBar,
         
