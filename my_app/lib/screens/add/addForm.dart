@@ -6,8 +6,10 @@ import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:my_app/screens/add/image_picker_handler.dart';
 import 'package:my_app/services/database.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 
-
+GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: "AIzaSyDwh7H9FYJmquCsq3evvZEEtePM_uQYpcU");
 
 class addForm extends StatefulWidget 
 { 
@@ -62,10 +64,12 @@ class _addFormState extends State<addForm>
   String _currentdate = '';
   String tags = '';
   String error = '';
+  String addr = 'Location';
 
   File _image;
   AnimationController _controller;
   ImagePickerHandler imagePicker;
+  TextEditingController _textController = TextEditingController(text: "Location");
 
   @override
   void initState() {
@@ -209,14 +213,30 @@ class _addFormState extends State<addForm>
                               .toList(), 
                         ),
                         SizedBox(height: 20.0),
-                        TextFormField(
-                          validator: (val) => val.isEmpty ? 'Enter a Location' : null,
-                          onChanged: (val){
-                            setState(()=>_currentlocation = val);
+                        TextField(
+                          //validator: (val) => val.isEmpty ? 'Enter a Location' : null,
+                          //onChanged: (val){
+                          //  setState(()=>_currentlocation = val);
+                          //},
+                          controller: _textController,
+                          onTap: ()async{
+                            Prediction p = await PlacesAutocomplete.show(context:context, apiKey:"AIzaSyDwh7H9FYJmquCsq3evvZEEtePM_uQYpcU",
+                            language: "en", components: [
+                              Component(Component.country, "usa")
+                            ],
+                            radius : 100000, 
+                            );
+                            if (p != null) {
+                              PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+                              _currentlocation = detail.result.formattedAddress;
+                              addr = detail.result.formattedAddress;
+                              _textController.text = addr;
+                            }
                           },
+                          
                           decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          hintText: "Location",
+                          //hintText: addr,
                           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
                           ) ,
