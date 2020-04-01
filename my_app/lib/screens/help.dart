@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/account/accountForm.dart';
-import 'package:my_app/services/auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'dart:typed_data';
-import 'package:my_app/models/user.dart';
-import 'package:provider/provider.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 
 class help extends StatefulWidget
@@ -17,6 +10,17 @@ class help extends StatefulWidget
 
 class _help extends State<help>
 {
+
+
+  void sendEmail(String email) async {
+    var url = 'sms:9542492027';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -42,8 +46,10 @@ class _help extends State<help>
                         onPressed: (){},
                       ),
                       FlatButton(
-                        child: Text("contact"),
-                        onPressed: (){}
+                        child: Text("Contact"),
+                        onPressed: (){
+                          sendEmail('nxc439@miami.edu');
+                        }
                       )
 
                       ]

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/foodInfo.dart';
-import 'package:my_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/screens/mapIcon.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 class HomeScreen extends StatefulWidget
@@ -29,7 +29,7 @@ class _HomeScreenState extends State <HomeScreen>
       showDialog(context: context,
       builder: (BuildContext context){
         return AlertDialog(
-          title: new Text("Account Successfully Updated!"),
+          title: new Text("Select a Food to get more Information!"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Close"),
@@ -106,6 +106,7 @@ class _HomeScreenState extends State <HomeScreen>
           );
          }  
        )
+       
      );
    }
    }

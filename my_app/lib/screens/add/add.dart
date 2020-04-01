@@ -5,8 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
+import 'package:my_app/screens/foodInfoEdit.dart';
 import 'package:provider/provider.dart';
-import 'package:my_app/screens/foodInfo.dart';
+
 
 
 
@@ -70,7 +71,7 @@ class _addState extends State<add>
                                 onPressed: (){
                                   Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => foodInfo(index)),
+                                  MaterialPageRoute(builder: (context) => foodInfo2(index)),
                                   );
                                 },
                                 child: Image.memory(bytes, height: 200, width: 200), 
