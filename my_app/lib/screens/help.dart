@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class help extends StatefulWidget
@@ -12,7 +12,7 @@ class _help extends State<help>
 {
 
 
-  /*void sendEmail(String email) async {
+  void sendEmail(String email) async {
     var url = 'sms:9542492027';
     if (await canLaunch(url)) {
       await launch(url);
@@ -20,7 +20,7 @@ class _help extends State<help>
       throw 'Could not launch $url';
     }
   }
-*/
+
   @override
   Widget build(BuildContext context) {
 
@@ -48,7 +48,7 @@ class _help extends State<help>
                       FlatButton(
                         child: Text("Contact"),
                         onPressed: (){
-                          //sendEmail('nxc439@miami.edu');
+                          sendEmail('nxc439@miami.edu');
                         }
                       )
 

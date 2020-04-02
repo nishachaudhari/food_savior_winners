@@ -20,7 +20,33 @@ class HomeScreen extends StatefulWidget
 
 class _HomeScreenState extends State <HomeScreen> 
 {
+   Position _currentPosition;
+   String _currentAddr;
 
+   _getCurrentLocation() async {
+      final currentPosition  = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+       setState(() {
+        _currentPosition = currentPosition;
+        });
+        _getAddressFromLatLng();
+      }
+
+   _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await Geolocator().placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddr =
+            "${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}";
+      });
+    }
+    catch (e) {
+      print(e);
+    }
+   }
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -41,28 +67,9 @@ class _HomeScreenState extends State <HomeScreen>
         );
       }
 
-    return Scaffold(
-       appBar: AppBar(
-         centerTitle: false,
-         title: Text("Pick Up"),
-         backgroundColor: Colors.green,
-           actions: <Widget>[
-             IconButton(
-               icon: Icon(Icons.search),
-               onPressed: (){
-                 showSearch(context: context,delegate: Datasearch());
-               }),
-               IconButton(
-               icon: Icon(Icons.explore),
-               onPressed: (){
-                 Navigator.push(context,
-                 MaterialPageRoute(builder: (context) => mapIcon()));
-               })
-           ],
-       ),
 
-       body: 
-       StreamBuilder(
+    final pics =   Container(
+       child: StreamBuilder(
          stream: Firestore.instance.collection('food').snapshots(),
          builder: (context, snapshot){
            if(!snapshot.hasData) return Text('loading data .... please wait');
@@ -108,8 +115,60 @@ class _HomeScreenState extends State <HomeScreen>
        )
        
      );
+
+    return Scaffold(
+       appBar: AppBar(
+         centerTitle: false,
+         title: Text("Pick Up"),
+         backgroundColor: Colors.green,
+           actions: <Widget>[
+             IconButton(
+               icon: Icon(Icons.search),
+               onPressed: (){
+                 showSearch(context: context,delegate: Datasearch());
+               }),
+               IconButton(
+               icon: Icon(Icons.explore),
+               onPressed: (){
+                 Navigator.push(context,
+                 MaterialPageRoute(builder: (context) => mapIcon()));
+               })
+           ],
+       ),
+
+       body: 
+       Container (
+         child: Column (
+       children: <Widget>[
+           SizedBox (height: 10,),
+           Text("Current Location:", style: TextStyle(fontSize: 20)), 
+           if (_currentPosition != null)
+              Text( _currentAddr, style: TextStyle(fontSize: 20)),
+            FlatButton(
+              child: Text("Update Current location"),
+              onPressed: () {
+                _getCurrentLocation();
+              },
+            ),
+           
+           Expanded(
+            child: SizedBox(
+              height: 200.0,
+              child: pics
+                )
+            )
+          ],
+       
+         )
+       )
+    );
    }
-   }
+   
+
+
+}
+
+
    class Datasearch extends SearchDelegate<String> {
      final foodCategories = [
        "Mexican",
