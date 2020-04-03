@@ -13,15 +13,16 @@ class HomeScreen extends StatefulWidget
 {
   @override
   State <StatefulWidget> createState()
-  { 
+  {
     return _HomeScreenState();
   }
 }
 
-class _HomeScreenState extends State <HomeScreen> 
-{
+class _HomeScreenState extends State <HomeScreen>
+    with SingleTickerProviderStateMixin {
    Position _currentPosition;
-   String _currentAddr;
+   String _currentAddr = '';
+   int i = 0;
 
    _getCurrentLocation() async {
       final currentPosition  = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -47,6 +48,42 @@ class _HomeScreenState extends State <HomeScreen>
       print(e);
     }
    }
+
+   AnimationController _controller;
+
+   @override
+   void initState() {
+     super.initState();
+     _controller = AnimationController(
+       duration: const Duration(seconds: 10),
+       vsync: this,
+     )..repeat();
+   }
+
+   Animatable<Color> background = TweenSequence<Color>([
+     TweenSequenceItem(
+       weight: 1.0,
+       tween: ColorTween(
+         begin: Colors.red,
+         end: Colors.green,
+       ),
+     ),
+     TweenSequenceItem(
+       weight: 1.0,
+       tween: ColorTween(
+         begin: Colors.green,
+         end: Colors.blue,
+       ),
+     ),
+     TweenSequenceItem(
+       weight: 1.0,
+       tween: ColorTween(
+         begin: Colors.blue,
+         end: Colors.pink,
+       ),
+     ),
+   ]);
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -74,44 +111,104 @@ class _HomeScreenState extends State <HomeScreen>
          builder: (context, snapshot){
            if(!snapshot.hasData) return Text('loading data .... please wait');
           int length = snapshot.data.documents.length;
+          
 
           return ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (BuildContext context, int index) {
+              
               Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-          if (snapshot.data.documents[index]['user']!= user.uid)
-           return Card(
-             color: Colors.grey[300],
-             margin: EdgeInsets.all(15.0),
-            child: Container(
-               padding: EdgeInsets.all(15.0),
-            child: Column(
-             children: <Widget>[
-                Container(
-                  //color: Colors.white,
-                  height: 50,
-                  width: 400,
-                  child: 
-                    FlatButton(
-                      onPressed: (){
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => foodInfo(index)),
-                       );
-                      },
-                      splashColor: Colors.blueGrey,
-                      child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.green[600], fontSize: 30)),
-                    )
-                ),
-                Image.memory(bytes)
-             ],
-           )
-             )
-           );
-           else return Container();
-          },
-        itemCount: snapshot.data.documents == null ? 0:length,
+              if (snapshot.data.documents[index]['user']!= user.uid)
+                {i = i+1;
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => foodInfo(index)),
+                    );
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Card(
+                        color: Colors.grey[300],
+                        margin: EdgeInsets.all(15.0),
+                        child: Container(
+                          padding: EdgeInsets.all(15.0),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                //color: Colors.white,
+                                height: 50,
+                                width: 400,
+                                child:
+                                  FlatButton(
+                                    onPressed: (){
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => foodInfo(index)),
+                                      );
+                                    },
+                                    splashColor: Colors.blueGrey,
+                                    child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.green[600], fontSize: 30)),
+                                  )
+                              ),
+                              Image.memory(bytes)
+                            ],
+                          ) 
+                        )
+                      ),
+                      
+                      // Overlay tooltip for food option
+                      if (i == 1)
+                        AnimatedBuilder(
+                          animation: _controller,
+                          builder: (context, child){
+                            return Container(
+                              alignment: Alignment.center,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    height: MediaQuery.of(context).size.height / 2,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(width: 16, color: Colors.pink[600]),
+                                        left: BorderSide(width: 16, color: Colors.pink[600]),
+                                        right: BorderSide(width: 16, color: Colors.pink[600]),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 40,
+                                    color: background
+                                      .evaluate(AlwaysStoppedAnimation(_controller.value)),
+                                    child: Text(
+                                      "Tap the food to get more information!",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            );
+                          }
+                        )
+                    ],
+                  ),
+                );
+                }
+              else return Container();
+            },
+            itemCount: snapshot.data.documents == null ? 0:length,
+            
           );
-         }  
+          i = 0;
+         }
+         
        )
        
      );
@@ -136,12 +233,12 @@ class _HomeScreenState extends State <HomeScreen>
            ],
        ),
 
-       body: 
+       body:
        Container (
          child: Column (
        children: <Widget>[
            SizedBox (height: 10,),
-           Text("Your Current Location:", style: TextStyle(fontSize: 20)), 
+           Text("Your Current Location:", style: TextStyle(fontSize: 20)),
            if (_currentPosition != null)
               Text( _currentAddr, style: TextStyle(fontSize: 20)),
             FlatButton(
@@ -150,7 +247,7 @@ class _HomeScreenState extends State <HomeScreen>
                 _getCurrentLocation();
               },
             ),
-           
+
            Expanded(
             child: SizedBox(
               height: 200.0,
@@ -158,12 +255,12 @@ class _HomeScreenState extends State <HomeScreen>
                 )
             )
           ],
-       
+
          )
        )
     );
    }
-   
+
 
 
 }
@@ -251,5 +348,3 @@ class _HomeScreenState extends State <HomeScreen>
          );
        }
      }
-
-
