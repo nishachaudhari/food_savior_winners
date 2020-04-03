@@ -424,7 +424,7 @@ SPEC CHECKSUMS:
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   image_cropper: 189eec25d148f56694f670438e9458323ba2880a
-  image_picker: a211f28b95a560433c00f5cd3773f4710a20404d
+  image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   permission_handler: 0fc6d6641c09e4bfd5541dd39b0f44c7e369aa6b
