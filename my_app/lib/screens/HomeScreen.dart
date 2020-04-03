@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/services/database.dart';
+import 'package:my_app/screens/foodInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:my_app/models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:my_app/screens/mapIcon.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 class HomeScreen extends StatefulWidget
@@ -16,25 +20,56 @@ class HomeScreen extends StatefulWidget
 
 class _HomeScreenState extends State <HomeScreen> 
 {
+   Position _currentPosition;
+   String _currentAddr;
 
+   _getCurrentLocation() async {
+      final currentPosition  = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+       setState(() {
+        _currentPosition = currentPosition;
+        });
+        _getAddressFromLatLng();
+      }
+
+   _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await Geolocator().placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddr =
+            "${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}";
+      });
+    }
+    catch (e) {
+      print(e);
+    }
+   }
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
 
-    return Scaffold(
-       appBar: AppBar(
-         title: Text(""),
-         backgroundColor: Colors.green,
-           actions: <Widget>[
-             IconButton(
-               icon: Icon(Icons.search),
-               onPressed: (){
-                 showSearch(context: context,delegate: Datasearch());
-               })
-           ],
-       ),
+    void _showDialog(){
+      showDialog(context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: new Text("Select a Food to get more Information!"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {Navigator.pop(context);}
+               )
+          ]
+        );
+          }
+        );
+      }
 
-       body: 
-       StreamBuilder(
+
+    final pics =   Container(
+       child: StreamBuilder(
          stream: Firestore.instance.collection('food').snapshots(),
          builder: (context, snapshot){
            if(!snapshot.hasData) return Text('loading data .... please wait');
@@ -43,28 +78,97 @@ class _HomeScreenState extends State <HomeScreen>
           return ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
               Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-           return Container(
+          if (snapshot.data.documents[index]['user']!= user.uid)
+           return Card(
+             color: Colors.grey[300],
+             margin: EdgeInsets.all(15.0),
+            child: Container(
                padding: EdgeInsets.all(15.0),
             child: Column(
              children: <Widget>[
                 Container(
-                  color: Colors.blueGrey,
+                  //color: Colors.white,
                   height: 50,
                   width: 400,
-                  child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.white, fontSize: 30)),
+                  child: 
+                    FlatButton(
+                      onPressed: (){
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => foodInfo(index)),
+                       );
+                      },
+                      splashColor: Colors.blueGrey,
+                      child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.green[600], fontSize: 30)),
+                    )
                 ),
                 Image.memory(bytes)
              ],
            )
+             )
            );
+           else return Container();
           },
         itemCount: snapshot.data.documents == null ? 0:length,
           );
          }  
        )
+       
      );
+
+    return Scaffold(
+       appBar: AppBar(
+         centerTitle: false,
+         title: Text("Pick Up"),
+         backgroundColor: Colors.green,
+           actions: <Widget>[
+             IconButton(
+               icon: Icon(Icons.search),
+               onPressed: (){
+                 showSearch(context: context,delegate: Datasearch());
+               }),
+               IconButton(
+               icon: Icon(Icons.explore),
+               onPressed: (){
+                 Navigator.push(context,
+                 MaterialPageRoute(builder: (context) => mapIcon()));
+               })
+           ],
+       ),
+
+       body: 
+       Container (
+         child: Column (
+       children: <Widget>[
+           SizedBox (height: 10,),
+           Text("Your Current Location:", style: TextStyle(fontSize: 20)), 
+           if (_currentPosition != null)
+              Text( _currentAddr, style: TextStyle(fontSize: 20)),
+            FlatButton(
+              child: Text("Update Current location"),
+              onPressed: () {
+                _getCurrentLocation();
+              },
+            ),
+           
+           Expanded(
+            child: SizedBox(
+              height: 200.0,
+              child: pics
+                )
+            )
+          ],
+       
+         )
+       )
+    );
    }
-   }
+   
+
+
+}
+
+
    class Datasearch extends SearchDelegate<String> {
      final foodCategories = [
        "Mexican",

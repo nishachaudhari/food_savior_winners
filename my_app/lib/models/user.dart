@@ -14,12 +14,14 @@ class UserData {
   final String firstName;
   final String lastName;
   final String phone;
+  final String photo;
 
   UserData({
     this.uid,
     this.firstName,
     this.lastName,
     this.phone,
+    this.photo
 });
 
 }
