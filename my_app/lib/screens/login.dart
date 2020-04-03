@@ -112,7 +112,9 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 155.0,),
+                    SizedBox(height: 20),
+                    Image.asset('assets/images/logo.png'),
+                    SizedBox(height: 20.0,),
                     logo,
                     SizedBox(height: 45.0),
                     emailField,
