@@ -141,7 +141,7 @@ class _HomeScreenState extends State <HomeScreen>
          child: Column (
        children: <Widget>[
            SizedBox (height: 10,),
-           Text("Current Location:", style: TextStyle(fontSize: 20)), 
+           Text("Your Current Location:", style: TextStyle(fontSize: 20)), 
            if (_currentPosition != null)
               Text( _currentAddr, style: TextStyle(fontSize: 20)),
             FlatButton(
