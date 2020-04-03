@@ -21,7 +21,8 @@ class HomeScreen extends StatefulWidget
 class _HomeScreenState extends State <HomeScreen>
     with SingleTickerProviderStateMixin {
    Position _currentPosition;
-   String _currentAddr;
+   String _currentAddr = '';
+   int i = 0;
 
    _getCurrentLocation() async {
       final currentPosition  = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -110,11 +111,14 @@ class _HomeScreenState extends State <HomeScreen>
          builder: (context, snapshot){
            if(!snapshot.hasData) return Text('loading data .... please wait');
           int length = snapshot.data.documents.length;
+          
 
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
+              
               Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
               if (snapshot.data.documents[index]['user']!= user.uid)
+                {i = i+1;
                 return GestureDetector(
                   onTap: (){
                     Navigator.push(
@@ -149,11 +153,12 @@ class _HomeScreenState extends State <HomeScreen>
                               ),
                               Image.memory(bytes)
                             ],
-                          )
+                          ) 
                         )
                       ),
+                      
                       // Overlay tooltip for food option
-                      if (index == 0)
+                      if (i == 1)
                         AnimatedBuilder(
                           animation: _controller,
                           builder: (context, child){
@@ -195,12 +200,17 @@ class _HomeScreenState extends State <HomeScreen>
                     ],
                   ),
                 );
+                }
               else return Container();
             },
             itemCount: snapshot.data.documents == null ? 0:length,
+            
           );
+          i = 0;
          }
+         
        )
+       
      );
 
     return Scaffold(
