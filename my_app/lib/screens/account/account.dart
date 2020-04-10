@@ -11,8 +11,8 @@ import 'package:my_app/screens/help/help.dart';
 
 
 
-class account extends StatefulWidget 
-{ 
+class account extends StatefulWidget
+{
   @override
   _accountState createState() => _accountState();
   }
@@ -30,7 +30,7 @@ class _accountState extends State<account>
     final helpButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
+          color: Color(0xFF048D79),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -39,6 +39,7 @@ class _accountState extends State<account>
             },
             child: Text("Help",
                 textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
                 //style: style.copyWith(
                    // color: Colors.white, fontWeight: FontWeight.bold)),
           ),
@@ -49,7 +50,7 @@ class _accountState extends State<account>
             Container(
               height:200,
               width: 500,
-          
+
              child: StreamBuilder(
                 stream: Firestore.instance.collection('food').snapshots(),
                 builder: (context, snapshot){
@@ -64,14 +65,14 @@ class _accountState extends State<account>
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
-                              child: Image.memory(bytes, height: 200, width: 200),  
+                              child: Image.memory(bytes, height: 200, width: 200),
                         );
-                      else 
+                      else
                         return Container();
                       },
                     itemCount: snapshot.data.documents == null ? 0:length,
                   );
-                }  
+                }
               )
             );
 
@@ -79,29 +80,29 @@ class _accountState extends State<account>
           appBar: AppBar(
             centerTitle: false,
             title: Text("My Food Savior"),
-            backgroundColor: Colors.green,
+            backgroundColor: Color(0xFF048D79),
               actions: <Widget>[
                 IconButton(
                   icon: Icon(Icons.settings),
-                  onPressed: (){ 
+                  onPressed: (){
                     Navigator.push(context,MaterialPageRoute(builder: (context) => accountForm()));
                   }),
                 FlatButton(onPressed: ()async {await _auth.signOut();},child: Text("Log Out",style: TextStyle(color:Colors.white)))
               ]
           ),
 
-          body: 
+          body:
           Container(
             padding: const EdgeInsets.all(15.0),
             child: Column(
             children:<Widget>[
                 SizedBox(height:20),
                 Text("Past Orders: "),
-                pics, 
+                pics,
                 helpButton
             ]
             )
           )
         );
     }
-}   
+}

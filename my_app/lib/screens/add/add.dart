@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 
 
 
-class add extends StatefulWidget 
-{ 
+class add extends StatefulWidget
+{
   @override
   _addState createState() => _addState();
   }
@@ -30,12 +30,13 @@ class _addState extends State<add>
         child:Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
+          color: Color(0xFF048D79),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
             child: Text("Add Food",
                 textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
                 //style: style.copyWith(
                    // color: Colors.white, fontWeight: FontWeight.bold)),
           ),
@@ -52,7 +53,7 @@ class _addState extends State<add>
             Container(
               height:200,
               width: 500,
-          
+
              child: StreamBuilder(
                 stream: Firestore.instance.collection('food').snapshots(),
                 builder: (context, snapshot){
@@ -74,23 +75,23 @@ class _addState extends State<add>
                                   MaterialPageRoute(builder: (context) => foodInfo2(index)),
                                   );
                                 },
-                                child: Image.memory(bytes, height: 200, width: 200), 
-                              ) 
+                                child: Image.memory(bytes, height: 200, width: 200),
+                              )
                         );
                         else return Container();
                       },
                     itemCount: snapshot.data.documents == null ? 0:length,
                   );
-                }  
+                }
               )
             );
-      
+
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
          title: Text("Donate"),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
            actions: <Widget>[
              IconButton(
                icon: Icon(Icons.search),
@@ -107,7 +108,7 @@ class _addState extends State<add>
               child: Text("Your Donated Food Items: ")
               ),
             pics,
-            addButton, 
+            addButton,
         ]
       )
     );

@@ -17,7 +17,7 @@ class _guide extends State<guide>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Guide to Food Savior"),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
@@ -32,8 +32,8 @@ class _guide extends State<guide>
                       SizedBox(height: 20),
                       RaisedButton(
                         onPressed: (){
-                          
-                                  
+
+
                         },
                         child: Row (children: <Widget>[
                           Text("Getting Started with FoodSavior", style: (TextStyle(fontSize: 20))),
@@ -51,13 +51,13 @@ class _guide extends State<guide>
                         )
                       ),
                       SizedBox(height: 20),
-                      
+
                     ]
                  )
                 )
                ]
              )
-             )    
+             )
            );
   }
 }
