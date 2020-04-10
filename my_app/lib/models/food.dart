@@ -5,6 +5,7 @@ class Food{
   final String title;
   final String amount;
   final String description;
+  final String cuisine;
   final String time;
   final String date;
   final int location;
@@ -14,6 +15,6 @@ class Food{
  // var tags = new List(10);
 
 
-  Food({ this.user,this.title, this.amount, this.description,this.time, this.date, this.location, this.tag, this.photo});
+  Food({ this.user,this.title, this.amount, this.description,this.cuisine,this.time, this.date, this.location, this.tag, this.photo});
 
 }

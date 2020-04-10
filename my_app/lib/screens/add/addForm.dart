@@ -60,6 +60,7 @@ class _addFormState extends State<addForm>
   String _currentamount = 'Serving Size';
   String _currentlocation = '';
   String _currentdescription = '';
+  String _currentcuisine = 'Cuisine';
   String _currenttime = '';
   String _currentdate = '';
   String tags = '';
@@ -132,7 +133,8 @@ class _addFormState extends State<addForm>
 
 
       return Scaffold(
-        body:Container (
+        body:SingleChildScrollView(
+        child: Container (
           child:Padding(
             padding: const EdgeInsets.all(36.0),
           child: Form(
@@ -255,6 +257,28 @@ class _addFormState extends State<addForm>
                           ) ,
                         ),
                         SizedBox(height: 20.0),
+                        DropdownButton(
+                          value: _currentcuisine,
+                          onChanged: (val){
+                            setState(()=>_currentcuisine = val, );
+                          },
+                          iconSize: 30,
+                          isExpanded: true,
+                          underline: Container(
+                            height: 1,
+                            color: Colors.black,
+                          ),
+                          icon: Icon(Icons.arrow_drop_down),
+                           items: <String>['Cuisine', 'American','Baked Goods', 'Breakfast','Carribean', 'Chinese', 'French', 'Greek', 'Indian', 'Italian', 'Japanese', 'Korean','Mediterranean', 'Moroccan', 'Mexican', 'Spanish','Thai', 'Other']
+                              .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                  );
+                                })
+                              .toList(), 
+                        ),
+                        SizedBox(height: 20.0),
                       Text("${selectedDate.toLocal()}".split(' ')[0]),
                       RaisedButton(
                         onPressed: () => _selectDate(context),
@@ -303,6 +327,7 @@ class _addFormState extends State<addForm>
                                     _currentamount,
                                     _currentlocation,  
                                     _currentdescription,
+                                    _currentcuisine,
                                     selectedTime.toString(),
                                     selectedDate.toString(),
                                     base64Image); 
@@ -326,6 +351,7 @@ class _addFormState extends State<addForm>
         ),
       ),
         ),
+        )
       );
 
     
