@@ -17,7 +17,7 @@ class _corona extends State<corona>
        appBar: AppBar(
          centerTitle: false,
          title: Text("CoronaVirus (COVID-19) Response"),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
        ),
 
        body:

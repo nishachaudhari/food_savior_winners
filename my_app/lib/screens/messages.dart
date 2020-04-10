@@ -14,11 +14,11 @@ class messages extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          Text('Messages', style: TextStyle(color:Colors.green, fontSize: 20, fontWeight: FontWeight.bold) ),
+          Text('Messages', style: TextStyle(color: Color(0xFF048D79), fontSize: 20, fontWeight: FontWeight.bold) ),
           SizedBox(height:15),
          // logoutButton,
           ]
-        ) 
+        )
        ),
     );
 
@@ -26,7 +26,7 @@ class messages extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
          title: Text("Messages"),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
            actions: <Widget>[
              IconButton(
                icon: Icon(Icons.search),

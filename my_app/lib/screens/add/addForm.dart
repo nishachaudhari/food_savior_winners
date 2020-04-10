@@ -11,8 +11,8 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: "AIzaSyDwh7H9FYJmquCsq3evvZEEtePM_uQYpcU");
 
-class addForm extends StatefulWidget 
-{ 
+class addForm extends StatefulWidget
+{
   @override
   _addFormState createState() => _addFormState();
   }
@@ -21,7 +21,7 @@ class _addFormState extends State<addForm>
     with TickerProviderStateMixin,ImagePickerListener{
 
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
-  
+
   DateTime selectedDate = DateTime.now();
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -40,7 +40,7 @@ class _addFormState extends State<addForm>
   Future<Null> _selectTime(BuildContext context) async {
     final TimeOfDay picked_s = await showTimePicker(
         context: context,
-        initialTime: selectedTime, 
+        initialTime: selectedTime,
         builder: (BuildContext context, Widget child) {
            return MediaQuery(
              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
@@ -55,7 +55,7 @@ class _addFormState extends State<addForm>
 
   //text field state
 
-  
+
   String _currenttitle = '';
   String _currentamount = 'Serving Size';
   String _currentlocation = '';
@@ -142,7 +142,7 @@ class _addFormState extends State<addForm>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
-            
+
             children: <Widget>[
                       GestureDetector(
                         onTap: () => imagePicker.showDialog(context),
@@ -179,7 +179,7 @@ class _addFormState extends State<addForm>
                               ),
                             ),
                         ),
-                      SizedBox(height: 20.0),  
+                      SizedBox(height: 20.0),
                       TextFormField(
                           validator: (val) => val.isEmpty ? 'Enter a Title' : null,
                           onChanged: (val){
@@ -212,7 +212,7 @@ class _addFormState extends State<addForm>
                                   child: Text(value),
                                   );
                                 })
-                              .toList(), 
+                              .toList(),
                         ),
                         SizedBox(height: 20.0),
                         TextField(
@@ -226,7 +226,7 @@ class _addFormState extends State<addForm>
                             language: "en", components: [
                               Component(Component.country, "usa")
                             ],
-                            radius : 100000, 
+                            radius : 100000,
                             );
                             if (p != null) {
                               PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
@@ -235,7 +235,7 @@ class _addFormState extends State<addForm>
                               _textController.text = addr;
                             }
                           },
-                          
+
                           decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           //hintText: addr,
@@ -283,7 +283,7 @@ class _addFormState extends State<addForm>
                       RaisedButton(
                         onPressed: () => _selectDate(context),
                         child: Text('Select date'),
-                        
+
                       ),
                       Text("${selectedTime}"),
                       RaisedButton(
@@ -325,12 +325,12 @@ class _addFormState extends State<addForm>
                                     _currentuser,
                                     _currenttitle,
                                     _currentamount,
-                                    _currentlocation,  
+                                    _currentlocation,
                                     _currentdescription,
                                     _currentcuisine,
                                     selectedTime.toString(),
                                     selectedDate.toString(),
-                                    base64Image); 
+                                    base64Image);
                                 }
                                 Navigator.pop(context);
                                 _showDialog();
@@ -354,7 +354,7 @@ class _addFormState extends State<addForm>
         )
       );
 
-    
+
   }
   @override
   userImage(File _image) {
