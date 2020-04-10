@@ -92,16 +92,29 @@ class _accountState extends State<account>
           ),
 
           body:
-          Container(
+          StreamBuilder(
+          stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
+          builder: (context, snapshot){
+          if(!snapshot.hasData) return Text('loading data .... please wait');
+           Uint8List bytes = base64Decode(snapshot.data['photo']);
+           final fname = snapshot.data['firstName'];
+           final lname = snapshot.data['lastName'];
+           final name = '$fname' + ' ' + '$lname' + '!';
+          return Container(
             padding: const EdgeInsets.all(15.0),
             child: Column(
             children:<Widget>[
+                Text("Welcome $name", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),textAlign: TextAlign.left),
+                SizedBox(height:20),
+                Image.memory(bytes, height: 150, width: 150),
                 SizedBox(height:20),
                 Text("Past Orders: "),
                 pics,
                 helpButton
             ]
             )
+          );
+          }
           )
         );
     }
