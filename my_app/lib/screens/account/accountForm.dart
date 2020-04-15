@@ -74,7 +74,7 @@ class _accountFormState extends State<accountForm>
     final backButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Colors.green,
+      color: Color(0xFF048D79),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -148,7 +148,7 @@ class _accountFormState extends State<accountForm>
                         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: "First Name",
                         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
                         ) ,
                       ),
                       SizedBox(height: 30.0),
@@ -161,7 +161,7 @@ class _accountFormState extends State<accountForm>
                         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: "Last Name",
                         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
                         ) ,
                       ),
                       SizedBox(height: 30.0),
@@ -174,14 +174,14 @@ class _accountFormState extends State<accountForm>
                         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: "Phone Number",
                         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
                         ) ,
                       ),
                       SizedBox(height: 45.0),
                       Material(
                         elevation: 5.0,
                         borderRadius: BorderRadius.circular(30.0),
-                        color: Colors.green,
+                        color:Color(0xFF048D79),
                         child: MaterialButton(
                           minWidth: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

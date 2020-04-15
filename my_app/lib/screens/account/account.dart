@@ -7,7 +7,7 @@ import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/screens/help/help.dart';
-
+import 'dart:io';
 
 
 
@@ -21,6 +21,7 @@ class _accountState extends State<account>
 {
   final AuthService _auth = AuthService();
 
+  
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,10 @@ class _accountState extends State<account>
           stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
           builder: (context, snapshot){
           if(!snapshot.hasData) return Text('loading data .... please wait');
-           Uint8List bytes = base64Decode(snapshot.data['photo']);
+          //String base64Image = base64Encode(File('my_app/screens/account/account.jpg').readAsBytesSync());
+          //Uint8List bytes = base64Decode(base64Image);
+          //if(snapshot.hasData) 
+          Uint8List bytes = base64Decode(snapshot.data['photo']);
            final fname = snapshot.data['firstName'];
            final lname = snapshot.data['lastName'];
            final name = '$fname' + ' ' + '$lname' + '!';
