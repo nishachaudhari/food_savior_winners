@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/help/accountFAQ.dart';
+import 'package:my_app/screens/help/updateAccount.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -32,7 +34,9 @@ class  _accountHelp extends State <accountHelp>
                       SizedBox(height: 20),
                       RaisedButton(
                         onPressed: (){
-
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => updateAccount()));
 
                         },
                         child: Row (children: <Widget>[
@@ -43,7 +47,11 @@ class  _accountHelp extends State <accountHelp>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => accountFAQ()));
+                      },
                       child: Row (children: <Widget>[
                         Text("Frequently Asked Questions", style: (TextStyle(fontSize: 20))),
                         Icon(Icons.keyboard_arrow_right),
