@@ -3,6 +3,7 @@ import 'package:my_app/screens/help/accountHelp.dart';
 import 'package:my_app/screens/help/corona.dart';
 import 'package:my_app/screens/help/guide.dart';
 import 'package:my_app/screens/help/orders.dart';
+import 'package:my_app/screens/help/trust.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:my_app/screens/help/corona.dart';
 
@@ -121,7 +122,11 @@ class _help extends State<help>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => trust()));
+                      },
                       child: Row (children: <Widget>[
                         Text("Trust and Safety", style: (TextStyle(fontSize: 20))),
                         Icon(Icons.keyboard_arrow_right),
