@@ -1,25 +1,32 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:my_app/models/food.dart';
-import 'package:my_app/models/user.dart';
+//import 'package:my_app/services/auth.dart';
+import 'package:my_app/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:my_app/models/user.dart';
 import 'dart:io';
 import 'package:my_app/screens/add/image_picker_handler.dart';
-import 'package:my_app/services/database.dart';
+import 'dart:convert';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: "AIzaSyDwh7H9FYJmquCsq3evvZEEtePM_uQYpcU");
 
-class addForm extends StatefulWidget
+
+class addEdit extends StatefulWidget
 {
+  final String docID;
+  const addEdit(this.docID);
+
   @override
-  _addFormState createState() => _addFormState();
+  _addEditState createState() => _addEditState();
   }
 
-class _addFormState extends State<addForm>
+class _addEditState extends State<addEdit>
     with TickerProviderStateMixin,ImagePickerListener{
-
+      
+  //final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
 
   DateTime selectedDate = DateTime.now();
@@ -55,7 +62,6 @@ class _addFormState extends State<addForm>
 
   //text field state
 
-
   String _currenttitle = '';
   String _currentamount = 'Serving Size';
   String _currentlocation = '';
@@ -69,6 +75,7 @@ class _addFormState extends State<addForm>
   AnimationController _controller;
   ImagePickerHandler imagePicker;
   TextEditingController _textController = TextEditingController(text: "Location");
+
 
   @override
   void initState() {
@@ -87,61 +94,64 @@ class _addFormState extends State<addForm>
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
 
     User user = Provider.of<User>(context);
     String _currentuser = user.uid;
-    //Food food = Provider.of<Food>(context);
-
-    Food food;
 
     void _showDialog(){
       showDialog(context: context,
-      builder: (BuildContext context){
-        return AlertDialog(
-          title: new Text("Food Successfully Added!"),
-          content: new Text("Go to messages to see new requests."),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Got it!"),
-              onPressed: () {Navigator.pop(context);}
-               )
-          ]
-        );
-          }
-        );
-      }
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: new Text("Food Successfully Updated!"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {Navigator.pop(context);}
+              )
+            ]
+          );
+        }
+      );
+    }
 
-      final backButton = Material(
-          elevation: 5.0,
-          borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xFF048D79),
-          child: MaterialButton(
-            minWidth: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: () => Navigator.pop(context),
-            child: Text("Back",
-                textAlign: TextAlign.center,
-                //style: style.copyWith(
-                   // color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-          )
-        );
+    final backButton = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: Color(0xFF048D79),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        onPressed: () => Navigator.pop(context),
+        child: Text("Cancel",
+            textAlign: TextAlign.center,
+            //style: style.copyWith(
+               // color: Colors.white, fontWeight: FontWeight.bold)),
+        ),
+      )
+    );
 
+    final ref = Firestore.instance.collection('food').snapshots();
 
-      return Scaffold(
-        body:SingleChildScrollView(
-        child: Container (
-          child:Padding(
-            padding: const EdgeInsets.all(36.0),
-          child: Form(
-            key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
+    
 
-            children: <Widget>[
+    return StreamBuilder(
+      stream: ref,
+      builder:(context,snapshot){
+        if (snapshot.hasData){
+          //UserData userData = snapshot.data;
+          return Scaffold (
+            body: SingleChildScrollView(
+            child: Container (
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(36.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
                       GestureDetector(
                         onTap: () => imagePicker.showDialog(context),
                         child: Center(
@@ -310,7 +320,7 @@ class _addFormState extends State<addForm>
                               child: MaterialButton(
                                 minWidth: MediaQuery.of(context).size.width,
                                 padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                child: Text("Add Food",
+                                child: Text("Update Food",
                                     textAlign: TextAlign.center,
                                     //style: style.copyWith(
                                       // color: Colors.white, fontWeight: FontWeight.bold)),
@@ -319,7 +329,8 @@ class _addFormState extends State<addForm>
                                   String base64Image = base64Encode(File(_image.path).readAsBytesSync());
                                   if (_formKey.currentState.validate())
                                 {
-                                  await DatabaseService().updatefoodData(
+                                  
+                                  await DatabaseService(id:widget.docID).editfoodData(
                                     _currentuser,
                                     _currenttitle,
                                     _currentamount,
@@ -332,27 +343,26 @@ class _addFormState extends State<addForm>
                                 }
                                 Navigator.pop(context);
                                 _showDialog();
-
-
                                 }
                               )
-
                           ),
                         SizedBox(height: 20.0),
                         backButton,
                         SizedBox(height: 20.0),
                         Text(error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0)),
-
-            ],
-          ),
-        ),
-      ),
-        ),
-        )
-      );
-
-
+                    ],
+                  ),
+                ),
+              ),
+            )
+            )
+          );
+        } else {
+          return Container();
+        }
+      }
+    );
   }
   @override
   userImage(File _image) {
