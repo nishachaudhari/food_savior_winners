@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:my_app/screens/foodInfoEdit.dart';
+import 'package:my_app/screens/foodInfoNothing.dart';
 import 'package:provider/provider.dart';
 
 
@@ -49,7 +50,44 @@ class _addState extends State<add>
         )
         ;
 
-    final pics =
+    final picsPast =
+            Container(
+              height:200,
+              width: 500,
+
+             child: StreamBuilder(
+                stream: Firestore.instance.collection('food').snapshots(),
+                builder: (context, snapshot){
+                  if(!snapshot.hasData) return Text('loading data .... please wait');
+                  int length = snapshot.data.documents.length;
+
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                      Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
+                      if (snapshot.data.documents[index]['user']== user.uid)
+                        return Container(
+                              margin: EdgeInsets.all(15.0),
+                              height: 50,
+                              child: FlatButton (
+                                onPressed: (){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => foodInfoNothing(index)),
+                                  );
+                                },
+                                child: Image.memory(bytes, height: 200, width: 200),
+                              )
+                        );
+                        else return Container();
+                      },
+                    itemCount: snapshot.data.documents == null ? 0:length,
+                  );
+                }
+              )
+            );
+
+    final picsCurrent =
             Container(
               height:200,
               width: 500,
@@ -104,10 +142,11 @@ class _addState extends State<add>
       Column(
         children:<Widget>[
             SizedBox(height:20),
-            Container(
-              child: Text("Your Donated Food Items: ")
-              ),
-            pics,
+            Text("Your Unclaimed Donated Food Items: "),
+            picsCurrent,
+            SizedBox(height:20),
+            Text("Your Past Donated Food Items: "),
+            picsPast,
             addButton,
         ]
       )
