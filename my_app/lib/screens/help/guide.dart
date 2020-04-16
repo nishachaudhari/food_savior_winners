@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/help/gettingStarted.dart';
+import 'package:my_app/screens/help/guideFAQ.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -32,9 +34,10 @@ class _guide extends State<guide>
                       SizedBox(height: 20),
                       RaisedButton(
                         onPressed: (){
-
-
-                        },
+                          Navigator.push(
+                            context,
+                             MaterialPageRoute(builder: (context) => gettingStarted())); 
+                          },
                         child: Row (children: <Widget>[
                           Text("Getting Started with FoodSavior", style: (TextStyle(fontSize: 20))),
                           Icon(Icons.keyboard_arrow_right),
@@ -43,7 +46,11 @@ class _guide extends State<guide>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                             MaterialPageRoute(builder: (context) => guideFAQ()));
+                      },
                       child: Row (children: <Widget>[
                         Text("Frequently Asked Questions", style: (TextStyle(fontSize: 20))),
                         Icon(Icons.keyboard_arrow_right),
