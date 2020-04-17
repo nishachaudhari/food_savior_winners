@@ -43,7 +43,7 @@ Future updateUserData(String firstName, String lastName, String phone, String ph
 
   final CollectionReference foodCollection = Firestore.instance.collection('food');
 
-  Future updatefoodData(String user, String title, String amount, String location, String description, String cuisine, String time, String date, String photo) async {
+  Future updatefoodData(String user, String title, String amount, String location, String description, String cuisine, String time, String date, String photo, String order, String eater) async {
   return await foodCollection.document().setData({
     'user' : user,
     'title' :title,
@@ -51,9 +51,11 @@ Future updateUserData(String firstName, String lastName, String phone, String ph
     'location': location,
     'description': description,
     'cuisine':cuisine,
-     'time': time,
-     'date': date,
-     'photo':photo
+    'time': time,
+    'date': date,
+    'photo': photo,
+    'order': order, //default order status-> goes to pending -> claimed -> picked up
+    'eater' : eater, //default person who claimed food -> goes to user id of pending person -> uid of claimer
  });
 }
 
@@ -67,9 +69,42 @@ Future editfoodData(String user, String title, String amount, String location, S
     'cuisine':cuisine,
      'time': time,
      'date': date,
-     'photo':photo
+     'photo':photo,
+
  });
 }
+
+Future editfoodStatus(String eater, String orderStatus) async{
+return await foodCollection.document(id).setData({
+  'orderStatus': orderStatus,
+  'eater': eater,
+}
+);
+}
+
+//FOOD COLLECTION
+
+  final CollectionReference requestCollection = Firestore.instance.collection('request');
+
+  Future updaterequestData(String user, String eater, String foodID, String status) async {
+  return await requestCollection.document().setData({
+    'user' : user,
+    'eater' : eater,
+    'foodID' : foodID,
+    'status' : status,
+ });
+}
+
+Future updaterequestStatus(String status) async {
+  return await requestCollection.document(id).setData({
+    'status' : status,
+ });
+}
+
+
+
+
+
 
 /*Food _foodDataFromSnapshot(DocumentSnapshot snapshot) {
     return Food(

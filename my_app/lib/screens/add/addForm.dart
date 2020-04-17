@@ -328,7 +328,10 @@ class _addFormState extends State<addForm>
                                     _currentcuisine,
                                     selectedTime.toString(),
                                     selectedDate.toString(),
-                                    base64Image);
+                                    base64Image,
+                                    'none', //default order status
+                                    'none' //default eater status
+                                    );
                                 }
                                 Navigator.pop(context);
                                 _showDialog();
