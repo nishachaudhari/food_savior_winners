@@ -42,7 +42,7 @@ class _help extends State<help>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Help"),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
@@ -154,13 +154,13 @@ class _help extends State<help>
                           ],
                           )
                       ),
-                      
+
                     ]
                  )
                 )
                ]
              )
-             )    
+             )
            );
 
 

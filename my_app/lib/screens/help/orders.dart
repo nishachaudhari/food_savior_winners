@@ -17,7 +17,7 @@ class  _orderHelp extends State <orderHelp>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Orders"),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
@@ -31,7 +31,7 @@ class  _orderHelp extends State <orderHelp>
                       children: <Widget>[
                       SizedBox(height: 20),
                       RaisedButton(
-                        onPressed: (){      
+                        onPressed: (){
                         },
                         child: Row (children: <Widget>[
                           Text("Order Basics", style: (TextStyle(fontSize: 20))),
@@ -50,7 +50,7 @@ class  _orderHelp extends State <orderHelp>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
-                        onPressed: (){      
+                        onPressed: (){
                         },
                         child: Row (children: <Widget>[
                           Text("Frequently Asked Questions", style: (TextStyle(fontSize: 20))),
@@ -58,13 +58,13 @@ class  _orderHelp extends State <orderHelp>
                           ],
                           )
                       ),
-                      
+
                     ]
                  )
                 )
                ]
              )
-             )    
+             )
            );
   }
 

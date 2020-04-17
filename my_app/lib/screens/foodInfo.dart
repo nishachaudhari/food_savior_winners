@@ -15,14 +15,14 @@ class foodInfo extends StatefulWidget
 
   @override
   State <StatefulWidget> createState()
-  { 
+  {
     return _foodInfo();
   }
 }
 
-class _foodInfo extends State <foodInfo> 
+class _foodInfo extends State <foodInfo>
 {
-  
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _foodInfo extends State <foodInfo>
     final requestButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
+          color: Color(0xFF048D79),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -52,10 +52,10 @@ class _foodInfo extends State <foodInfo>
        appBar: AppBar(
          centerTitle: false,
          title: Text(""),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
        ),
 
-       body: 
+       body:
        StreamBuilder(
          stream: Firestore.instance.collection('food').snapshots(),
          builder: (context, snapshot){
@@ -92,11 +92,11 @@ class _foodInfo extends State <foodInfo>
                 )
                ]
                )
-             
+
            );
           }
        )
-       
+
     );
   }
 }

@@ -17,7 +17,7 @@ class  _accountHelp extends State <accountHelp>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Account"),
-         backgroundColor: Colors.green,
+         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
@@ -32,8 +32,8 @@ class  _accountHelp extends State <accountHelp>
                       SizedBox(height: 20),
                       RaisedButton(
                         onPressed: (){
-                          
-                                  
+
+
                         },
                         child: Row (children: <Widget>[
                           Text("Update Account", style: (TextStyle(fontSize: 20))),
@@ -51,13 +51,13 @@ class  _accountHelp extends State <accountHelp>
                         )
                       ),
                       SizedBox(height: 20),
-                      
+
                     ]
                  )
                 )
                ]
              )
-             )    
+             )
            );
   }
 
