@@ -115,26 +115,37 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 20),
                     Image.asset('assets/images/logo.png'),
                     SizedBox(height: 20.0,),
+
                     logo,
-                    SizedBox(height: 45.0),
+                    Expanded(
+                        child: SizedBox(height: 45.0),
+                    ),
                     emailField,
-                    SizedBox(height: 25.0),
+                    Expanded(
+                        child: SizedBox(height: 25.0),
+                    ),
                     passwordField,
-                    SizedBox(height: 35.0,),
+                    Expanded(
+                        child: SizedBox(height: 35.0,),
+                    ),
                     loginButton,
-                    SizedBox(height: 25.0,),
+                    Expanded(
+                        child: SizedBox(height: 25.0,),
+                    ),
                     createButton,
-                    SizedBox(height:12.0),
-                        Text(error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0)),
-                  ],
+                    Expanded(
+                        child: SizedBox(height:12.0),
+                    ),
+                    Text(error,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0)),
+                    ]
+                  ),
                 ),
               ),
               ),
             ),
-          ),
-        );
-      }
-    }
+    );
+  }
+}
     
 
