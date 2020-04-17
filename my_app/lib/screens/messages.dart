@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/HomeScreen.dart';
 
 class messages extends StatelessWidget {
 
@@ -13,15 +14,27 @@ class messages extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          Text('Messages', style: TextStyle(color:Colors.green, fontSize: 20, fontWeight: FontWeight.bold) ),
+          Text('Messages', style: TextStyle(color: Color(0xFF048D79), fontSize: 20, fontWeight: FontWeight.bold) ),
           SizedBox(height:15),
          // logoutButton,
           ]
-        ) 
+        )
        ),
     );
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+         title: Text("Messages"),
+         backgroundColor: Color(0xFF048D79),
+           actions: <Widget>[
+             IconButton(
+               icon: Icon(Icons.search),
+               onPressed: (){
+                 showSearch(context: context,delegate: Datasearch());
+               })
+           ],
+       ),
       body:
       label
     );

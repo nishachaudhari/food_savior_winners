@@ -11,12 +11,12 @@ class bottombar extends StatefulWidget
 {
   @override
   State <StatefulWidget> createState()
-  { 
+  {
     return _bottombarState();
   }
 }
 
-class _bottombarState extends State <bottombar> 
+class _bottombarState extends State <bottombar>
 {
 
   int _currentIndex = 0;
@@ -37,42 +37,50 @@ class _bottombarState extends State <bottombar>
         _children[_currentIndex]
       ),
       //body: logoutButton,
-      bottomNavigationBar: BottomNavigationBar(
-        
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        
-        onTap: onTappedBar,
-        
-        currentIndex: _currentIndex,
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          // sets the background color of the `BottomNavigationBar`
+          canvasColor: Color(0xFF048D79),
+          // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+          primaryColor: Colors.red,
+          textTheme: Theme
+            .of(context)
+            .textTheme
+            .copyWith(caption: new TextStyle(color: Colors.yellow))), // sets the inactive color of the `BottomNavigationBar`
+          child: BottomNavigationBar(
+            selectedItemColor: Color(0xFFFF9A98),
+            unselectedItemColor: Colors.white,
+            showUnselectedLabels: true,
 
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon (Icons.home),
-            title: new Text('Home'),
-            ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
-            title: new Text('Messages'),
+            onTap: onTappedBar,
+
+            currentIndex: _currentIndex,
+
+            items: [
+              BottomNavigationBarItem(
+                icon: new Icon (Icons.home),
+                title: new Text('Home'),
+                ),
+              BottomNavigationBarItem(
+                icon: new Icon(Icons.mail),
+                title: new Text('Messages'),
+              ),
+             BottomNavigationBarItem(
+               icon: new Icon(Icons.add),
+               title: new Text('Donate'),
+              ),
+              BottomNavigationBarItem(
+                icon: new Icon(Icons.person),
+                title: new Text('Account'),
+              ),
+            ]
           ),
-         BottomNavigationBarItem(
-           icon: new Icon(Icons.add),
-           title: new Text('Add'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.person),
-            title: new Text('Account'),
-          ),
-        ]
-      ),
-      
+        ),
       );
-      
+
   }
    void onTappedBar(int index)
   {
     setState((){_currentIndex = index;});
   }
 }
-
-

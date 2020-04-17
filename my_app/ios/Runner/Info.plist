@@ -22,6 +22,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Can I use the photo library please?</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Can I use the camera please?</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -45,5 +47,23 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>So I can track you while you use the app</string>
+
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>So I can track you at all times</string>
+
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>messages</string>
+		<string>...</string>
+	</array>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app needs access to location when open and in the background.</string>
+
 </dict>
 </plist>

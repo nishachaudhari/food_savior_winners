@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407260189151:android:7e8ad410820398efdb746a",
+        "mobilesdk_app_id": "1:407260189151:android:dbd934f70e6cf300db746a",
         "android_client_info": {
-          "package_name": "com.Food_Savior_Winners.my_app"
+          "package_name": "com.example.my_app"
         }
       },
       "oauth_client": [
