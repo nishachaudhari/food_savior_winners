@@ -28,26 +28,6 @@ class _foodInfo extends State <foodInfo>
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
 
-    final requestButton = Material(
-          elevation: 5.0,
-          borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xFF048D79),
-          child: MaterialButton(
-            minWidth: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: () {
-              Navigator.push(context,
-              MaterialPageRoute(builder: (context) => messages()),
-              );
-            },
-            child: Text("Request Food!",
-                textAlign: TextAlign.center,
-                //style: style.copyWith(
-                   // color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
-          )
-        );
-
     return Scaffold(
        appBar: AppBar(
          centerTitle: false,
@@ -61,6 +41,9 @@ class _foodInfo extends State <foodInfo>
          builder: (context, snapshot){
            if(!snapshot.hasData) return Text('loading data .... please wait');
            Uint8List bytes = base64Decode(snapshot.data.documents[widget.index]['photo']);
+           String docID;
+           docID = snapshot.data.documents[widget.index].documentID;
+           String foodOwner = snapshot.data.documents[widget.index]['user'];
           int length = snapshot.data.documents.length;
           return Container(
             padding: EdgeInsets.all(15.0),
@@ -86,7 +69,32 @@ class _foodInfo extends State <foodInfo>
                     Text ("Location:", style: TextStyle(color: Color(0xFF048D79), fontSize:30)),
                     Text (snapshot.data.documents[widget.index]['location'],style: TextStyle(color:Colors.black, fontSize: 20)),
                     SizedBox(height: 20,),
-                    requestButton
+                    Material(
+                          elevation: 5.0,
+                          borderRadius: BorderRadius.circular(30.0),
+                          color: Color(0xFF048D79),
+                          child: MaterialButton(
+                            minWidth: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                            onPressed: () async {
+                              await DatabaseService(id:docID).editfoodStatus(
+                                user.uid,
+                                "pending"
+                                                 
+                              );
+                              await DatabaseService().updaterequestData(foodOwner, user.uid, docID, "pending");
+                              Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => messages()),
+                              );
+                              
+                            },
+                            child: Text("Request Food!",
+                                textAlign: TextAlign.center,
+                                //style: style.copyWith(
+                                  // color: Colors.white, fontWeight: FontWeight.bold)),
+                          ),
+                          )
+                        )
                       ]
                  )
                 )

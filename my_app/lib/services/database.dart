@@ -60,23 +60,23 @@ Future updateUserData(String firstName, String lastName, String phone, String ph
 }
 
 Future editfoodData(String user, String title, String amount, String location, String description, String cuisine, String time, String date, String photo) async {
-  return await foodCollection.document(id).setData({
+  return await foodCollection.document(id).updateData({
     'user' : user,
     'title' :title,
     'amount' :amount,
     'location': location,
     'description': description,
     'cuisine':cuisine,
-     'time': time,
-     'date': date,
-     'photo':photo,
+    'time': time,
+    'date': date,
+    'photo':photo,
 
  });
 }
 
 Future editfoodStatus(String eater, String orderStatus) async{
-return await foodCollection.document(id).setData({
-  'orderStatus': orderStatus,
+return await foodCollection.document(id).updateData({
+  'order': orderStatus,
   'eater': eater,
 }
 );
@@ -96,7 +96,7 @@ return await foodCollection.document(id).setData({
 }
 
 Future updaterequestStatus(String status) async {
-  return await requestCollection.document(id).setData({
+  return await requestCollection.document(id).updateData({
     'status' : status,
  });
 }

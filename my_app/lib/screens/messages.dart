@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/HomeScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_app/models/user.dart';
+import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+
+
 
 class messages extends StatelessWidget {
 
@@ -7,36 +14,19 @@ class messages extends StatelessWidget {
   Widget build(BuildContext context)
   {
 
-    final label = Center(
-      child: Padding (
-          padding: const EdgeInsets.all(36.0),
-          child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          Text('Messages', style: TextStyle(color: Color(0xFF048D79), fontSize: 20, fontWeight: FontWeight.bold) ),
-          SizedBox(height:15),
-         // logoutButton,
-          ]
-        )
-       ),
-    );
+    User user = Provider.of<User>(context);
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
-         title: Text("Messages"),
-         backgroundColor: Color(0xFF048D79),
-           actions: <Widget>[
-             IconButton(
-               icon: Icon(Icons.search),
-               onPressed: (){
-                 showSearch(context: context,delegate: Datasearch());
-               })
-           ],
-       ),
-      body:
-      label
+            centerTitle: false,
+            title: Text("Messages"),
+            backgroundColor: Color(0xFF048D79),
+              actions: <Widget>[
+                ]
+          ),
+      body: Container(
+        
+      ),
     );
 
   }
