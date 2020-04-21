@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/HomeScreen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_app/models/user.dart';
 import 'package:my_app/screens/inchat.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:my_app/screens/chatmodel.dart';
 
 

@@ -64,6 +64,9 @@ class _addFormState extends State<addForm>
   String tags = '';
   String error = '';
   String addr = 'Location';
+  double lat;
+  double lng;
+  
 
   File _image;
   AnimationController _controller;
@@ -230,6 +233,8 @@ class _addFormState extends State<addForm>
                               PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
                               _currentlocation = detail.result.formattedAddress;
                               addr = detail.result.formattedAddress;
+                              lat = detail.result.geometry.location.lat;
+                              lng = detail.result.geometry.location.lng;
                               _textController.text = addr;
                             }
                           },
@@ -324,6 +329,8 @@ class _addFormState extends State<addForm>
                                     _currenttitle,
                                     _currentamount,
                                     _currentlocation,
+                                    lat, 
+                                    lng,
                                     _currentdescription,
                                     _currentcuisine,
                                     selectedTime.toString(),

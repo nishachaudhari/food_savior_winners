@@ -70,6 +70,8 @@ class _addEditState extends State<addEdit>
   String tags = '';
   String error = '';
   String addr = 'Location';
+  double lat;
+  double lng;
 
   File _image;
   AnimationController _controller;
@@ -240,6 +242,8 @@ class _addEditState extends State<addEdit>
                               PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
                               _currentlocation = detail.result.formattedAddress;
                               addr = detail.result.formattedAddress;
+                              lat = detail.result.geometry.location.lat;
+                              lng = detail.result.geometry.location.lng;
                               _textController.text = addr;
                             }
                           },
@@ -335,6 +339,8 @@ class _addEditState extends State<addEdit>
                                     _currenttitle,
                                     _currentamount,
                                     _currentlocation,
+                                    lat,
+                                    lng,
                                     _currentdescription,
                                     _currentcuisine,
                                     selectedTime.toString(),
