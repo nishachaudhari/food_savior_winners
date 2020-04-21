@@ -27,11 +27,41 @@ class _mapIcon extends State <mapIcon>
   }
   double zoomVal = 5.0;
 
-  Set<Marker> foodmarkers = new Set();
-
+  
 
   @override
   Widget build(BuildContext context) {
+
+    User user = Provider.of<User>(context);
+
+    Set<Marker> addMarkers(){
+    Set<Marker> foodmarkers = Set();
+     String title;
+     double lat;
+     double lng;
+     Firestore.instance.collection('food').getDocuments().then((querySnapshot){
+       querySnapshot.documents.forEach((result){
+        //if(result.data['user']!= user.uid) {
+            title = result.data['title'];
+            lat = result.data['lat'];
+            lng = result.data['lng'];
+            Marker foodMarker = Marker(
+              markerId: MarkerId(title),
+              position: LatLng(lat, lng),
+              infoWindow: InfoWindow(title: title),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueGreen,
+              ),
+            );
+            foodmarkers.add(foodMarker);
+        //}
+       }
+       );
+     });
+
+
+     return foodmarkers;
+    }
 
    Future<void> _minus(double zoomVal) async {
     final GoogleMapController controller = await _controller.future;
@@ -75,8 +105,9 @@ class _mapIcon extends State <mapIcon>
           bearing: 45.0,)));
       }
 
-    User user = Provider.of<User>(context);
+    
     String addr;
+
     final pics =   
         Align(
         alignment: Alignment.bottomLeft,
@@ -115,26 +146,19 @@ class _mapIcon extends State <mapIcon>
                                 String title = snapshot.data.documents[index]['title'];
                                 _gotoLocation(addr,lat,lng);
                                 
-                                Marker foodMarker = Marker(
-                                  markerId: MarkerId(title),
-                                  position: LatLng(lat, lng),
-                                  infoWindow: InfoWindow(title: title),
-                                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                                    BitmapDescriptor.hueGreen,
-                                  ),
-                                );
-                                foodmarkers.add(foodMarker);
                               },
                               splashColor: Colors.blueGrey,
-                              child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.teal, fontSize: 30)),
+                              child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.teal, fontSize: 25)),
                             )
                           ),
-                          Image.memory(bytes, height: 200, width: 200)
+                          SizedBox(height:10),
+                          Image.memory(bytes, height: 200, width: 200),
                         ],
                       )
                     )
                   )
                   );
+                  
                   else return Container();
                 },
                 itemCount: snapshot.data.documents == null ? 0:length,
@@ -155,7 +179,7 @@ class _mapIcon extends State <mapIcon>
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
-            markers:foodmarkers
+            markers:addMarkers()
             
           ),
     );
@@ -176,7 +200,7 @@ class _mapIcon extends State <mapIcon>
           _buildGoogleMap(context),
           _zoomminusfunction(),
           _zoomplusfunction(),
-        pics
+          pics
         ],
       )
 
