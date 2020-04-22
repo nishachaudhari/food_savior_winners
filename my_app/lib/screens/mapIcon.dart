@@ -18,50 +18,64 @@ class mapIcon extends StatefulWidget
 class _mapIcon extends State <mapIcon> 
 {
   Completer<GoogleMapController> _controller = Completer();
-
+  var currentLocation;
 
   @override
 
   void initState(){
     super.initState();
+    populate();
+
+    Geolocator().getCurrentPosition().then((currloc){
+    setState(() {
+     currentLocation = currloc;
+      });
+    });
+    
   }
   double zoomVal = 5.0;
 
-  
+  Map<MarkerId, Marker> foodmarkers = <MarkerId, Marker>{};
+
+    void intoMarker(title, lat, lng ,markerRef){
+        var markerIDVal = markerRef;
+        final MarkerId markerId = MarkerId(markerIDVal);
+        final Marker marker = Marker(
+          position: LatLng(lat, lng),
+          markerId: markerId,
+          infoWindow: InfoWindow(title: title),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueGreen,
+              )
+        );
+        setState(() {
+          foodmarkers[markerId] = marker;
+      });
+    }
+
+    populate(){
+     Firestore.instance.collection('food').getDocuments().then((querySnapshot){
+       querySnapshot.documents.forEach((result)
+          {
+            String title = result.data['title'];
+            double lat = result.data['lat'];
+            double lng = result.data['lng'];
+            String id = result.documentID;
+            intoMarker(title, lat, lng, id);
+              
+          }
+          
+        );
+        }
+     );
+    }
+
 
   @override
   Widget build(BuildContext context) {
 
     User user = Provider.of<User>(context);
-
-    Set<Marker> addMarkers(){
-    Set<Marker> foodmarkers = Set();
-     String title;
-     double lat;
-     double lng;
-     Firestore.instance.collection('food').getDocuments().then((querySnapshot){
-       querySnapshot.documents.forEach((result){
-        //if(result.data['user']!= user.uid) {
-            title = result.data['title'];
-            lat = result.data['lat'];
-            lng = result.data['lng'];
-            Marker foodMarker = Marker(
-              markerId: MarkerId(title),
-              position: LatLng(lat, lng),
-              infoWindow: InfoWindow(title: title),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueGreen,
-              ),
-            );
-            foodmarkers.add(foodMarker);
-        //}
-       }
-       );
-     });
-
-
-     return foodmarkers;
-    }
+    
 
    Future<void> _minus(double zoomVal) async {
     final GoogleMapController controller = await _controller.future;
@@ -175,11 +189,13 @@ class _mapIcon extends State <mapIcon>
           width: MediaQuery.of(context).size.width,
           child: GoogleMap(
             mapType: MapType.normal,
+            //LatLng(currentLocation.latitude,currentLocation.longitude), zoom: 17),
+            myLocationEnabled: true,
             initialCameraPosition:  CameraPosition(target: LatLng(25.7167234, -80.2737), zoom: 12),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
-            markers:addMarkers()
+            markers:Set<Marker>.of(foodmarkers.values),
             
           ),
     );

@@ -50,7 +50,7 @@ Future updateUserData(String firstName, String lastName, String phone, String ph
     'amount' :amount,
     'location': location,
     'lat':lat,
-    'long':lng,
+    'lng':lng,
     'description': description,
     'cuisine':cuisine,
     'time': time,
