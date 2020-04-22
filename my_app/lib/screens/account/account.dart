@@ -7,7 +7,7 @@ import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/screens/help/help.dart';
-
+import 'dart:io';
 
 
 
@@ -21,6 +21,7 @@ class _accountState extends State<account>
 {
   final AuthService _auth = AuthService();
 
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class _accountState extends State<account>
           )
         );
 
-    final pics =
+    final picsPastOrders =
             Container(
               height:200,
               width: 500,
@@ -61,7 +62,7 @@ class _accountState extends State<account>
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                       Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-                      if (snapshot.data.documents[index]['user']!= user.uid)
+                      if (snapshot.data.documents[index]['eater']== user.uid && snapshot.data.documents[index]['order']== "picked up")
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
@@ -75,6 +76,67 @@ class _accountState extends State<account>
                 }
               )
             );
+
+    final pendingApproval =
+    Container(
+      height:200,
+      width: 500,
+
+      child: StreamBuilder(
+        stream: Firestore.instance.collection('food').snapshots(),
+        builder: (context, snapshot){
+          if(!snapshot.hasData) return Text('loading data .... please wait');
+          int length = snapshot.data.documents.length;
+
+          return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+              Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
+              if (snapshot.data.documents[index]['eater']== user.uid && snapshot.data.documents[index]['order']== "pending")
+                return Container(
+                      margin: EdgeInsets.all(15.0),
+                      height: 50,
+                      child: Image.memory(bytes, height: 200, width: 200),
+                );
+              else
+                return Container();
+              },
+            itemCount: snapshot.data.documents == null ? 0:length,
+          );
+        }
+      )
+    );
+
+
+    final awaitingPickup =
+    Container(
+      height:200,
+      width: 500,
+
+      child: StreamBuilder(
+        stream: Firestore.instance.collection('food').snapshots(),
+        builder: (context, snapshot){
+          if(!snapshot.hasData) return Text('loading data .... please wait');
+          int length = snapshot.data.documents.length;
+
+          return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+              Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
+              if (snapshot.data.documents[index]['eater']== user.uid && snapshot.data.documents[index]['order']== "claimed")
+                return Container(
+                      margin: EdgeInsets.all(15.0),
+                      height: 50,
+                      child: Image.memory(bytes, height: 200, width: 200),
+                );
+              else
+                return Container();
+              },
+            itemCount: snapshot.data.documents == null ? 0:length,
+          );
+        }
+      )
+    );
 
         return Scaffold(
           appBar: AppBar(
@@ -92,11 +154,15 @@ class _accountState extends State<account>
           ),
 
           body:
-          StreamBuilder(
+          SingleChildScrollView(
+          child: StreamBuilder(
           stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
           builder: (context, snapshot){
           if(!snapshot.hasData) return Text('loading data .... please wait');
-           Uint8List bytes = base64Decode(snapshot.data['photo']);
+          //String base64Image = base64Encode(File('my_app/screens/account/account.jpg').readAsBytesSync());
+          //Uint8List bytes = base64Decode(base64Image);
+          //if(snapshot.hasData) 
+          Uint8List bytes = base64Decode(snapshot.data['photo']);
            final fname = snapshot.data['firstName'];
            final lname = snapshot.data['lastName'];
            final name = '$fname' + ' ' + '$lname' + '!';
@@ -108,13 +174,20 @@ class _accountState extends State<account>
                 SizedBox(height:20),
                 Image.memory(bytes, height: 150, width: 150),
                 SizedBox(height:20),
+                Text("Orders that are waiting for you to Pick Up: "),
+                awaitingPickup,
+                SizedBox(height:20),
+                Text("Your Orders Pending Approval: "),
+                pendingApproval,
+                SizedBox(height: 20.0),
                 Text("Past Orders: "),
-                pics,
+                picsPastOrders,
                 helpButton
             ]
             )
           );
           }
+          )
           )
         );
     }

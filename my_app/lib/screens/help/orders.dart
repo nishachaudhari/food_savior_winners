@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/help/orderBasics.dart';
+import 'package:my_app/screens/help/orderFAQ.dart';
+import 'package:my_app/screens/help/orderIssues.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -32,6 +35,9 @@ class  _orderHelp extends State <orderHelp>
                       SizedBox(height: 20),
                       RaisedButton(
                         onPressed: (){
+                          Navigator.push(
+                            context,
+                             MaterialPageRoute(builder: (context) => orderBasics()));
                         },
                         child: Row (children: <Widget>[
                           Text("Order Basics", style: (TextStyle(fontSize: 20))),
@@ -41,7 +47,11 @@ class  _orderHelp extends State <orderHelp>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                             MaterialPageRoute(builder: (context) => orderIssues()));
+                      },
                       child: Row (children: <Widget>[
                         Text("Order Issues", style: (TextStyle(fontSize: 20))),
                         Icon(Icons.keyboard_arrow_right),
@@ -51,6 +61,9 @@ class  _orderHelp extends State <orderHelp>
                       SizedBox(height: 20),
                       RaisedButton(
                         onPressed: (){
+                          Navigator.push(
+                            context,
+                             MaterialPageRoute(builder: (context) => orderFAQ()));
                         },
                         child: Row (children: <Widget>[
                           Text("Frequently Asked Questions", style: (TextStyle(fontSize: 20))),

@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       enabledBorder:
         OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       focusedBorder:
-        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
         ),
       );
     
@@ -54,14 +54,14 @@ class _LoginPageState extends State<LoginPage> {
       enabledBorder:
         OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       focusedBorder:
-        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFFDFDFDE)))
         ),
       );
 
     final loginButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
+          color: Color(0xFF048D79),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
     final createButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
+          color: Color(0xFF048D79),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

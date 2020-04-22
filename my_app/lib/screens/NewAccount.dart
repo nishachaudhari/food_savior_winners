@@ -36,7 +36,7 @@ class _NewAccountState extends State<NewAccount>
     final createButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
+          color: Color(0xFF048D79),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -65,7 +65,7 @@ class _NewAccountState extends State<NewAccount>
     final backButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.green,
+          color: Color(0xFF048D79),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -96,7 +96,7 @@ class _NewAccountState extends State<NewAccount>
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Email Address",
                           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
                           ) ,
                         ),
                         SizedBox(height: 30.0),
@@ -110,7 +110,7 @@ class _NewAccountState extends State<NewAccount>
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Password",
                           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
                           ) ,
                         ),
                         SizedBox(height: 30.0),
@@ -124,7 +124,7 @@ class _NewAccountState extends State<NewAccount>
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Confirm Password",
                           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.green))
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
                           ) ,
                         ),
                         SizedBox(height: 45.0),

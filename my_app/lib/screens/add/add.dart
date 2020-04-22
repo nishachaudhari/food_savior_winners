@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:my_app/screens/foodInfoEdit.dart';
+import 'package:my_app/screens/foodInfoNothing.dart';
 import 'package:provider/provider.dart';
 
 
@@ -49,7 +50,7 @@ class _addState extends State<add>
         )
         ;
 
-    final pics =
+    final picsPast =
             Container(
               height:200,
               width: 500,
@@ -64,7 +65,81 @@ class _addState extends State<add>
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                       Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-                      if (snapshot.data.documents[index]['user']== user.uid)
+                      if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "picked up")
+                        return Container(
+                              margin: EdgeInsets.all(15.0),
+                              height: 50,
+                              child: FlatButton (
+                                onPressed: (){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => foodInfoNothing(index)),
+                                  );
+                                },
+                                child: Image.memory(bytes, height: 200, width: 200),
+                              )
+                        );
+                        else return Container();
+                      },
+                    itemCount: snapshot.data.documents == null ? 0:length,
+                  );
+                }
+              )
+            );
+
+    final picsCurrent =
+            Container(
+              height:200,
+              width: 500,
+
+             child: StreamBuilder(
+                stream: Firestore.instance.collection('food').snapshots(),
+                builder: (context, snapshot){
+                  if(!snapshot.hasData) return Text('loading data .... please wait');
+                  int length = snapshot.data.documents.length;
+
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                      Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo'] );
+                      if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "none")
+                        return Container(
+                              margin: EdgeInsets.all(15.0),
+                              height: 50,
+                              child: FlatButton (
+                                onPressed: (){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => foodInfo2(index)),
+                                  );
+                                },
+                                child: Image.memory(bytes, height: 200, width: 200),
+                              )
+                        );
+                        else return Container();
+                      },
+                    itemCount: snapshot.data.documents == null ? 0:length,
+                  );
+                }
+              )
+            );
+
+    final picsPending =
+            Container(
+              height:200,
+              width: 500,
+
+             child: StreamBuilder(
+                stream: Firestore.instance.collection('food').snapshots(),
+                builder: (context, snapshot){
+                  if(!snapshot.hasData) return Text('loading data .... please wait');
+                  int length = snapshot.data.documents.length;
+
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                      Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
+                      if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "claimed")
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
@@ -93,23 +168,38 @@ class _addState extends State<add>
          title: Text("Donate"),
          backgroundColor: Color(0xFF048D79),
            actions: <Widget>[
+             FlatButton.icon(
+                label: Text("Add Food"),
+                textColor: Colors.white,
+                icon: Icon(Icons.add),
+                onPressed: (){
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => addForm()));
+                },
+              ),
              IconButton(
                icon: Icon(Icons.search),
                onPressed: (){
                  showSearch(context: context,delegate: Datasearch());
-               })
+               }),
+
            ],
        ),
       body:
-      Column(
+      SingleChildScrollView(
+      child: Column(
         children:<Widget>[
             SizedBox(height:20),
-            Container(
-              child: Text("Your Donated Food Items: ")
-              ),
-            pics,
-            addButton,
+            Text("Your Donated Items that are awaiting Pick Up: "),
+            picsPending,
+            SizedBox(height:20),
+            Text("Your Unclaimed Donated Food Items: "),
+            picsCurrent,
+            SizedBox(height:20),
+            Text("Your Past Donated Food Items: "),
+            picsPast,
+          // addButton,
         ]
+      )
       )
     );
   }
