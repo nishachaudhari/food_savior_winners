@@ -29,7 +29,8 @@ class _foodInfo extends State <foodInfo>
     User user = Provider.of<User>(context);
 
     return Scaffold(
-       appBar: AppBar(
+      resizeToAvoidBottomInset: false, // set it to false 
+      appBar: AppBar(
          centerTitle: false,
          title: Text(""),
          backgroundColor: Color(0xFF048D79),
@@ -44,13 +45,12 @@ class _foodInfo extends State <foodInfo>
            String docID;
            docID = snapshot.data.documents[widget.index].documentID;
            String foodOwner = snapshot.data.documents[widget.index]['user'];
-          int length = snapshot.data.documents.length;
           return Container(
             padding: EdgeInsets.all(15.0),
              child: Column (
                crossAxisAlignment: CrossAxisAlignment.center,
                children: <Widget>[
-                Center(
+                SingleChildScrollView(
                   child: Column(
                       children: <Widget>[
                     Image.memory(bytes,height: 200, width: 200),
@@ -104,7 +104,7 @@ class _foodInfo extends State <foodInfo>
            );
           }
        )
-
+       
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:my_app/screens/messages.dart';
 import 'package:my_app/screens/add/add.dart';
 import 'package:my_app/screens/account/account.dart';
 import 'package:my_app/screens/HomeScreen.dart';
+import 'package:my_app/screens/conversation.dart';
 
 
 
@@ -23,7 +24,7 @@ class _bottombarState extends State <bottombar>
 
   final List<Widget> _children = [
     HomeScreen(),
-    messages(),
+    conversation(),
     add(),
     account(),
   ];
@@ -63,7 +64,7 @@ class _bottombarState extends State <bottombar>
                 ),
               BottomNavigationBarItem(
                 icon: new Icon(Icons.mail),
-                title: new Text('Messages'),
+                title: new Text('Conversations'),
               ),
              BottomNavigationBarItem(
                icon: new Icon(Icons.add),
