@@ -21,11 +21,12 @@ class add extends StatefulWidget
 class _addState extends State<add>
 {
 
+  
 
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-
+  
     final addButton = Container (
         padding: EdgeInsets.all(36.0),
         child:Material(
@@ -66,6 +67,7 @@ class _addState extends State<add>
                       itemBuilder: (BuildContext context, int index) {
                       Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
                       if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "picked up")
+                      { 
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
@@ -79,6 +81,7 @@ class _addState extends State<add>
                                 child: Image.memory(bytes, height: 200, width: 200),
                               )
                         );
+                      }
                         else return Container();
                       },
                     itemCount: snapshot.data.documents == null ? 0:length,
@@ -103,6 +106,7 @@ class _addState extends State<add>
                       itemBuilder: (BuildContext context, int index) {
                       Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo'] );
                       if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "none")
+                      { 
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
@@ -116,6 +120,7 @@ class _addState extends State<add>
                                 child: Image.memory(bytes, height: 200, width: 200),
                               )
                         );
+                      }
                         else return Container();
                       },
                     itemCount: snapshot.data.documents == null ? 0:length,
@@ -134,12 +139,12 @@ class _addState extends State<add>
                 builder: (context, snapshot){
                   if(!snapshot.hasData) return Text('loading data .... please wait');
                   int length = snapshot.data.documents.length;
-
                   return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                       Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-                      if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "claimed")
+                      if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "pending")
+                      {
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
@@ -153,12 +158,15 @@ class _addState extends State<add>
                                 child: Image.memory(bytes, height: 200, width: 200),
                               )
                         );
+                      }
                         else return Container();
                       },
                     itemCount: snapshot.data.documents == null ? 0:length,
                   );
                 }
+                
               )
+              
             );
 
 
@@ -189,13 +197,13 @@ class _addState extends State<add>
       child: Column(
         children:<Widget>[
             SizedBox(height:20),
-            Text("Your Donated Items that are awaiting Pick Up: "),
+            Text("Your Donated Items that have been Requested: ", style: TextStyle(fontSize: 17.0)),
             picsPending,
             SizedBox(height:20),
-            Text("Your Unclaimed Donated Food Items: "),
+            Text("Your Unclaimed Donated Food Items: ", style: TextStyle(fontSize: 17.0)),
             picsCurrent,
             SizedBox(height:20),
-            Text("Your Past Donated Food Items: "),
+            Text("Your Past Donated Food Items: ", style: TextStyle(fontSize: 17.0)),
             picsPast,
           // addButton,
         ]

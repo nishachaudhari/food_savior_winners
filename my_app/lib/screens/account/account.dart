@@ -174,13 +174,13 @@ class _accountState extends State<account>
                 SizedBox(height:20),
                 Image.memory(bytes, height: 150, width: 150),
                 SizedBox(height:20),
-                Text("Orders that are waiting for you to Pick Up: "),
+                Text("Orders that are waiting for you to Pick Up: ", style: TextStyle(fontSize: 17.0)),
                 awaitingPickup,
                 SizedBox(height:20),
-                Text("Your Orders Pending Approval: "),
+                Text("Your Orders Pending Approval: ", style: TextStyle(fontSize: 17.0)),
                 pendingApproval,
                 SizedBox(height: 20.0),
-                Text("Past Orders: "),
+                Text("Past Orders: ", style: TextStyle(fontSize: 17.0)),
                 picsPastOrders,
                 helpButton
             ]

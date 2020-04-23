@@ -22,10 +22,11 @@ class _mapIcon extends State <mapIcon>
 
   @override
 
+  
+
   void initState(){
     super.initState();
     populate();
-
     Geolocator().getCurrentPosition().then((currloc){
     setState(() {
      currentLocation = currloc;
@@ -61,8 +62,7 @@ class _mapIcon extends State <mapIcon>
             double lat = result.data['lat'];
             double lng = result.data['lng'];
             String id = result.documentID;
-            intoMarker(title, lat, lng, id);
-              
+            intoMarker(title, lat, lng, id); 
           }
           
         );
