@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/screens/messages.dart';
+import 'package:my_app/screens/conversation.dart';
 
 class foodInfo extends StatefulWidget
 {
@@ -83,8 +84,9 @@ class _foodInfo extends State <foodInfo>
                                                  
                               );
                               await DatabaseService().updaterequestData(foodOwner, user.uid, docID, "pending");
+                              await DatabaseService().updateConversation(foodOwner, user.uid, docID);
                               Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => messages()),
+                              MaterialPageRoute(builder: (context) => conversation()),
                               );
                               
                             },

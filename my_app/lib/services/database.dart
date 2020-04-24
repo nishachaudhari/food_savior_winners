@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/models/food.dart';
 import 'package:my_app/models/user.dart';
+import 'package:my_app/models/message.dart';
 
 
 class DatabaseService {
@@ -12,6 +13,7 @@ DatabaseService({this.id});
 //collection reference
 
 final CollectionReference userAccountCollection = Firestore.instance.collection('users');
+
 
 Future updateUserData(String firstName, String lastName, String phone, String photo) async {
   return await userAccountCollection.document(id).setData({
@@ -101,7 +103,34 @@ Future updaterequestStatus(String status) async {
  });
 }
 
+//CONVO COLLECTION
 
+final CollectionReference convoCollection = Firestore.instance.collection('convo');
+
+Future updateConversation(String client, String host, String food) async {
+  var roomName = client+'_'+host;
+  return await convoCollection.document(roomName).setData({
+    'clientID' : client,
+    'hostID' : host,
+    'currFood' : food,
+  });
+}
+
+// String getUsername(String userID) async {
+
+// }
+
+
+Future addMessage(Message message) async {
+
+}
+
+// Future getUsername(String uid) async {
+//   var userDocumentSnapshot = await convoCollection.document(uid).get().then;
+//   if(userDocumentSnapshot.documents.isNotEmpty){
+//     return userDocumentSnapshot.documents
+//   }
+// }
 
 
 
