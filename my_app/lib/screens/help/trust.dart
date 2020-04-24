@@ -13,18 +13,18 @@ class _trust extends State <trust>
     @override
   Widget build(BuildContext context) {
 
-   
+
 
       return Scaffold(
        appBar: AppBar(
          centerTitle: false,
          title: Text("Trust and Safety"),
-         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
        SingleChildScrollView(
        child: Container(
+         color: Theme.of(context).backgroundColor,      // dark calm blue
          padding: EdgeInsets.all(15),
          child: Column (children: <Widget>[
             SizedBox (height: 20),

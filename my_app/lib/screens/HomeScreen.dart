@@ -64,15 +64,15 @@ class _HomeScreenState extends State <HomeScreen>
      TweenSequenceItem(
        weight: 1.0,
        tween: ColorTween(
-         begin: Color(0xFFFFABAA),
-         end: Color(0xFFFF7F82),
+         begin: Color(0xFF243754),
+         end: Color(0xFF505F76),
        ),
      ),
      TweenSequenceItem(
        weight: 1.0,
        tween: ColorTween(
-         begin: Color(0xFFFF7F82),
-         end: Color(0xFFFFABAA),
+         begin: Color(0xFF505F76),
+         end: Color(0xFF243754),
        ),
      ),
    ]);
@@ -132,7 +132,8 @@ class _HomeScreenState extends State <HomeScreen>
                         //color: Color(0xFFDFDFDE),   // teal
                         //color: Colors.grey[200],   // Light grey
                         //color: Color(0xFFE75480),  // Dark Pink
-                        color: Color(0xFFFFDEDF),   // light pink
+                        //color: Color(0xFFFFDEDF),   // light pink
+                        color: Theme.of(context).accentColor,
                         margin: EdgeInsets.all(15.0),
                         child: Container(
                           padding: EdgeInsets.all(15.0),
@@ -140,21 +141,26 @@ class _HomeScreenState extends State <HomeScreen>
                             children: <Widget>[
                               Container(
                                 //color: Colors.white,
-                                height: 50,
                                 width: 400,
-                                child:
-                                  FlatButton(
-                                    onPressed: (){
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => foodInfo(index)),
-                                      );
-                                    },
-                                    splashColor: Colors.lightGreen,
-                                    child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color: Color(0xFF048D79), fontSize: 30)),
-                                  )
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    snapshot.data.documents[index]['title'],
+                                    style: TextStyle(color: Color(0xFF101321), fontSize: 30),
+                                    textAlign: TextAlign.center),
+                                ),
                               ),
-                              Image.memory(bytes)
+                              Divider(
+                                height: 0.0,
+                                indent: 10.0,
+                                endIndent: 10.0,
+                                thickness: 2.0,
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              Divider(
+                                height: 15.0,
+                              ),
+                              Image.memory(bytes),
                             ],
                           )
                         )
@@ -182,7 +188,6 @@ class _HomeScreenState extends State <HomeScreen>
                                   ),
                                   Container(
                                     width: MediaQuery.of(context).size.width,
-                                    height: 40,
                                     color: background
                                       .evaluate(AlwaysStoppedAnimation(_controller.value)),
                                     child: Padding(
@@ -192,7 +197,7 @@ class _HomeScreenState extends State <HomeScreen>
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: Color(0xFFEBEBEB),
                                           fontSize: 20,
                                         ),
                                       ),
@@ -222,27 +227,31 @@ class _HomeScreenState extends State <HomeScreen>
      return Scaffold(
        appBar: AppBar(
          centerTitle: false,
-         title: Text("Pick Up"),
-         //backgroundColor: Color(0xFFF85F68), rose pink
-         backgroundColor: Color(0xFF048D79),  // green
+         title: Text("Pick Up", style: TextStyle(color: Color(0xFF101321), fontSize: 21)),
          actions: <Widget>[
            FlatButton(
              child: Padding(
                padding: EdgeInsets.all(8.0),
-               child: Text("Tap To Update Location", style: TextStyle(color: Colors.white, fontSize: 15)),
+               child: Text("Tap To Update Location", style: TextStyle(color: Color(0xFF101321), fontSize: 15)),
             ),
              onPressed: () {
                _getCurrentLocation();
              },
            ),
            IconButton(
-             icon: Icon(Icons.search),
+             icon: Icon(
+               Icons.search,
+               color: Color(0xFF101321),
+             ),
              onPressed: (){
                showSearch(context: context,delegate: Datasearch());
              }
            ),
            IconButton(
-             icon: Icon(Icons.explore),
+             icon: Icon(
+               Icons.explore,
+               color: Color(0xFF101321),
+             ),
              onPressed: (){
                Navigator.push(context,
                  MaterialPageRoute(builder: (context) => mapIcon()));
@@ -252,11 +261,11 @@ class _HomeScreenState extends State <HomeScreen>
           bottom: PreferredSize(
             child: Column(
               children: <Widget>[
-                Text("Your Current Location:", style: TextStyle(color: Colors.white, fontSize: 20)),
+                Text("Your Current Location:", style: TextStyle(color: Color(0xFF101321), fontSize: 20)),
                 if (_currentPosition != null)
-                   Text( _currentAddr, style: TextStyle(color: Colors.white, fontSize: 20)),
+                   Text( _currentAddr, style: TextStyle(color: Color(0xFF101321), fontSize: 20)),
                 if (_currentPosition == null)
-                  Text("None", style: TextStyle(color: Colors.white, fontSize: 20)),
+                  Text("Miami, FL", style: TextStyle(color: Color(0xFF101321), fontSize: 20)),
                 SizedBox(height: 10),
               ],
             ),
@@ -268,7 +277,8 @@ class _HomeScreenState extends State <HomeScreen>
        Container (
          //color: Color(0xFFF85F68),  // Red Rose
          //color: Color(0xFF77B1AD),    // Teal
-         color: Color(0xFF9DDAD2),    // Light green
+         //color: Color(0xFF9DDAD2),    // Light green
+         color: Theme.of(context).backgroundColor,      // dark calm blue
          child: Column (
        children: <Widget>[
            Expanded(

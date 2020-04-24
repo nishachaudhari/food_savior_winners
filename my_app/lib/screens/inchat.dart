@@ -19,7 +19,7 @@ class inChat extends StatelessWidget {
       appBar: AppBar(
             centerTitle: false,
             title: Text("Messages"),
-            backgroundColor: Color(0xFF048D79),
+            backgroundColor: Color(0xFF94AE3F),
               actions: <Widget>[
                 ]
           ),
@@ -75,7 +75,7 @@ class inChat extends StatelessWidget {
                     color: Colors.white,
                   ),
                   onLongPress: () {
-                   
+
                   },
                 ),
               )
@@ -87,7 +87,3 @@ class inChat extends StatelessWidget {
 
   }
 }
-
-
-
-

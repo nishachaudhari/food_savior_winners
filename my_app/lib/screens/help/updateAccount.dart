@@ -25,12 +25,12 @@ class _updateAccount extends State<updateAccount>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Update Account"),
-         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
        SingleChildScrollView(
        child: Container(
+         color: Theme.of(context).backgroundColor,      // dark calm blue
          padding: EdgeInsets.all(15),
          child: Column (children: <Widget>[
             SizedBox (height: 20),

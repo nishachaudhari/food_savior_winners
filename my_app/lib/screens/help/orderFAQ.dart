@@ -83,12 +83,12 @@ class _orderFAQ extends State<orderFAQ>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Order FAQ"),
-         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
        SingleChildScrollView(
        child: Container(
+         color: Theme.of(context).backgroundColor,      // dark calm blue
          padding: EdgeInsets.all(15),
          child: Column (children: <Widget>[
             SizedBox (height: 20),
