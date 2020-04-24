@@ -97,6 +97,7 @@ class _accountFormState extends State<accountForm>
           UserData userData = snapshot.data;
           return Scaffold (
             body: Container (
+              color: Theme.of(context).backgroundColor,      // dark calm blue
               child: Form(
                 key: _formKey,
                 child: Padding(

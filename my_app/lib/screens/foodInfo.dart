@@ -32,7 +32,7 @@ class _foodInfo extends State <foodInfo>
        appBar: AppBar(
          centerTitle: false,
          title: Text(""),
-         backgroundColor: Color(0xFF048D79),
+         backgroundColor: Color(0xFF94AE3F),
        ),
 
        body:
@@ -80,13 +80,13 @@ class _foodInfo extends State <foodInfo>
                               await DatabaseService(id:docID).editfoodStatus(
                                 user.uid,
                                 "pending"
-                                                 
+
                               );
                               await DatabaseService().updaterequestData(foodOwner, user.uid, docID, "pending");
                               Navigator.push(context,
                               MaterialPageRoute(builder: (context) => messages()),
                               );
-                              
+
                             },
                             child: Text("Request Food!",
                                 textAlign: TextAlign.center,

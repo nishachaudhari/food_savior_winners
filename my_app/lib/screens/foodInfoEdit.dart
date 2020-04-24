@@ -52,7 +52,7 @@ class _foodInfo2 extends State <foodInfo2>
        appBar: AppBar(
          centerTitle: false,
          title: Text(""),
-         backgroundColor: Color(0xFF048D79),
+         backgroundColor: Color(0xFF94AE3F),
        ),
 
        body:
@@ -115,7 +115,7 @@ class _foodInfo2 extends State <foodInfo2>
                         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         onPressed: () {
 
-                        Firestore.instance.collection('food').document(docID).delete();                            
+                        Firestore.instance.collection('food').document(docID).delete();
                         Navigator.pop(context);
                         _showDialog();
 

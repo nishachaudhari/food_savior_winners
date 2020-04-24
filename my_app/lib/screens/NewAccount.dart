@@ -5,11 +5,11 @@ import 'package:my_app/services/database.dart';
 
 
 
-class NewAccount extends StatefulWidget 
+class NewAccount extends StatefulWidget
 {
   final Function toggleView;
   NewAccount({ this.toggleView });
-  
+
   @override
   _NewAccountState createState() => _NewAccountState();
   }
@@ -31,12 +31,12 @@ class _NewAccountState extends State<NewAccount>
   @override
   Widget build(BuildContext context) {
 
-    
+
 
     final createButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xFF048D79),
+          color: Theme.of(context).primaryColor,      // dark calm blue,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -54,7 +54,7 @@ class _NewAccountState extends State<NewAccount>
                     setState(()
                     {error = 'please supply valid email';}
                       );
-                      
+
                    }
               }
             }
@@ -65,7 +65,7 @@ class _NewAccountState extends State<NewAccount>
     final backButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xFF048D79),
+          color: Theme.of(context).primaryColor,      // dark calm blue,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -80,6 +80,7 @@ class _NewAccountState extends State<NewAccount>
 
     return Scaffold(
       body:Container(
+        color: Theme.of(context).primaryColor,      // dark calm blue
         child: Padding(
           padding: const EdgeInsets.all(36.0),
           child: Form(
@@ -134,13 +135,13 @@ class _NewAccountState extends State<NewAccount>
                         SizedBox(height:12.0),
                         Text(error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0)),
-                        
+
             ],
           ),
         ),
       ),
     ),
-    
+
     );
   }
 }

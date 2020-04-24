@@ -19,11 +19,11 @@ class _guide extends State<guide>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Guide to Food Savior"),
-         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
        Container(
+            color: Theme.of(context).backgroundColor,      // dark calm blue
             padding: EdgeInsets.all(15.0),
              child: Column (
                crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +36,7 @@ class _guide extends State<guide>
                         onPressed: (){
                           Navigator.push(
                             context,
-                             MaterialPageRoute(builder: (context) => gettingStarted())); 
+                             MaterialPageRoute(builder: (context) => gettingStarted()));
                           },
                         child: Row (children: <Widget>[
                           Text("Getting Started with FoodSavior", style: (TextStyle(fontSize: 20))),

@@ -33,7 +33,7 @@ class _foodInfoNothing extends State <foodInfoNothing>
        appBar: AppBar(
          centerTitle: false,
          title: Text(""),
-         backgroundColor: Color(0xFF048D79),
+         backgroundColor: Color(0xFF94AE3F),
        ),
 
        body:
@@ -68,7 +68,7 @@ class _foodInfoNothing extends State <foodInfoNothing>
                     Text (snapshot.data.documents[widget.index]['location'],style: TextStyle(color:Colors.black, fontSize: 20)),
                     SizedBox(height: 20,),
                     Text ("Claimed by User:", style: TextStyle(color: Color(0xFF048D79), fontSize:30)),
-                    SizedBox(height: 20,),  
+                    SizedBox(height: 20,),
                       ]
                  )
                 )

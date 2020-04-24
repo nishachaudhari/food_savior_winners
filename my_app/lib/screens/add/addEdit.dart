@@ -25,7 +25,7 @@ class addEdit extends StatefulWidget
 
 class _addEditState extends State<addEdit>
     with TickerProviderStateMixin,ImagePickerListener{
-      
+
   //final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //this will be able to track state of form (to make sure no blank items)
 
@@ -137,7 +137,7 @@ class _addEditState extends State<addEdit>
 
     final ref = Firestore.instance.collection('food').snapshots();
 
-    
+
 
     return StreamBuilder(
       stream: ref,
@@ -147,6 +147,7 @@ class _addEditState extends State<addEdit>
           return Scaffold (
             body: SingleChildScrollView(
             child: Container (
+              color: Theme.of(context).backgroundColor,      // dark calm blue
               child: Form(
                 key: _formKey,
                 child: Padding(
@@ -288,7 +289,7 @@ class _addEditState extends State<addEdit>
                                   child: Text(value),
                                   );
                                 })
-                              .toList(), 
+                              .toList(),
                         ),
                         SizedBox(height: 20.0),
                       Text("${selectedDate.toLocal()}".split(' ')[0]),
@@ -333,7 +334,7 @@ class _addEditState extends State<addEdit>
                                   String base64Image = base64Encode(File(_image.path).readAsBytesSync());
                                   if (_formKey.currentState.validate())
                                 {
-                                  
+
                                   await DatabaseService(id:widget.docID).editfoodData(
                                     _currentuser,
                                     _currenttitle,

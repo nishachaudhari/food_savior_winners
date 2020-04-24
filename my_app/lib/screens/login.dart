@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/services/auth.dart';
 
-class LoginPage extends StatefulWidget 
+class LoginPage extends StatefulWidget
 {
     final Function toggleView;
   LoginPage({ this.toggleView });
-  
+
   @override
   _LoginPageState createState() => _LoginPageState();
   }
@@ -14,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
 
 
   final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>(); 
+  final _formKey = GlobalKey<FormState>();
 
   //text field state
 
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
         OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
         ),
       );
-    
+
     final passwordField = TextFormField(
       validator: (val) => val.isEmpty ? 'Enter a password' : null,
       onChanged: (val){
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
     final loginButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xFF048D79),
+          color: Theme.of(context).primaryColor,      // dark calm blue,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   {
                     setState(()=>error = 'could not sign in with those credentials');
                   }
-                  
+
                   }
             },
             child: Text("Login",
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
     final createButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xFF048D79),
+          color: Theme.of(context).primaryColor,      // dark calm blue,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
           body: Center(
             child: Container(
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,      // dark calm blue
               child: Padding(
                 padding: const EdgeInsets.all(36.0),
                 child:Form(
@@ -136,5 +136,3 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     }
-    
-

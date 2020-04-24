@@ -66,7 +66,7 @@ class _addFormState extends State<addForm>
   String addr = 'Location';
   double lat;
   double lng;
-  
+
 
   File _image;
   AnimationController _controller;
@@ -136,6 +136,7 @@ class _addFormState extends State<addForm>
       return Scaffold(
         body:SingleChildScrollView(
         child: Container (
+          color: Theme.of(context).backgroundColor,      // dark calm blue
           child:Padding(
             padding: const EdgeInsets.all(36.0),
           child: Form(
@@ -279,7 +280,7 @@ class _addFormState extends State<addForm>
                                   child: Text(value),
                                   );
                                 })
-                              .toList(), 
+                              .toList(),
                         ),
                         SizedBox(height: 20.0),
                       Text("${selectedDate.toLocal()}".split(' ')[0]),
@@ -329,7 +330,7 @@ class _addFormState extends State<addForm>
                                     _currenttitle,
                                     _currentamount,
                                     _currentlocation,
-                                    lat, 
+                                    lat,
                                     lng,
                                     _currentdescription,
                                     _currentcuisine,

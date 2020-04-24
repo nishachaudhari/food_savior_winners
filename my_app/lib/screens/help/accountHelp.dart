@@ -19,11 +19,11 @@ class  _accountHelp extends State <accountHelp>
        appBar: AppBar(
          centerTitle: false,
          title: Text("Account"),
-         backgroundColor: Color(0xFF048D79),
        ),
 
        body:
        Container(
+            color: Theme.of(context).backgroundColor,      // dark calm blue
             padding: EdgeInsets.all(15.0),
              child: Column (
                crossAxisAlignment: CrossAxisAlignment.center,

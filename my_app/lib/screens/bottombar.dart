@@ -40,7 +40,8 @@ class _bottombarState extends State <bottombar>
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           // sets the background color of the `BottomNavigationBar`
-          canvasColor: Color(0xFF048D79),
+          //canvasColor: Color(0xFF048D79),     // green
+          canvasColor: Theme.of(context).primaryColor,     // light green
           // sets the active color of the `BottomNavigationBar` if `Brightness` is light
           primaryColor: Colors.red,
           textTheme: Theme
@@ -48,8 +49,8 @@ class _bottombarState extends State <bottombar>
             .textTheme
             .copyWith(caption: new TextStyle(color: Colors.yellow))), // sets the inactive color of the `BottomNavigationBar`
           child: BottomNavigationBar(
-            selectedItemColor: Color(0xFFFF9A98),
-            unselectedItemColor: Colors.white,
+            selectedItemColor: Color(0xFFEBEBEB),
+            unselectedItemColor: Color(0xFF101321),
             showUnselectedLabels: true,
 
             onTap: onTappedBar,
