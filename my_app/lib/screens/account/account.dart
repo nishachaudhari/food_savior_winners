@@ -162,29 +162,29 @@ class _accountState extends State<account>
           //String base64Image = base64Encode(File('my_app/screens/account/account.jpg').readAsBytesSync());
           //Uint8List bytes = base64Decode(base64Image);
           //if(snapshot.hasData) 
-          Uint8List bytes = base64Decode(snapshot.data['photo']);
+          //Uint8List bytes = base64Decode(snapshot.data['photo']);
            final fname = snapshot.data['firstName'];
            final lname = snapshot.data['lastName'];
            final name = '$fname' + ' ' + '$lname' + '!';
           return Container(
             padding: const EdgeInsets.all(15.0),
-            child: Column(
-            children:<Widget>[
-                Text("Welcome $name", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),textAlign: TextAlign.left),
-                SizedBox(height:20),
-                Image.memory(bytes, height: 150, width: 150),
-                SizedBox(height:20),
-                Text("Orders that are waiting for you to Pick Up: "),
-                awaitingPickup,
-                SizedBox(height:20),
-                Text("Your Orders Pending Approval: "),
-                pendingApproval,
-                SizedBox(height: 20.0),
-                Text("Past Orders: "),
-                picsPastOrders,
-                helpButton
-            ]
-            )
+            // child: Column(
+            // children:<Widget>[
+            //     Text("Welcome $name", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),textAlign: TextAlign.left),
+            //     SizedBox(height:20),
+            //     Image.memory(bytes, height: 150, width: 150),
+            //     SizedBox(height:20),
+            //     Text("Orders that are waiting for you to Pick Up: "),
+            //     awaitingPickup,
+            //     SizedBox(height:20),
+            //     Text("Your Orders Pending Approval: "),
+            //     pendingApproval,
+            //     SizedBox(height: 20.0),
+            //     Text("Past Orders: "),
+            //     picsPastOrders,
+            //     helpButton
+            // ]
+            // )
           );
           }
           )

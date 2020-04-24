@@ -13,8 +13,9 @@ import 'package:my_app/screens/mapIcon.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:my_app/screens/foodInfo.dart';
 import 'package:my_app/common/color.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_app/services/category_selector.dart';
+import 'package:my_app/services/recent_chats.dart';
+import 'package:my_app/models/message.dart';
 
 class conversation extends StatefulWidget
 {
@@ -28,9 +29,24 @@ class conversation extends StatefulWidget
 
 class _conversation extends State <conversation>
 {
+  dynamic data;
+
+  Future<dynamic> getUser(String userID) async {
+
+    final DocumentReference document =   Firestore.instance.collection("convo").document(userID);
+
+    await document.get().then<dynamic>(( DocumentSnapshot snapshot) async{
+     setState(() {
+       data = snapshot.data;
+     });
+    });
+ }
+
+  @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    String hostName;
 
     return Scaffold(
       backgroundColor: accentColor,
@@ -64,20 +80,26 @@ class _conversation extends State <conversation>
                   return ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int index) {
-                      if (snapshot.data.documents[index]['clientID']== user.uid)
+                      if (snapshot.data.documents[index]['clientID']== user.uid){
+                        final Message chat = snapshot.data.documents[index]['message'];
+                        // Stream<DocumentSnapshot> userSnap = Firestore.instance
+                        //   .collection('users')
+                        //   .document(snapshot.data.documents[index]['clientID'].toString())
+                        //   .snapshots();
                         return Container(
-                              margin: EdgeInsets.all(15.0),
-                              height: 50,
-                              child: FlatButton (
-                                onPressed: (){
-                                  Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => foodInfo2(index)),
-                                  );
-                                },
-                                child:Text('TEST')
-                              )
-                        );
+                                margin: EdgeInsets.all(15.0),
+                                height: 50,
+                                child: FlatButton (
+                                  onPressed: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => foodInfo2(index)),
+                                    );
+                                  },
+                                  child: Text('Test')
+                                )
+                              );
+                      }
                         else return Container();
                       },
                     itemCount: snapshot.data.documents == null ? 0:length,
