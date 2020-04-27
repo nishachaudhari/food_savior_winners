@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
 
-    final logo = Text("FoodSavior", style: TextStyle(fontSize:32.0), textAlign: TextAlign.center,);
+    final logo = Text("FoodSavior", style: TextStyle(fontSize:32.0, color: Colors.white), textAlign: TextAlign.center,);
 
     final emailField = TextFormField(
       validator: (val) => val.isEmpty ? 'Enter an Email' : null,
@@ -36,9 +36,9 @@ class _LoginPageState extends State<LoginPage> {
       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       hintText: "Email",
       enabledBorder:
-        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.white)),
       focusedBorder:
-        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
+        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
         ),
       );
 
@@ -52,9 +52,9 @@ class _LoginPageState extends State<LoginPage> {
       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       hintText: "Password",
       enabledBorder:
-        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.white)),
       focusedBorder:
-        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFFDFDFDE)))
+        OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
         ),
       );
 
