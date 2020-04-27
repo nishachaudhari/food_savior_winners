@@ -3,10 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:my_app/models/user.dart';
-import 'package:my_app/screens/bottombar.dart';
+import 'package:my_app/screens/homeScreen/bottombar.dart';
 import 'package:provider/provider.dart';
-import 'package:my_app/screens/authenticate.dart';
-import 'package:my_app/models/food.dart';
+import 'package:my_app/screens/loginStuff/authenticate.dart';
 
 class Wrapper extends StatelessWidget {
   @override

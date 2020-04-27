@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/foodInfo.dart';
+import 'package:my_app/screens/foodInfoPages/foodInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
-import 'package:my_app/screens/mapIcon.dart';
+import 'package:my_app/screens/homeScreen/mapIcon.dart';
 import 'package:geolocator/geolocator.dart';
 
 

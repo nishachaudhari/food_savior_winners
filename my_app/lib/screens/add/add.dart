@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/add/addForm.dart';
-import 'package:my_app/screens/HomeScreen.dart';
+import 'package:my_app/screens/homeScreen/HomeScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
-import 'package:my_app/screens/foodInfoEdit.dart';
-import 'package:my_app/screens/foodInfoNothing.dart';
+import 'package:my_app/screens/foodInfoPages/foodInfoEdit.dart';
+import 'package:my_app/screens/foodInfoPages/foodInfoNothing.dart';
 import 'package:provider/provider.dart';
 
 

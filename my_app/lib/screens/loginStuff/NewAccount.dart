@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/models/user.dart';
 import 'package:my_app/services/auth.dart';
-import 'package:my_app/services/database.dart';
 
 
 

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/messages.dart';
-import 'package:my_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:my_app/screens/messages.dart';
 
 class foodInfoNothing extends StatefulWidget
 {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/models/user.dart';
-import 'package:my_app/screens/inchat.dart';
+import 'package:my_app/screens/messages/inchat.dart';
 import 'package:provider/provider.dart';
-import 'package:my_app/screens/chatmodel.dart';
+import 'package:my_app/screens/messages/chatmodel.dart';
 
 
 

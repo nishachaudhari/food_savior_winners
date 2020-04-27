@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/services/auth.dart';
-import 'package:my_app/screens/messages.dart';
+import 'package:my_app/screens/messages/messages.dart';
 import 'package:my_app/screens/add/add.dart';
 import 'package:my_app/screens/account/account.dart';
-import 'package:my_app/screens/HomeScreen.dart';
+import 'package:my_app/screens/homeScreen/HomeScreen.dart';
 
 
 

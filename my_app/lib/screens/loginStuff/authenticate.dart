@@ -1,5 +1,5 @@
-import 'package:my_app/screens/NewAccount.dart';
-import 'package:my_app/screens/login.dart';
+import 'package:my_app/screens/loginStuff/NewAccount.dart';
+import 'package:my_app/screens/loginStuff/login.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {

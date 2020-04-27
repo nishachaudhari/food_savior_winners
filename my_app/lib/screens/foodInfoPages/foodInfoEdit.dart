@@ -1,32 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/messages.dart';
-import 'package:my_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:my_app/screens/messages.dart';
+import 'package:my_app/screens/add/addEdit.dart';
 
-class foodInfo extends StatefulWidget
+class foodInfo2 extends StatefulWidget
 {
   final int index;
-  const foodInfo(this.index);
+  const foodInfo2(this.index);
 
   @override
   State <StatefulWidget> createState()
   {
-    return _foodInfo();
+    return _foodInfo2();
   }
 }
 
-class _foodInfo extends State <foodInfo>
+class _foodInfo2 extends State <foodInfo2>
 {
+
 
 
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
+
+    void _showDialog(){
+      showDialog(context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: new Text("Food Successfully Deleted!"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {Navigator.pop(context);}
+              )
+            ]
+          );
+        }
+      );
+    }
+
+
 
     return Scaffold(
        appBar: AppBar(
@@ -36,15 +53,13 @@ class _foodInfo extends State <foodInfo>
        ),
 
        body:
-       StreamBuilder(
+       SingleChildScrollView(
+       child: StreamBuilder(
          stream: Firestore.instance.collection('food').snapshots(),
          builder: (context, snapshot){
            if(!snapshot.hasData) return Text('loading data .... please wait');
            Uint8List bytes = base64Decode(snapshot.data.documents[widget.index]['photo']);
-           String docID;
-           docID = snapshot.data.documents[widget.index].documentID;
-           String foodOwner = snapshot.data.documents[widget.index]['user'];
-          int length = snapshot.data.documents.length;
+           String docID = snapshot.data.documents[widget.index].documentID;
           return Container(
             padding: EdgeInsets.all(15.0),
              child: Column (
@@ -70,31 +85,46 @@ class _foodInfo extends State <foodInfo>
                     Text (snapshot.data.documents[widget.index]['location'],style: TextStyle(color:Colors.black, fontSize: 20)),
                     SizedBox(height: 20,),
                     Material(
-                          elevation: 5.0,
-                          borderRadius: BorderRadius.circular(30.0),
-                          color: Color(0xFF048D79),
-                          child: MaterialButton(
-                            minWidth: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                            onPressed: () async {
-                              await DatabaseService(id:docID).editfoodStatus(
-                                user.uid,
-                                "pending"
+                      elevation: 5.0,
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: Color(0xFF048D79),
+                      child: MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        onPressed: () {
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => addEdit(docID)));
 
-                              );
-                              await DatabaseService().updaterequestData(foodOwner, user.uid, docID, "pending");
-                              Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => messages()),
-                              );
+                        },
+                        child: Text("Edit Food",
+                            textAlign: TextAlign.center,
+                            //style: style.copyWith(
+                              // color: Colors.white, fontWeight: FontWeight.bold)),
+                      ),
+                      )
+                    ),
+                    SizedBox(height: 20),
+                    Material(
+                      elevation: 5.0,
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: Color(0xFF048D79),
+                      child: MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        onPressed: () {
 
-                            },
-                            child: Text("Request Food!",
-                                textAlign: TextAlign.center,
-                                //style: style.copyWith(
-                                  // color: Colors.white, fontWeight: FontWeight.bold)),
-                          ),
-                          )
-                        )
+                        Firestore.instance.collection('food').document(docID).delete();
+                        Navigator.pop(context);
+                        _showDialog();
+
+                        },
+                        child: Text("Delete Food",
+                            textAlign: TextAlign.center,
+                            //style: style.copyWith(
+                              // color: Colors.white, fontWeight: FontWeight.bold)),
+                      ),
+                      )
+                    ),
+
                       ]
                  )
                 )
@@ -104,7 +134,7 @@ class _foodInfo extends State <foodInfo>
            );
           }
        )
-
+       )
     );
   }
 }
