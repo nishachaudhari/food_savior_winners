@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:firebase_auth/firebase_auth.dart' ;
 
 class mapIcon extends StatefulWidget
 {
@@ -53,15 +54,20 @@ class _mapIcon extends State <mapIcon>
       });
     }
 
-    populate(){
+    populate () async{
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
      Firestore.instance.collection('food').getDocuments().then((querySnapshot){
        querySnapshot.documents.forEach((result)
           {
+            
             String title = result.data['title'];
             double lat = result.data['lat'];
             double lng = result.data['lng'];
             String id = result.documentID;
-            intoMarker(title, lat, lng, id); 
+            if(uid != result.data['user'])
+            {intoMarker(title, lat, lng, id);} 
           }
           
         );

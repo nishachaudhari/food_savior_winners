@@ -23,7 +23,7 @@ class messages extends StatelessWidget {
                 ]
           ),
       body: Container(
-        color: Theme.of(context).backgroundColor,      // dark calm blue
+       color: Theme.of(context).backgroundColor,      // dark calm blue
         child: ListView.builder(
           itemCount: ChatModel.dummyData.length,
           itemBuilder: (context, index) {
