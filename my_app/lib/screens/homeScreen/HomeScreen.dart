@@ -342,7 +342,7 @@ class _HomeScreenState extends State <HomeScreen>
            height:100.0,
            width: 100.0,
            child: Card(
-           color: Colors.green,
+           //color: Colors.black,
            shape: StadiumBorder(),
            child:Center(
              child: Text(query),
@@ -370,7 +370,7 @@ class _HomeScreenState extends State <HomeScreen>
                      children: [
                        TextSpan(
                          text: suggestionList[index].substring(query.length),
-                         style: TextStyle(color: Colors.green))
+                         style: TextStyle(color: Colors.white))
 
                      ]
                  ),
