@@ -7,7 +7,7 @@ import 'dart:typed_data';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/screens/help/help.dart';
-import 'dart:io';
+import 'package:my_app/screens/foodInfoPages/foodInfoNothing.dart';
 
 
 
@@ -72,7 +72,15 @@ class _accountState extends State<account>
                         return Container(
                               margin: EdgeInsets.all(15.0),
                               height: 50,
-                              child: Image.memory(bytes, height: 200, width: 200),
+                              child: FlatButton (
+                                onPressed: (){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => foodInfoNothing(index)),
+                                  );
+                                },
+                                child: Image.memory(bytes, height: 200, width: 200),
+                              ),
                         );
                       else
                         return Container();
@@ -108,7 +116,15 @@ class _accountState extends State<account>
                 return Container(
                       margin: EdgeInsets.all(15.0),
                       height: 50,
-                      child: Image.memory(bytes, height: 200, width: 200),
+                      child: FlatButton (
+                                onPressed: (){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => foodInfoNothing(index)),
+                                  );
+                                },
+                                child: Image.memory(bytes, height: 200, width: 200),
+                              ),
                 );
               else
                 return Container();
@@ -145,7 +161,15 @@ class _accountState extends State<account>
                 return Container(
                       margin: EdgeInsets.all(15.0),
                       height: 50,
-                      child: Image.memory(bytes, height: 200, width: 200),
+                      child: FlatButton (
+                                onPressed: (){
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => foodInfoNothing(index)),
+                                  );
+                                },
+                                child: Image.memory(bytes, height: 200, width: 200),
+                              )
                 );
               else
                 return Container();

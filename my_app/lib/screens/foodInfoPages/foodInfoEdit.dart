@@ -46,6 +46,7 @@ class _foodInfo2 extends State <foodInfo2>
 
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
        appBar: AppBar(
          centerTitle: false,
          title: Text(""),
@@ -70,24 +71,24 @@ class _foodInfo2 extends State <foodInfo2>
                       children: <Widget>[
                     Image.memory(bytes,height: 200, width: 200),
                     SizedBox(height: 20),
-                    Text(snapshot.data.documents[widget.index]['title'],style: TextStyle(color:Color(0xFF048D79), fontSize: 40)),
+                    Text(snapshot.data.documents[widget.index]['title'],style: TextStyle(color:Theme.of(context).primaryColor, fontSize: 40)),
                     SizedBox(height: 30,),
-                    Text (snapshot.data.documents[widget.index]['description'],style: TextStyle(color:Color(0xFF048D79), fontSize: 20)),
+                    Text (snapshot.data.documents[widget.index]['description'],style: TextStyle(color:Theme.of(context).primaryColor, fontSize: 20)),
                     SizedBox(height: 30,),
-                    Text ("Serving Size:", style: TextStyle(color: Color(0xFF048D79), fontSize:30)),
-                    Text (snapshot.data.documents[widget.index]['amount'],style: TextStyle(color:Colors.black, fontSize: 20)),
+                    Text ("Serving Size:", style: TextStyle(color: Theme.of(context).primaryColor, fontSize:30)),
+                    Text (snapshot.data.documents[widget.index]['amount'],style: TextStyle(color:Colors.white, fontSize: 20)),
                     SizedBox(height: 20,),
-                    Text ("Date and Time:", style: TextStyle(color: Color(0xFF048D79), fontSize:30)),
-                    Text (snapshot.data.documents[widget.index]['time'],style: TextStyle(color:Colors.black, fontSize: 20)),
-                    Text (snapshot.data.documents[widget.index]['date'], style: TextStyle(color:Colors.black, fontSize: 20)),
+                    Text ("Date and Time:", style: TextStyle(color: Theme.of(context).primaryColor, fontSize:30)),
+                    Text (snapshot.data.documents[widget.index]['time'],style: TextStyle(color:Colors.white, fontSize: 20)),
+                    Text (snapshot.data.documents[widget.index]['date'], style: TextStyle(color:Colors.white, fontSize: 20)),
                     SizedBox(height: 20,),
-                    Text ("Location:", style: TextStyle(color: Color(0xFF048D79), fontSize:30)),
-                    Text (snapshot.data.documents[widget.index]['location'],style: TextStyle(color:Colors.black, fontSize: 20)),
+                    Text ("Location:", style: TextStyle(color: Theme.of(context).primaryColor, fontSize:30)),
+                    Text (snapshot.data.documents[widget.index]['location'],style: TextStyle(color:Colors.white, fontSize: 20)),
                     SizedBox(height: 20,),
                     Material(
                       elevation: 5.0,
                       borderRadius: BorderRadius.circular(30.0),
-                      color: Color(0xFF048D79),
+                      color: Theme.of(context).primaryColor,
                       child: MaterialButton(
                         minWidth: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -106,7 +107,7 @@ class _foodInfo2 extends State <foodInfo2>
                     Material(
                       elevation: 5.0,
                       borderRadius: BorderRadius.circular(30.0),
-                      color: Color(0xFF048D79),
+                      color: Theme.of(context).primaryColor,
                       child: MaterialButton(
                         minWidth: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
