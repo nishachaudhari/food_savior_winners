@@ -129,10 +129,6 @@ class _HomeScreenState extends State <HomeScreen>
                   child: Stack(
                     children: <Widget>[
                       Card(
-                        //color: Color(0xFFDFDFDE),   // teal
-                        //color: Colors.grey[200],   // Light grey
-                        //color: Color(0xFFE75480),  // Dark Pink
-                        //color: Color(0xFFFFDEDF),   // light pink
                         color: Theme.of(context).accentColor,
                         margin: EdgeInsets.all(15.0),
                         child: Container(
@@ -275,9 +271,6 @@ class _HomeScreenState extends State <HomeScreen>
 
        body:
        Container (
-         //color: Color(0xFFF85F68),  // Red Rose
-         //color: Color(0xFF77B1AD),    // Teal
-         //color: Color(0xFF9DDAD2),    // Light green
          color: Theme.of(context).backgroundColor,      // dark calm blue
          child: Column (
        children: <Widget>[

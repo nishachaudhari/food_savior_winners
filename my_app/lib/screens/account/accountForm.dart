@@ -74,7 +74,7 @@ class _accountFormState extends State<accountForm>
     final backButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xFF048D79),
+      color: Theme.of(context).primaryColor,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -114,11 +114,11 @@ class _accountFormState extends State<accountForm>
                                 Center(
                                   child: CircleAvatar(
                                     radius: 80.0,
-                                    backgroundColor: Color(0xFF778899),
+                                    backgroundColor: Theme.of(context).accentColor,
                                   ),
                                 ),
                                 Center(
-                                  child: Icon(Icons.photo_camera),
+                                  child: Icon(Icons.photo_camera, color: Colors.grey),
                                 ),
                               ],
                             )
@@ -132,7 +132,7 @@ class _accountFormState extends State<accountForm>
                                     fit: BoxFit.cover,
                                   ),
                                   border:
-                                      Border.all(color: Colors.red, width: 5.0),
+                                      Border.all(color: Theme.of(context).primaryColor, width: 5.0),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(80.0)),
                                 ),
@@ -148,8 +148,9 @@ class _accountFormState extends State<accountForm>
                         decoration: InputDecoration(
                         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: "First Name",
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
+                        hintStyle: TextStyle(color:Colors.white),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
                         ) ,
                       ),
                       SizedBox(height: 30.0),
@@ -161,8 +162,9 @@ class _accountFormState extends State<accountForm>
                         decoration: InputDecoration(
                         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: "Last Name",
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
+                        hintStyle: TextStyle(color:Colors.white),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
                         ) ,
                       ),
                       SizedBox(height: 30.0),
@@ -174,15 +176,16 @@ class _accountFormState extends State<accountForm>
                         decoration: InputDecoration(
                         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: "Phone Number",
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
+                        hintStyle: TextStyle(color:Colors.white),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
                         ) ,
                       ),
                       SizedBox(height: 45.0),
                       Material(
                         elevation: 5.0,
                         borderRadius: BorderRadius.circular(30.0),
-                        color:Color(0xFF048D79),
+                        color:Theme.of(context).primaryColor,
                         child: MaterialButton(
                           minWidth: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
