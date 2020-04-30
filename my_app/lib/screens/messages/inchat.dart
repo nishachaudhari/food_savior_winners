@@ -16,15 +16,16 @@ class inChat extends StatelessWidget {
 
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
             centerTitle: false,
             title: Text("Messages"),
-            backgroundColor: Color(0xFF94AE3F),
+            
               actions: <Widget>[
                 ]
           ),
-      body: Container(
-
+      body: 
+        Container(
           margin: EdgeInsets.all(15.0),
           height: 61,
           child: Row(
@@ -83,6 +84,7 @@ class inChat extends StatelessWidget {
           ),
 
       ),
+      
     );
 
   }

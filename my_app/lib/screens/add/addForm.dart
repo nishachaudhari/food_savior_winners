@@ -119,7 +119,7 @@ class _addFormState extends State<addForm>
       final backButton = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xFF048D79),
+          color: Theme.of(context).primaryColor,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -155,11 +155,11 @@ class _addFormState extends State<addForm>
                                   Center(
                                     child: CircleAvatar(
                                       radius: 80.0,
-                                      backgroundColor: Color(0xFF778899),
+                                      backgroundColor: Theme.of(context).accentColor,
                                     ),
                                   ),
                                   Center(
-                                    child: Icon(Icons.photo_camera),
+                                    child: Icon(Icons.photo_camera, color: Colors.grey)
                                   ),
 
                                 ],
@@ -174,7 +174,7 @@ class _addFormState extends State<addForm>
                                     fit: BoxFit.cover,
                                   ),
                                   border:
-                                      Border.all(color: Colors.red, width: 5.0),
+                                      Border.all(color: Theme.of(context).primaryColor, width: 5.0),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(80.0)),
                                 ),
@@ -190,8 +190,9 @@ class _addFormState extends State<addForm>
                           decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Title",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
+                          hintStyle: TextStyle(color:Colors.white),
+                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
                           ) ,
                         ),
                         SizedBox(height: 20.0),
@@ -204,17 +205,17 @@ class _addFormState extends State<addForm>
                           isExpanded: true,
                           underline: Container(
                             height: 1,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                           icon: Icon(Icons.arrow_drop_down),
-                           items: <String>['Serving Size', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10+']
-                              .map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                  );
-                                })
-                              .toList(),
+                          items: <String>['Serving Size','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10+']
+                            .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value, style: TextStyle(color:Colors.white),),
+                                );
+                              })
+                            .toList(),
                         ),
                         SizedBox(height: 20.0),
                         TextField(
@@ -243,8 +244,8 @@ class _addFormState extends State<addForm>
                           decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           //hintText: addr,
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
+                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
                           ) ,
                         ),
                         SizedBox(height: 20.0),
@@ -256,8 +257,9 @@ class _addFormState extends State<addForm>
                           decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           hintText: "Description",
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Color(0xFF048D79)))
+                          hintStyle: TextStyle(color:Colors.white),
+                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Theme.of(context).primaryColor))
                           ) ,
                         ),
                         SizedBox(height: 20.0),
@@ -270,7 +272,7 @@ class _addFormState extends State<addForm>
                           isExpanded: true,
                           underline: Container(
                             height: 1,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                           icon: Icon(Icons.arrow_drop_down),
                            items: <String>['Cuisine', 'American','Baked Goods', 'Breakfast','Carribean', 'Chinese', 'French', 'Greek', 'Indian', 'Italian', 'Japanese', 'Korean','Mediterranean', 'Moroccan', 'Mexican', 'Spanish','Thai', 'Other']
@@ -283,16 +285,18 @@ class _addFormState extends State<addForm>
                               .toList(),
                         ),
                         SizedBox(height: 20.0),
-                      Text("${selectedDate.toLocal()}".split(' ')[0]),
+                      Text("${selectedDate.toLocal()}".split(' ')[0], style: TextStyle(color: Colors.white),),
                       RaisedButton(
                         onPressed: () => _selectDate(context),
                         child: Text('Select date'),
+                        color: Theme.of(context).primaryColor,
 
                       ),
-                      Text("${selectedTime}"),
+                      Text("${selectedTime}", style: TextStyle(color: Colors.white)),
                       RaisedButton(
                         onPressed: () =>_selectTime(context),
                         child: Text('Select time'),
+                        color:Theme.of(context).primaryColor
                       ),
                         /*TextFormField(
                           validator: (val) => val.isEmpty ? 'Enter some tags' : null,
@@ -312,7 +316,7 @@ class _addFormState extends State<addForm>
                         Material(
                               elevation: 5.0,
                               borderRadius: BorderRadius.circular(30.0),
-                              color: Color(0xFF048D79),
+                              color: Theme.of(context).primaryColor,
                               child: MaterialButton(
                                 minWidth: MediaQuery.of(context).size.width,
                                 padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

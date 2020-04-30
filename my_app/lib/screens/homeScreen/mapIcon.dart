@@ -211,7 +211,6 @@ class _mapIcon extends State <mapIcon>
       appBar: AppBar(
             centerTitle: false,
             title: Text("Map View"),
-            backgroundColor: Colors.teal,
               actions: <Widget>[
               ]
           ),

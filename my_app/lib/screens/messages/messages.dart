@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:my_app/models/chatmodel.dart';
 import 'dart:convert';
 import 'dart:typed_data';
-
+import 'package:firebase_auth/firebase_auth.dart' ;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class messages extends StatefulWidget
@@ -25,7 +25,10 @@ class _messages extends State <messages> {
 
   List<ChatModel> chatData = [];
 
-  void intoList(client){
+  void intoList(client, host)async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
     Firestore.instance.collection('users').getDocuments().then((querySnapshot){
       querySnapshot.documents.forEach((result)
         {   
@@ -34,14 +37,14 @@ class _messages extends State <messages> {
             _avatarUrl = result.data['photo'];
             String _name = result.data['firstName'];
             
-            if(result.documentID == client)
+            if(result.documentID == client && result.documentID!=uid)
               {
               ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: "right now", message: "this message" );
               
               setState(() {
                     chatData.add(_data);
                 });
-              }   
+              }  
          }
         );
       }
@@ -53,7 +56,8 @@ class _messages extends State <messages> {
       querySnapshot.documents.forEach((result)
         {
           String client = result.data['clientID'];
-          intoList(client); 
+          String host = result.data['hostID'];
+          intoList(client, host); 
         }
         
       );
@@ -68,6 +72,7 @@ class _messages extends State <messages> {
   
 
   return Scaffold(
+    backgroundColor: Theme.of(context).backgroundColor,
     appBar: AppBar(
           centerTitle: false,
           title: Text("Messages"),
@@ -75,7 +80,6 @@ class _messages extends State <messages> {
               ]
         ),
       body: Container(
-       color: Theme.of(context).backgroundColor,      // dark calm blue
         child: ListView.builder(
           itemCount: chatData.length,
           itemBuilder: (context, index) {
