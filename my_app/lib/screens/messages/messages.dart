@@ -37,7 +37,7 @@ class _messages extends State <messages> {
             _avatarUrl = result.data['photo'];
             String _name = result.data['firstName'];
             
-            if(result.documentID == client && result.documentID!=uid)
+            if(result.documentID == client && uid==host)
               {
               ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: "right now", message: "this message" );
               
