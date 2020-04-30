@@ -95,9 +95,6 @@ class _addFormState extends State<addForm>
 
     User user = Provider.of<User>(context);
     String _currentuser = user.uid;
-    //Food food = Provider.of<Food>(context);
-
-    Food food;
 
     void _showDialog(){
       showDialog(context: context,

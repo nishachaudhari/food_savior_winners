@@ -22,8 +22,6 @@ class _mapIcon extends State <mapIcon>
 
   @override
 
-  
-
   void initState(){
     super.initState();
     populate();
@@ -60,8 +58,7 @@ class _mapIcon extends State <mapIcon>
     final uid = user.uid;
      Firestore.instance.collection('food').getDocuments().then((querySnapshot){
        querySnapshot.documents.forEach((result)
-          {
-            
+          { 
             String title = result.data['title'];
             double lat = result.data['lat'];
             double lng = result.data['lng'];
@@ -147,7 +144,7 @@ class _mapIcon extends State <mapIcon>
                   return Container(
                     height: 300,
                   child: Card(
-                    color: Colors.grey[300],
+                    color: Theme.of(context).accentColor,
                     margin: EdgeInsets.all(15.0),
                     child: Container(
                       height:50,
@@ -167,7 +164,7 @@ class _mapIcon extends State <mapIcon>
                                 
                               },
                               splashColor: Colors.blueGrey,
-                              child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Colors.teal, fontSize: 25)),
+                              child: Text(snapshot.data.documents[index]['title'], style: TextStyle(color:Theme.of(context).primaryColor, fontSize: 25)),
                             )
                           ),
                           SizedBox(height:10),
