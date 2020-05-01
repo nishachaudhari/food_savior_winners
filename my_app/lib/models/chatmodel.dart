@@ -4,11 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class ChatModel {
-  final String avatarUrl;
-  final String name;
-  final String datetime;
-  final String message;
+  String avatarUrl;
+  String name;
+  String datetime;
+  String message;
+  String id;
 
 
-  ChatModel({this.avatarUrl, this.name, this.datetime, this.message});
+  ChatModel({this.avatarUrl, this.name, this.datetime, this.message, this.id});
 }

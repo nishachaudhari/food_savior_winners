@@ -17,7 +17,6 @@ class messages extends StatefulWidget
 
 class _messages extends State <messages> {
 
-
  void initState(){
     super.initState();
     populate();
@@ -25,7 +24,7 @@ class _messages extends State <messages> {
 
   List<ChatModel> chatData = [];
 
-  void intoList(client, host)async {
+  void intoList(client, host, id)async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid;
@@ -37,9 +36,9 @@ class _messages extends State <messages> {
             _avatarUrl = result.data['photo'];
             String _name = result.data['firstName'];
             
-            if(result.documentID == client && uid==host)
+            if((result.documentID == client && uid==host) || result.documentID == host && uid == client)
               {
-              ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: "right now", message: "this message" );
+              ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: "right now", message: "this message", id:id );
               
               setState(() {
                     chatData.add(_data);
@@ -57,7 +56,9 @@ class _messages extends State <messages> {
         {
           String client = result.data['clientID'];
           String host = result.data['hostID'];
-          intoList(client, host); 
+          String id = result.documentID;
+          intoList(client, host, id); 
+          
         }
         
       );
@@ -84,6 +85,8 @@ class _messages extends State <messages> {
           itemCount: chatData.length,
           itemBuilder: (context, index) {
             ChatModel _model = chatData[index];
+            String convoID = _model.id;
+            String receiverName = _model.name;
             Uint8List bytes = base64Decode(_model.avatarUrl);
             return Container(
               color: Theme.of(context).accentColor,
@@ -132,7 +135,7 @@ class _messages extends State <messages> {
                       label: Text(" "),
                       //size: 14.0,
                       onPressed: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => inChat()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => inChat(convoID, receiverName)));
                       },
                     ),
                   ),
