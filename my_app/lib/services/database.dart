@@ -86,7 +86,7 @@ return await foodCollection.document(id).updateData({
 );
 }
 
-//FOOD COLLECTION
+//REQUEST COLLECTION
 
   final CollectionReference requestCollection = Firestore.instance.collection('request');
 
@@ -104,6 +104,28 @@ Future updaterequestStatus(String status) async {
     'status' : status,
  });
 }
+
+//CONVO COLLECTION
+
+final CollectionReference convoCollection = Firestore.instance.collection('convo');
+
+  Future updateconvoData(String clientID, String hostID) async {
+  DocumentReference docRef= await convoCollection.add({
+    'clientID' : clientID,
+    'hostID' : hostID,
+    });
+    return docRef.documentID;
+  }
+
+  Future updateconvoMessageCollection(String sender, String text, Timestamp time, String docID) async {
+  return await convoCollection.document(docID).collection('Messages').document().setData({
+    'sender' : sender,
+    'text' : text,  //default text is I would like to request your food item "food name"
+    'time' : time
+    });
+  }
+
+
 
 
 

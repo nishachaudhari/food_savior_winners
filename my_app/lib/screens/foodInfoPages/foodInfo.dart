@@ -44,6 +44,7 @@ class _foodInfo extends State <foodInfo>
            String docID;
            docID = snapshot.data.documents[widget.index].documentID;
            String foodOwner = snapshot.data.documents[widget.index]['user'];
+           String foodTitle = snapshot.data.documents[widget.index]['title'];
           int length = snapshot.data.documents.length;
           return Container(
             padding: EdgeInsets.all(15.0),
@@ -80,12 +81,20 @@ class _foodInfo extends State <foodInfo>
                               await DatabaseService(id:docID).editfoodStatus(
                                 user.uid,
                                 "pending"
-
                               );
                               await DatabaseService().updaterequestData(foodOwner, user.uid, docID, "pending");
+
+                              String convoDocID = await DatabaseService().updateconvoData(foodOwner, user.uid); //client then host, host is originally the current user who is requesting the food from the client who is the owner of the food. the user.uid is the person sending the first message
+                              await DatabaseService().updateconvoMessageCollection(user.uid, "I would like to request your food item $foodTitle", Timestamp.fromDate(DateTime.now()), convoDocID);
+
+                              String convoDocID2 = await DatabaseService().updateconvoData(user.uid, foodOwner);
+                              await DatabaseService().updateconvoMessageCollection(user.uid, "I would like to request your food item $foodTitle", Timestamp.fromDate(DateTime.now()), convoDocID2);
+
                               Navigator.push(context,
                               MaterialPageRoute(builder: (context) => messages()),
                               );
+
+                              
 
                             },
                             child: Text("Request Food!",
