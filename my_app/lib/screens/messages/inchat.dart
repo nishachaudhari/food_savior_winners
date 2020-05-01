@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/models/chatmodel.dart';
+import 'package:my_app/services/database.dart';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'dart:typed_data';
-import 'package:my_app/screens/foodInfoPages/foodInfoNothing.dart';
+
 
 class inChat extends StatefulWidget
 {
@@ -26,6 +24,10 @@ class _inChat extends State<inChat>
 
     User user = Provider.of<User>(context);
 
+    String _message = '';
+
+    final myController = TextEditingController();
+
     // List<UserData> senderInfo = [];
 
     // Future getSenderInfo(senderID)async{
@@ -43,7 +45,7 @@ class _inChat extends State<inChat>
     //  };
 
     final messages = Container(
-      height:500,
+      height:700,
       width: 400,
       child: StreamBuilder(
         stream: Firestore.instance.collection('convo').document(widget.convoID).collection('Messages').orderBy('time').snapshots(),
@@ -142,42 +144,33 @@ class _inChat extends State<inChat>
                       ),
                       child: Row(
                         children: [
-                          IconButton(
-                              icon: Icon(Icons.face), onPressed: () {}),
                           Expanded(
-                            child: TextField(
+                            child: TextFormField(
+                              controller: myController,
+                              style: TextStyle(color: Colors.black),
+                              // onChanged: (val){
+                              //   setState(()=>_message = val);
+                              // },
                               decoration: InputDecoration(
                                   hintText: "Type Something...",
+                                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                                  hintStyle: TextStyle(color: Colors.black),
                                   border: InputBorder.none),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.photo_camera),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.attach_file),
-                            onPressed: () {},
+                            icon: Icon(Icons.send),
+                            color: Colors.grey,
+                            onPressed: () async {
+                              await DatabaseService().updateconvoMessageCollection(user.uid, myController.text, Timestamp.fromDate(DateTime.now()), widget.convoID);
+                            },
                           )
+                          
                         ],
                       ),
                     ),
                   ),
                   SizedBox(width: 15),
-                  Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                        color: Colors.teal, shape: BoxShape.circle),
-                    child: InkWell(
-                      child: Icon(
-                        Icons.keyboard_voice,
-                        color: Colors.white,
-                      ),
-                      onLongPress: () {
-
-                      },
-                    ),
-                  )
                 ],
               ),
             )
