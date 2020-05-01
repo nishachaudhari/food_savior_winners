@@ -33,6 +33,7 @@ class _guide extends State<guide>
                       children: <Widget>[
                       SizedBox(height: 20),
                       RaisedButton(
+                        color: Theme.of(context).primaryColor,
                         onPressed: (){
                           Navigator.push(
                             context,
@@ -46,6 +47,7 @@ class _guide extends State<guide>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
+                      color: Theme.of(context).primaryColor,
                       onPressed: (){
                         Navigator.push(
                             context,

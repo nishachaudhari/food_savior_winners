@@ -17,10 +17,11 @@ class _accountFAQ extends State<accountFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("If you would like to delete your account, please contact us. Our information can be found under the help button on your account screen."),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("If you would like to delete your account, please contact us. Our information can be found under the help button on your account screen.", style: TextStyle(color: Colors.black),),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -33,10 +34,11 @@ class _accountFAQ extends State<accountFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("Food Savior currently doesn't support tips through the app. But you are welcome to tip in cash!"),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("Food Savior currently doesn't support tips through the app. But you are welcome to tip in cash!", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -49,10 +51,11 @@ class _accountFAQ extends State<accountFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("No. We require your email address and a verified mobile phone number to place an order on the FoodSavior app."),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("No. We require your email address and a verified mobile phone number to place an order on the FoodSavior app.", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -64,6 +67,7 @@ class _accountFAQ extends State<accountFAQ>
 
 
       return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
        appBar: AppBar(
          centerTitle: false,
          title: Text("Account FAQ"),
@@ -72,11 +76,11 @@ class _accountFAQ extends State<accountFAQ>
        body:
        SingleChildScrollView(
        child: Container(
-         color: Theme.of(context).backgroundColor,      // dark calm blue
          padding: EdgeInsets.all(15),
          child: Column (children: <Widget>[
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _delete();
                 },
@@ -84,6 +88,7 @@ class _accountFAQ extends State<accountFAQ>
             ),
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _phone();
                 },
@@ -91,6 +96,7 @@ class _accountFAQ extends State<accountFAQ>
             ),
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _phone();
                 },

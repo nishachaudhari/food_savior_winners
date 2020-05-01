@@ -17,10 +17,11 @@ class _guideFAQ extends State<guideFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("Food Savior is currently available in all 50 states!"),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("Food Savior is currently available in all 50 states!", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -33,10 +34,11 @@ class _guideFAQ extends State<guideFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("Food Savior currently doesn't support tips through the app. But you are welcome to tip in cash!"),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("Food Savior currently doesn't support tips through the app. But you are welcome to tip in cash!", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -49,10 +51,11 @@ class _guideFAQ extends State<guideFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("If you navigate back to the main help screen and scroll down, there is an option to sms or email us!"),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("If you navigate back to the main help screen and scroll down, there is an option to sms or email us!", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -65,10 +68,11 @@ class _guideFAQ extends State<guideFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("Yes! Feel free to donate alcohol. Our app will not show alcohol options to users under age 21. This is enforced when the user provides us with a govt ID right when creating an account."),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("Yes! Feel free to donate alcohol. Our app will not show alcohol options to users under age 21. This is enforced when the user provides us with a govt ID right when creating an account.", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -79,6 +83,7 @@ class _guideFAQ extends State<guideFAQ>
 
 
       return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,      // dark calm blue
        appBar: AppBar(
          centerTitle: false,
          title: Text("Guide to FoodSavior FAQ"),
@@ -87,11 +92,13 @@ class _guideFAQ extends State<guideFAQ>
        body:
        SingleChildScrollView(
        child: Container(
-         color: Theme.of(context).backgroundColor,      // dark calm blue
+         height: 800,
+         width: 500,
          padding: EdgeInsets.all(15),
          child: Column (children: <Widget>[
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _cities();
                 },
@@ -99,6 +106,7 @@ class _guideFAQ extends State<guideFAQ>
             ),
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _tips();
                 },
@@ -106,6 +114,7 @@ class _guideFAQ extends State<guideFAQ>
             ),
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _contact();
                 },
@@ -113,6 +122,7 @@ class _guideFAQ extends State<guideFAQ>
             ),
             SizedBox (height: 20),
              RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _alcohol();
                 },

@@ -33,6 +33,7 @@ class  _accountHelp extends State <accountHelp>
                       children: <Widget>[
                       SizedBox(height: 20),
                       RaisedButton(
+                        color: Theme.of(context).primaryColor,
                         onPressed: (){
                             Navigator.push(
                             context,
@@ -47,6 +48,7 @@ class  _accountHelp extends State <accountHelp>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
+                      color: Theme.of(context).primaryColor,  
                       onPressed: (){
                         Navigator.push(
                             context,

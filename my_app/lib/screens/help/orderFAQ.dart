@@ -17,10 +17,11 @@ class _orderFAQ extends State<orderFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("Yes! At any time, you may navigate to your account screen, current orders. Tap the food you want to cancel, and select cancel. This will also send a message to your FoodSavior"),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("Yes! At any time, you may navigate to your account screen, current orders. Tap the food you want to cancel, and select cancel. This will also send a message to your FoodSavior", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -33,10 +34,11 @@ class _orderFAQ extends State<orderFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("Simply navigate to your messages. If you have requested someone's food, that means you have already sent them either a generic or customized message. You may continue talking to your Food Savior through this message chain."),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("Simply navigate to your messages. If you have requested someone's food, that means you have already sent them either a generic or customized message. You may continue talking to your Food Savior through this message chain.", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -49,10 +51,11 @@ class _orderFAQ extends State<orderFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("If your order shows as picked up when you did not actually pick it up yet, please contact our customer support."),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("If your order shows as picked up when you did not actually pick it up yet, please contact our customer support.", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -65,10 +68,11 @@ class _orderFAQ extends State<orderFAQ>
       showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: new Text("Please contact our customer support if your Food Savior is not available with the food."),
+            backgroundColor: Theme.of(context).accentColor,
+            title: new Text("Please contact our customer support if your Food Savior is not available with the food.", style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("Close"),
+                child: new Text("Close", style: TextStyle(color: Colors.black)),
                 onPressed: () {Navigator.pop(context);}
               )
             ]
@@ -80,6 +84,7 @@ class _orderFAQ extends State<orderFAQ>
 
 
       return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
        appBar: AppBar(
          centerTitle: false,
          title: Text("Order FAQ"),
@@ -93,6 +98,7 @@ class _orderFAQ extends State<orderFAQ>
          child: Column (children: <Widget>[
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _cancel();
                 },
@@ -100,6 +106,7 @@ class _orderFAQ extends State<orderFAQ>
             ),
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _contact();
                 },
@@ -107,6 +114,7 @@ class _orderFAQ extends State<orderFAQ>
             ),
             SizedBox (height: 20),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               onPressed: (){
                  _notThere();
                 },
@@ -114,6 +122,7 @@ class _orderFAQ extends State<orderFAQ>
             ),
             SizedBox (height: 20),
              RaisedButton(
+               color: Theme.of(context).primaryColor,
               onPressed: (){
                  _pickUp();
                 },

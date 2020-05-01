@@ -17,6 +17,7 @@ class  _orderHelp extends State <orderHelp>
   Widget build(BuildContext context) {
 
       return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
        appBar: AppBar(
          centerTitle: false,
          title: Text("Orders"),
@@ -24,7 +25,6 @@ class  _orderHelp extends State <orderHelp>
 
        body:
        Container(
-            color: Theme.of(context).backgroundColor,      // dark calm blue
             padding: EdgeInsets.all(15.0),
              child: Column (
                crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,6 +34,7 @@ class  _orderHelp extends State <orderHelp>
                       children: <Widget>[
                       SizedBox(height: 20),
                       RaisedButton(
+                        color: Theme.of(context).primaryColor,
                         onPressed: (){
                           Navigator.push(
                             context,

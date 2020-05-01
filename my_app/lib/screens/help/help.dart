@@ -56,32 +56,34 @@ class _help extends State<help>
                   child: Column(
                       children: <Widget>[
                       SizedBox(height: 20),
-                      Text("Popular Answers", style: (TextStyle (fontSize: 20)),),
+                      Text("Popular Answers", style: (TextStyle (fontSize: 20, color: Colors.white)),),
                       Container(
                         height:1.0,
                         width:400.0,
-                        color:Colors.black,),
+                        color:Colors.white,),
                       SizedBox(height: 20),
                       RaisedButton(
+                        color: Theme.of(context).primaryColor,
                         onPressed: (){
                           Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => corona()));
                         },
                         child: Row (children: <Widget>[
-                          Text("CoronaVirus (COVID-19) Response", style: (TextStyle(fontSize: 20))),
+                          Text("CoronaVirus (COVID-19) Response", style: (TextStyle(fontSize: 20, color: Colors.white))),
                           Icon(Icons.keyboard_arrow_right),
                           ],
                           )
                       ),
                       SizedBox(height: 20),
-                      Text("Browse Help Topics", style: (TextStyle (fontSize: 20)),),
+                      Text("Browse Help Topics", style: (TextStyle (fontSize: 20, color: Colors.white)),),
                       Container(
                         height:1.0,
                         width:400.0,
-                        color:Colors.black,),
+                        color:Colors.white,),
                       SizedBox(height: 20),
                       RaisedButton(
+                      color: Theme.of(context).primaryColor,
                       onPressed: (){
                         Navigator.push(
                                   context,
@@ -96,65 +98,70 @@ class _help extends State<help>
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
+                      color: Theme.of(context).primaryColor,
                       onPressed: (){
                         Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => accountHelp()));
                       },
                       child: Row (children: <Widget>[
-                        Text("Account", style: (TextStyle(fontSize: 20))),
+                        Text("Account", style: (TextStyle(fontSize: 20, color: Colors.white))),
                         Icon(Icons.keyboard_arrow_right),
                         ],
                         )
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
+                      color: Theme.of(context).primaryColor,
                       onPressed: (){
                         Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => orderHelp()));
                       },
                       child: Row (children: <Widget>[
-                        Text("Orders", style: (TextStyle(fontSize: 20))),
+                        Text("Orders", style: (TextStyle(fontSize: 20, color: Colors.white))),
                         Icon(Icons.keyboard_arrow_right),
                         ],
                         )
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
+                      color: Theme.of(context).primaryColor,
                       onPressed: (){
                         Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => trust()));
                       },
                       child: Row (children: <Widget>[
-                        Text("Trust and Safety", style: (TextStyle(fontSize: 20))),
+                        Text("Trust and Safety", style: (TextStyle(fontSize: 20, color: Colors.white))),
                         Icon(Icons.keyboard_arrow_right),
                         ],
                         )
                       ),
                       SizedBox(height: 20),
-                      Text("Contact us", style: (TextStyle (fontSize: 20)),),
+                      Text("Contact us", style: (TextStyle (fontSize: 20, color: Colors.white)),),
                       Container(
                         height:1.0,
                         width:400.0,
-                        color:Colors.black,),
+                        color:Colors.white,),
                       SizedBox(height: 20),
                       RaisedButton(
+                        color: Theme.of(context).primaryColor,
                         onPressed: (){sendText('9542492027');},
                         child: Row (children: <Widget>[
                           Icon(Icons.phone_iphone),
-                          Text("SMS", style: (TextStyle(fontSize: 20))),
+                          Text("SMS", style: (TextStyle(fontSize: 20, color: Colors.white))),
                           Icon(Icons.keyboard_arrow_right),
                           ],
                           )
                       ),
                       SizedBox(height: 20),
                       RaisedButton(
+                        color: Theme.of(context).primaryColor,
                         onPressed: (){sendEmail('nxc439@miami.edu');},
                         child: Row (children: <Widget>[
                           Icon(Icons.email),
-                          Text("Email", style: (TextStyle(fontSize: 20))),
+                          Text("Email", style: (TextStyle(fontSize: 20, color: Colors.white))),
                           Icon(Icons.keyboard_arrow_right),
                           ],
                           )
