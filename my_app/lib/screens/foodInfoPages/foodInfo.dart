@@ -54,23 +54,137 @@ class _foodInfo extends State <foodInfo>
                 Center(
                   child: Column(
                       children: <Widget>[
-                    Image.memory(bytes,height: 200, width: 200),
-                    SizedBox(height: 20),
-                    Text(snapshot.data.documents[widget.index]['title'],style: TextStyle(color:Theme.of(context).primaryColor, fontSize: 40)),
-                    SizedBox(height: 30,),
-                    Text (snapshot.data.documents[widget.index]['description'],style: TextStyle(color:Theme.of(context).primaryColor, fontSize: 20)),
-                    SizedBox(height: 30,),
-                    Text ("Serving Size:", style: TextStyle(color: Theme.of(context).primaryColor, fontSize:30)),
-                    Text (snapshot.data.documents[widget.index]['amount'],style: TextStyle(color:Colors.white, fontSize: 20)),
-                    SizedBox(height: 20,),
-                    Text ("Date and Time:", style: TextStyle(color: Theme.of(context).primaryColor, fontSize:30)),
-                    Text (snapshot.data.documents[widget.index]['time'],style: TextStyle(color:Colors.white, fontSize: 20)),
-                    Text (snapshot.data.documents[widget.index]['date'], style: TextStyle(color:Colors.white, fontSize: 20)),
-                    SizedBox(height: 20,),
-                    Text ("Location:", style: TextStyle(color: Theme.of(context).primaryColor, fontSize:30)),
-                    Text (snapshot.data.documents[widget.index]['location'],style: TextStyle(color:Colors.white, fontSize: 20)),
-                    SizedBox(height: 20,),
-                    Material(
+                        SizedBox(height: 3,),
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Theme.of(context).accentColor,
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                snapshot.data.documents[widget.index]['title'],
+                                style: TextStyle(color: Color(0xFF101321), fontSize: 35),
+                                textAlign: TextAlign.center,
+                              ),
+                              Divider(
+                                height: 12.0,
+                              ),
+                              Divider(
+                                height: 0.0,
+                                indent: 8.0,
+                                endIndent: 8.0,
+                                thickness: 2.0,
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              Divider(
+                                height: 12.0,
+                              ),
+                              Text (
+                                snapshot.data.documents[widget.index]['description'],
+                                style: TextStyle(color: Color(0xFF101321), fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 15,),
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Theme.of(context).accentColor,
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Image.memory(bytes,height: 200, width: 200),
+                              SizedBox(height: 6,),
+                              Text(
+                                "Serving Size:  " + snapshot.data.documents[widget.index]['amount'],
+                                style: TextStyle(color: Color(0xFF101321), fontSize:30),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 15,),
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Theme.of(context).accentColor,
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Date and Time:",
+                                style: TextStyle(color: Color(0xFF101321), fontSize:30),
+                                textAlign: TextAlign.center,
+                              ),
+                              Divider(
+                                height: 6.0,
+                              ),
+                              Divider(
+                                height: 0.0,
+                                indent: 8.0,
+                                endIndent: 8.0,
+                                thickness: 2.0,
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              Divider(
+                                height: 6.0,
+                              ),
+                              Text(
+                                snapshot.data.documents[widget.index]['time'],
+                                style: TextStyle(color: Color(0xFF101321), fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                snapshot.data.documents[widget.index]['date'],
+                                style: TextStyle(color: Color(0xFF101321), fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 15,),
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Theme.of(context).accentColor,
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Location:",
+                                style: TextStyle(color: Color(0xFF101321), fontSize:30),
+                                textAlign: TextAlign.center,
+                              ),
+                              Divider(
+                                height: 6.0,
+                              ),
+                              Divider(
+                                height: 0.0,
+                                indent: 8.0,
+                                endIndent: 8.0,
+                                thickness: 2.0,
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              Divider(
+                                height: 6.0,
+                              ),
+                              Text(
+                                snapshot.data.documents[widget.index]['location'],
+                                style: TextStyle(color: Color(0xFF101321), fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Material(
                           elevation: 5.0,
                           borderRadius: BorderRadius.circular(30.0),
                           color: Theme.of(context).primaryColor,
@@ -94,7 +208,7 @@ class _foodInfo extends State <foodInfo>
                               MaterialPageRoute(builder: (context) => messages()),
                               );
 
-                              
+
 
                             },
                             child: Text("Request Food!",
