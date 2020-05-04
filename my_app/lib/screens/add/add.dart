@@ -72,7 +72,7 @@ class _addState extends State<add>
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                       Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-                      if (snapshot.data.documents[index]['user']== user.uid && snapshot.data.documents[index]['order'] == "picked up")
+                      if (snapshot.data.documents[index]['user']== user.uid && (snapshot.data.documents[index]['order'] == "picked up" || snapshot.data.documents[index]['order'] == "claimed" ))
                       {
                         return Container(
                               margin: EdgeInsets.all(15.0),

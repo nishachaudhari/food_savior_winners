@@ -1,14 +1,17 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:my_app/services/database.dart';
-import 'package:my_app/models/user.dart';
+import 'package:my_app/models/user.dart' as model;
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/firebase.dart';
 
 
 class inChat extends StatefulWidget
 {
   final String convoID;
   final String receiverName;
+
   const inChat(this.convoID, this.receiverName);
 
   @override
@@ -22,7 +25,7 @@ class _inChat extends State<inChat>
   Widget build(BuildContext context)
   {
 
-    User user = Provider.of<User>(context);
+    model.User user = Provider.of<model.User>(context);
 
     String _message = '';
 
@@ -45,7 +48,7 @@ class _inChat extends State<inChat>
     //  };
 
     final messages = Container(
-      height:700,
+      height:500,
       width: 400,
       child: StreamBuilder(
         stream: Firestore.instance.collection('convo').document(widget.convoID).collection('Messages').orderBy('time').snapshots(),
@@ -109,8 +112,6 @@ class _inChat extends State<inChat>
       )
     );
 
-
-
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -122,7 +123,18 @@ class _inChat extends State<inChat>
           ),
       body: 
         Container(
-          child: Column (
+          child: StreamBuilder(
+            stream: Firestore.instance.collection('convo').document(widget.convoID).snapshots(),
+             builder: (context, snapshot){
+              String client = snapshot.data['clientID'];
+              String host = snapshot.data['hostID'];
+              String requestID = snapshot.data['requestID'];
+              String foodID = snapshot.data['foodID'];
+              var request = Firestore.instance.collection('request').document(requestID).get();
+              request.then((result){
+                String status = result.data['status'];
+              });
+          return Column (
             children:<Widget>[
               messages,
             Container(
@@ -164,7 +176,7 @@ class _inChat extends State<inChat>
                             onPressed: () async {
                               await DatabaseService().updateconvoMessageCollection(user.uid, myController.text, Timestamp.fromDate(DateTime.now()), widget.convoID);
                             },
-                          )
+                          ),
                           
                         ],
                       ),
@@ -173,9 +185,60 @@ class _inChat extends State<inChat>
                   SizedBox(width: 15),
                 ],
               ),
-            )
+            ),
+            if(user.uid == client) 
+            Material(
+              elevation: 5.0,
+              borderRadius: BorderRadius.circular(30.0),
+              color: Theme.of(context).primaryColor,
+              child: MaterialButton(
+                minWidth: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                onPressed: ()async{
+                  await DatabaseService(id:foodID).editfoodStatus(
+                    user.uid,
+                    "claimed"
+                  );
+                  await DatabaseService(id:requestID).updaterequestStatus("accepted");
+                },
+                child: Text("Accept",
+                    textAlign: TextAlign.center,
+                    //style: style.copyWith(
+                      // color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+              )
+            ),
+            if(user.uid != client) Text("Order Status:", style: TextStyle(color: Colors.white, fontSize: 20),),
+            SizedBox(height: 20,),
+            if(user.uid ==  client ) 
+            Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(30.0),
+                color: Theme.of(context).primaryColor,
+                child: MaterialButton(
+                  minWidth: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  
+                    onPressed: ()async{
+                    await DatabaseService(id:foodID).editfoodStatus(
+                      "none",
+                      "none"
+                    );
+                    await DatabaseService(id:requestID).updaterequestStatus("declined");
+                    },
+                  child: Text("Decline",
+                      textAlign: TextAlign.center,
+                      //style: style.copyWith(
+                        // color: Colors.white, fontWeight: FontWeight.bold)),
+                  ), 
+                  
+                )
+              ),
+              if(user.uid != client) Text('status', style: TextStyle(color: Colors.white, fontSize: 20),),
             ]
-      ),
+            );
+          }
+        )
         )
     );
 

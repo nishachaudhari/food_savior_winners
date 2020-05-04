@@ -86,6 +86,7 @@ return await foodCollection.document(id).updateData({
 );
 }
 
+
 //REQUEST COLLECTION
 
   final CollectionReference requestCollection = Firestore.instance.collection('request');
@@ -109,10 +110,12 @@ Future updaterequestStatus(String status) async {
 
 final CollectionReference convoCollection = Firestore.instance.collection('convo');
 
-  Future updateconvoData(String clientID, String hostID) async {
+  Future updateconvoData(String clientID, String hostID, String foodID, String requestID) async {
   DocumentReference docRef= await convoCollection.add({
     'clientID' : clientID,
     'hostID' : hostID,
+    'foodID' :foodID,
+    'requestID':requestID
     });
     return docRef.documentID;
   }

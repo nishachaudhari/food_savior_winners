@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class messages extends StatefulWidget
 {
+
   @override
   _messages createState() => _messages();
 }
@@ -19,6 +20,8 @@ class _messages extends State <messages> {
 
  void initState(){
     super.initState();
+    String time;
+    String latest;
     populate();
   }
 
@@ -28,9 +31,11 @@ class _messages extends State <messages> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid;
+    
     Firestore.instance.collection('users').getDocuments().then((querySnapshot){
       querySnapshot.documents.forEach((result)
-        {   
+        {   var time = '';
+            var latest = '';
             String _avatarUrl;
             if(result.data['photo'] != null) 
             _avatarUrl = result.data['photo'];
@@ -38,7 +43,13 @@ class _messages extends State <messages> {
             
             if((result.documentID == client && uid==host) || result.documentID == host && uid == client)
               {
-              ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: "right now", message: "this message", id:id );
+                var query = Firestore.instance.collection('convo').document(id).collection('Messages').orderBy('time', descending: true).limit(1);
+                  query.getDocuments().then((result){
+                    time = result.documents[0].data['time'];
+                    latest = result.documents[0].data['text'];
+                  });
+              
+              ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: "time", message: "latest message", id:id );
               
               setState(() {
                     chatData.add(_data);
@@ -65,6 +76,7 @@ class _messages extends State <messages> {
       }
     );
   }
+
 
   Widget build(BuildContext context)
   {
@@ -135,7 +147,7 @@ class _messages extends State <messages> {
                       label: Text(" "),
                       //size: 14.0,
                       onPressed: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => inChat(convoID, receiverName)));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => inChat(convoID, receiverName, )));
                       },
                     ),
                   ),
