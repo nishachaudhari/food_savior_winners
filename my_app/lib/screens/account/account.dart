@@ -157,7 +157,7 @@ class _accountState extends State<account>
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
               Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-              if (snapshot.data.documents[index]['eater']!= user.uid && snapshot.data.documents[index]['order']== "claimed")
+              if (snapshot.data.documents[index]['eater']== user.uid && snapshot.data.documents[index]['order']== "claimed")
                 return Container(
                       margin: EdgeInsets.all(15.0),
                       height: 50,

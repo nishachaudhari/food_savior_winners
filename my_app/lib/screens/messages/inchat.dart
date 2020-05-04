@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:my_app/services/database.dart';
-import 'package:my_app/models/user.dart' as model;
+import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase/firebase.dart';
 
 
 class inChat extends StatefulWidget
@@ -25,7 +23,7 @@ class _inChat extends State<inChat>
   Widget build(BuildContext context)
   {
 
-    model.User user = Provider.of<model.User>(context);
+    User user = Provider.of<User>(context);
 
     String _message = '';
 
@@ -126,8 +124,9 @@ class _inChat extends State<inChat>
           child: StreamBuilder(
             stream: Firestore.instance.collection('convo').document(widget.convoID).snapshots(),
              builder: (context, snapshot){
-              String client = snapshot.data['clientID'];
+              if(!snapshot.hasData) return Text('loading data .... please wait');
               String host = snapshot.data['hostID'];
+              String client = snapshot.data['clientID'];
               String requestID = snapshot.data['requestID'];
               String foodID = snapshot.data['foodID'];
               var request = Firestore.instance.collection('request').document(requestID).get();
@@ -196,7 +195,7 @@ class _inChat extends State<inChat>
                 padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                 onPressed: ()async{
                   await DatabaseService(id:foodID).editfoodStatus(
-                    user.uid,
+                    host,
                     "claimed"
                   );
                   await DatabaseService(id:requestID).updaterequestStatus("accepted");

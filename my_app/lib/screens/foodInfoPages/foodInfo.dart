@@ -198,7 +198,7 @@ class _foodInfo extends State <foodInfo>
                                 "pending"
                               );
                               String requestID = await DatabaseService().updaterequestData(foodOwner, user.uid, docID, "pending");
-
+                              print(requestID);
                               String convoDocID = await DatabaseService().updateconvoData(foodOwner, user.uid, docID,requestID); //client then host, host is originally the current user who is requesting the food from the client who is the owner of the food. the user.uid is the person sending the first message
                               await DatabaseService().updateconvoMessageCollection(user.uid, "I would like to request your food item $foodTitle", Timestamp.fromDate(DateTime.now()), convoDocID);
 

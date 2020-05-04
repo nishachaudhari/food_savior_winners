@@ -117,7 +117,7 @@ class _HomeScreenState extends State <HomeScreen>
             itemBuilder: (BuildContext context, int index) {
 
               Uint8List bytes = base64Decode(snapshot.data.documents[index]['photo']);
-              if (snapshot.data.documents[index]['user']!= user.uid)
+              if (snapshot.data.documents[index]['user']!= user.uid && snapshot.data.documents[index]['order']== "none")
                 {i = i+1;
                 return GestureDetector(
                   onTap: (){

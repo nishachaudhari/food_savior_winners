@@ -91,13 +91,15 @@ return await foodCollection.document(id).updateData({
 
   final CollectionReference requestCollection = Firestore.instance.collection('request');
 
+
   Future updaterequestData(String user, String eater, String foodID, String status) async {
-  return await requestCollection.document().setData({
+  DocumentReference docRef = await requestCollection.add({
     'user' : user,
     'eater' : eater,
     'foodID' : foodID,
     'status' : status,
  });
+ return docRef.documentID;
 }
 
 Future updaterequestStatus(String status) async {
