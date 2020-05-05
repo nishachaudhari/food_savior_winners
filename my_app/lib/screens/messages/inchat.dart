@@ -4,6 +4,7 @@ import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:my_app/screens/messages/messages.dart';
 
 
 class inChat extends StatefulWidget
@@ -30,21 +31,38 @@ class _inChat extends State<inChat>
 
     final myController = TextEditingController();
 
-    // List<UserData> senderInfo = [];
+    void _showDialogAccept(){
+      showDialog(context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: new Text("Congrats! You have accepted this request. Don't forget to press Picked Up when the exchange is done!"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {Navigator.pop(context);}
+              )
+            ]
+          );
+        }
+      );
+    }
 
-    // Future getSenderInfo(senderID)async{
+    void _showDialogDecline(){
+      showDialog(context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: new Text("You have declined this request. The user will be appropriately notified, and this chat will be deleted."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {Navigator.pop(context);}
+              )
+            ]
+          );
+        }
+      );
+    }
 
-    //   await Firestore.instance.collection('users').document(senderID).get().then((result){
-    //             String name = result.data['firstName'];
-    //             String photo = result.data['photo'];
-    //             UserData data = UserData(firstName:name, photo:photo);
-
-    //             setState(() {
-    //             });
-    //           }
-    //     );
-      
-    //  };
 
     String formatDate(DateTime date){
         var formatter = new DateFormat('yyyy-MM-dd - kk:mm ');
@@ -52,7 +70,7 @@ class _inChat extends State<inChat>
         return formatted;
   }
 
-    final messages = Container(
+    final messagesDisplay = Container(
       height:500,
       width: 400,
       child: StreamBuilder(
@@ -129,7 +147,8 @@ class _inChat extends State<inChat>
           ),
       body: 
         Container(
-          child: StreamBuilder(
+          child: 
+          StreamBuilder(
             stream: Firestore.instance.collection('convo').document(widget.convoID).snapshots(),
              builder: (context, snapshot){
               if(!snapshot.hasData) return Text('loading data .... please wait');
@@ -137,112 +156,121 @@ class _inChat extends State<inChat>
               String client = snapshot.data['clientID'];
               String requestID = snapshot.data['requestID'];
               String foodID = snapshot.data['foodID'];
-              var request = Firestore.instance.collection('request').document(requestID).get();
-              request.then((result){
-                String status = result.data['status'];
-              });
-          return Column (
-            children:<Widget>[
-              messages,
-            Container(
-              margin: EdgeInsets.all(15.0),
-              height: 61,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(35.0),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(0, 3),
-                              blurRadius: 5,
-                              color: Colors.grey)
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: myController,
-                              style: TextStyle(color: Colors.black),
-                              // onChanged: (val){
-                              //   setState(()=>_message = val);
-                              // },
-                              decoration: InputDecoration(
-                                  hintText: "Type Something...",
-                                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                  hintStyle: TextStyle(color: Colors.black),
-                                  border: InputBorder.none),
+              print(requestID);
+              return StreamBuilder(
+                stream: Firestore.instance.collection('request').document(requestID).snapshots(),
+                builder: (context, snap){
+                String status = '';
+                if(!snap.hasData) return Text('loading data .... please wait');
+                status = snap.data['status'];
+                return Column (
+                  children:<Widget>[
+                    messagesDisplay,
+                  Container(
+                    margin: EdgeInsets.all(15.0),
+                    height: 61,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(35.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(0, 3),
+                                    blurRadius: 5,
+                                    color: Colors.grey)
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: myController,
+                                    style: TextStyle(color: Colors.black),
+                                    // onChanged: (val){
+                                    //   setState(()=>_message = val);
+                                    // },
+                                    decoration: InputDecoration(
+                                        hintText: "Type Something...",
+                                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none),
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.send),
+                                  color: Colors.grey,
+                                  onPressed: () async {
+                                    await DatabaseService().updateconvoMessageCollection(user.uid, myController.text, Timestamp.fromDate(DateTime.now()), widget.convoID);
+                                  },
+                                ),
+                                
+                              ],
                             ),
                           ),
-                          IconButton(
-                            icon: Icon(Icons.send),
-                            color: Colors.grey,
-                            onPressed: () async {
-                              await DatabaseService().updateconvoMessageCollection(user.uid, myController.text, Timestamp.fromDate(DateTime.now()), widget.convoID);
-                            },
-                          ),
-                          
-                        ],
-                      ),
+                        ),
+                        SizedBox(width: 15),
+                      ],
                     ),
                   ),
-                  SizedBox(width: 15),
-                ],
-              ),
-            ),
-            if(user.uid == client) 
-            Material(
-              elevation: 5.0,
-              borderRadius: BorderRadius.circular(30.0),
-              color: Theme.of(context).primaryColor,
-              child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                onPressed: ()async{
-                  await DatabaseService(id:foodID).editfoodStatus(
-                    host,
-                    "claimed"
+                  if(user.uid == client) 
+                  Material(
+                    elevation: 5.0,
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Theme.of(context).primaryColor,
+                    child: MaterialButton(
+                      minWidth: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                      onPressed: ()async{
+                        await DatabaseService(id:foodID).editfoodStatus(
+                          host,
+                          "claimed"
+                        );
+                        await DatabaseService(id:requestID).updaterequestStatus("accepted");
+                        _showDialogAccept();
+                      },
+                      child: Text("Accept",
+                          textAlign: TextAlign.center,
+                          //style: style.copyWith(
+                            // color: Colors.white, fontWeight: FontWeight.bold)),
+                      ),
+                    )
+                  ),
+                  if(user.uid != client) Text("Order Status:", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  SizedBox(height: 20,),
+                  if(user.uid ==  client ) 
+                  Material(
+                      elevation: 5.0,
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: Theme.of(context).primaryColor,
+                      child: MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        
+                          onPressed: ()async{
+                          await DatabaseService(id:foodID).editfoodStatus(
+                            "none",
+                            "none"
+                          );
+                          await DatabaseService(id:requestID).updaterequestStatus("declined");
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => messages()));
+                          _showDialogDecline();
+                          Firestore.instance.collection("convo").document(widget.convoID).delete();
+                          },
+                        child: Text("Decline",
+                            textAlign: TextAlign.center,
+                            //style: style.copyWith(
+                              // color: Colors.white, fontWeight: FontWeight.bold)),
+                        ), 
+                        
+                      )
+                    ),
+                    if(user.uid != client) Text(status, style: TextStyle(color: Colors.white, fontSize: 20),),
+                  ]
                   );
-                  await DatabaseService(id:requestID).updaterequestStatus("accepted");
-                },
-                child: Text("Accept",
-                    textAlign: TextAlign.center,
-                    //style: style.copyWith(
-                      // color: Colors.white, fontWeight: FontWeight.bold)),
-                ),
-              )
-            ),
-            if(user.uid != client) Text("Order Status:", style: TextStyle(color: Colors.white, fontSize: 20),),
-            SizedBox(height: 20,),
-            if(user.uid ==  client ) 
-            Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(30.0),
-                color: Theme.of(context).primaryColor,
-                child: MaterialButton(
-                  minWidth: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                  
-                    onPressed: ()async{
-                    await DatabaseService(id:foodID).editfoodStatus(
-                      "none",
-                      "none"
-                    );
-                    await DatabaseService(id:requestID).updaterequestStatus("declined");
-                    },
-                  child: Text("Decline",
-                      textAlign: TextAlign.center,
-                      //style: style.copyWith(
-                        // color: Colors.white, fontWeight: FontWeight.bold)),
-                  ), 
-                  
-                )
-              ),
-              if(user.uid != client) Text('status', style: TextStyle(color: Colors.white, fontSize: 20),),
-            ]
+                }
             );
           }
         )

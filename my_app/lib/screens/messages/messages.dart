@@ -26,7 +26,6 @@ class _messages extends State <messages> {
   }
 
   List<ChatModel> chatData = [];
-  List<getLatest> latest = [];
 
   String formatDate(DateTime date){
         var formatter = new DateFormat('yyyy-MM-dd - kk:mm ');
@@ -34,7 +33,7 @@ class _messages extends State <messages> {
         return formatted;
   }
 
-  void intoList(client, host, id)async {
+  void intoList(client, host, id, foodID)async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid;
@@ -45,10 +44,6 @@ class _messages extends State <messages> {
       DateTime dateTime = result.documents[0].data['time'].toDate();
       String time = formatDate(dateTime);
       text = result.documents[0].data['text'];
-      getLatest _data = getLatest(time:time, message: text);
-      setState(() {
-        latest.add(_data);
-        });
         Firestore.instance.collection('users').getDocuments().then((querySnapshot){
           querySnapshot.documents.forEach((result)
             {   
@@ -58,7 +53,7 @@ class _messages extends State <messages> {
                 String _name = result.data['firstName'];
                 if((result.documentID == client && uid==host) || result.documentID == host && uid == client)
                   {
-                  ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: time, message: text, id:id );
+                  ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: time, message: text, id:id, foodID: foodID );
                   
                   setState(() {
                         chatData.add(_data);
@@ -78,7 +73,8 @@ class _messages extends State <messages> {
           String client = result.data['clientID'];
           String host = result.data['hostID'];
           String id = result.documentID;
-          intoList(client, host, id); 
+          String foodID = result.data['foodID'];
+          intoList(client, host, id, foodID); 
           //getTime(id);
         }
         
@@ -103,14 +99,24 @@ class _messages extends State <messages> {
             actions: <Widget>[
               ]
         ),
-      body: Container(
-        child: ListView.builder(
+      body: 
+      Container(
+        child: 
+        ListView.builder(
           itemCount: chatData.length,
           itemBuilder: (context, index) {
             ChatModel _model = chatData[index];
             String convoID = _model.id;
             String receiverName = _model.name;
             Uint8List bytes = base64Decode(_model.avatarUrl);
+            String foodID = _model.foodID;
+            
+            return StreamBuilder(
+              stream: Firestore.instance.collection("food").document(foodID).snapshots(),
+              builder: (context, snap){
+              if(!snap.hasData) return Text("loading, please wait");
+              String title = '';
+              title = snap.data['title'];
             return Container(
               color: Theme.of(context).accentColor,
               child: Column(
@@ -144,11 +150,16 @@ class _messages extends State <messages> {
                           _model.datetime,
                           style: TextStyle(fontSize: 12.0, color: Color(0xFF101321)),
                         ),
+                        
                       ],
                     ),
-                    subtitle: Text(
-                      _model.message,
-                      style: TextStyle(color: Color(0xFF101321)),
+                    subtitle: Column( 
+                      children: <Widget>[
+                        Text(
+                        _model.message,
+                        style: TextStyle(color: Color(0xFF101321)),),
+                        Text(title, style: TextStyle(color: Color(0xFF101321)),)
+                      ]
                     ),
                     trailing: FlatButton.icon(
                       icon: Icon(
@@ -167,6 +178,8 @@ class _messages extends State <messages> {
                   ),
                 ],
               ),
+            );
+              }
             );
           },
         ),

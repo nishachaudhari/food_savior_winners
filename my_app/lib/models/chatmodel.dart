@@ -9,7 +9,8 @@ class ChatModel {
   String datetime;
   String message;
   String id;
+  String foodID;
 
 
-  ChatModel({this.avatarUrl, this.name, this.datetime, this.message, this.id});
+  ChatModel({this.avatarUrl, this.name, this.datetime, this.message, this.id, this.foodID});
 }
