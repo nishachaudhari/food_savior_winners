@@ -3,6 +3,7 @@ import 'package:my_app/services/database.dart';
 import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 
 class inChat extends StatefulWidget
@@ -45,6 +46,12 @@ class _inChat extends State<inChat>
       
     //  };
 
+    String formatDate(DateTime date){
+        var formatter = new DateFormat('yyyy-MM-dd - kk:mm ');
+        String formatted = formatter.format(date);
+        return formatted;
+  }
+
     final messages = Container(
       height:500,
       width: 400,
@@ -64,7 +71,8 @@ class _inChat extends State<inChat>
               else name = "Me";
               String message = snapshot.data.documents[index]['text'];
               //String avatarUrl = senderInfo[1];
-              Timestamp time = snapshot.data.documents[index]['time'];
+              DateTime dateTime = snapshot.data.documents[index]['time'].toDate();
+              String time = formatDate(dateTime);
               //Uint8List bytes = base64Decode(avatarUrl);
               return Container(
               child: Column(
@@ -89,7 +97,7 @@ class _inChat extends State<inChat>
                           width: 16.0,
                         ),
                         Text(
-                          time.toDate().toString(),
+                          time,
                           style: TextStyle(fontSize: 12.0, color: Color(0xFF101321)),
                         ),
                       ],

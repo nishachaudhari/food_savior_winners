@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/models/getLatest.dart';
 import 'package:my_app/models/user.dart';
 import 'package:my_app/screens/messages/inchat.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart' ;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class messages extends StatefulWidget
 {
@@ -20,45 +22,53 @@ class _messages extends State <messages> {
 
  void initState(){
     super.initState();
-    String time;
-    String latest;
     populate();
   }
 
   List<ChatModel> chatData = [];
+  List<getLatest> latest = [];
+
+  String formatDate(DateTime date){
+        var formatter = new DateFormat('yyyy-MM-dd - kk:mm ');
+        String formatted = formatter.format(date);
+        return formatted;
+  }
 
   void intoList(client, host, id)async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid;
-    
-    Firestore.instance.collection('users').getDocuments().then((querySnapshot){
-      querySnapshot.documents.forEach((result)
-        {   var time = '';
-            var latest = '';
-            String _avatarUrl;
-            if(result.data['photo'] != null) 
-            _avatarUrl = result.data['photo'];
-            String _name = result.data['firstName'];
-            
-            if((result.documentID == client && uid==host) || result.documentID == host && uid == client)
-              {
-                var query = Firestore.instance.collection('convo').document(id).collection('Messages').orderBy('time', descending: true).limit(1);
-                  query.getDocuments().then((result){
-                    time = result.documents[0].data['time'];
-                    latest = result.documents[0].data['text'];
-                  });
-              
-              ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: "time", message: "latest message", id:id );
-              
-              setState(() {
-                    chatData.add(_data);
-                });
-              }  
-         }
-        );
+    String time = '';
+    String text = '';
+    var query = Firestore.instance.collection('convo').document(id).collection('Messages').orderBy('time', descending: true).limit(1).snapshots().first;
+    query.then((result){
+      DateTime dateTime = result.documents[0].data['time'].toDate();
+      String time = formatDate(dateTime);
+      text = result.documents[0].data['text'];
+      getLatest _data = getLatest(time:time, message: text);
+      setState(() {
+        latest.add(_data);
+        });
+        Firestore.instance.collection('users').getDocuments().then((querySnapshot){
+          querySnapshot.documents.forEach((result)
+            {   
+                String _avatarUrl;
+                if(result.data['photo'] != null) 
+                _avatarUrl = result.data['photo'];
+                String _name = result.data['firstName'];
+                if((result.documentID == client && uid==host) || result.documentID == host && uid == client)
+                  {
+                  ChatModel _data = ChatModel(avatarUrl: _avatarUrl, name: _name, datetime: time, message: text, id:id );
+                  
+                  setState(() {
+                        chatData.add(_data);
+                    });
+                  }  
+            });
+          } 
+        );// end of nested firestore query
       }
-    );   
+    ); //end of overarching firestore query 
   }
 
   populate(){
@@ -69,12 +79,13 @@ class _messages extends State <messages> {
           String host = result.data['hostID'];
           String id = result.documentID;
           intoList(client, host, id); 
-          
+          //getTime(id);
         }
         
       );
       }
     );
+    
   }
 
 
