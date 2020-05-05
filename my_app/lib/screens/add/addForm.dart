@@ -8,6 +8,7 @@ import 'package:my_app/screens/add/image_picker_handler.dart';
 import 'package:my_app/services/database.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:intl/intl.dart';
 
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: "AIzaSyDwh7H9FYJmquCsq3evvZEEtePM_uQYpcU");
 
@@ -24,6 +25,7 @@ class _addFormState extends State<addForm>
 
   DateTime selectedDate = DateTime.now();
 
+
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -32,8 +34,15 @@ class _addFormState extends State<addForm>
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate)
       setState(() {
+  
         selectedDate = picked;
       });
+  }
+
+  String formatDate(DateTime date){
+        var formatter = new DateFormat('yyyy-MM-dd');
+        String formatted = formatter.format(date);
+        return formatted;
   }
 
   TimeOfDay selectedTime =TimeOfDay.now();
@@ -51,6 +60,13 @@ class _addFormState extends State<addForm>
       setState(() {
         selectedTime = picked_s;
       });
+  }
+
+  String formatTime (TimeOfDay time){
+    final now = new DateTime.now();
+    final dt = DateTime(now.year, now.month, now.day, time.hour, time.minute);
+    final format = DateFormat.jm();  //"6:00 AM"
+    return format.format(dt);
   }
 
   //text field state
@@ -282,14 +298,15 @@ class _addFormState extends State<addForm>
                               .toList(),
                         ),
                         SizedBox(height: 20.0),
-                      Text("${selectedDate.toLocal()}".split(' ')[0], style: TextStyle(color: Colors.white),),
+                        
+                      Text(formatDate(selectedDate), style: TextStyle(color: Colors.white),),
                       RaisedButton(
                         onPressed: () => _selectDate(context),
                         child: Text('Select date'),
                         color: Theme.of(context).primaryColor,
 
                       ),
-                      Text("${selectedTime}", style: TextStyle(color: Colors.white)),
+                      Text(formatTime(selectedTime), style: TextStyle(color: Colors.white)),
                       RaisedButton(
                         onPressed: () =>_selectTime(context),
                         child: Text('Select time'),
@@ -335,8 +352,8 @@ class _addFormState extends State<addForm>
                                     lng,
                                     _currentdescription,
                                     _currentcuisine,
-                                    selectedTime.toString(),
-                                    selectedDate.toString(),
+                                    formatTime(selectedTime),
+                                    formatDate(selectedDate),
                                     base64Image,
                                     'none', //default order status
                                     'none' //default eater status

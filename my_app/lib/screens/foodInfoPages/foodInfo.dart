@@ -7,6 +7,7 @@ import 'package:my_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:intl/intl.dart';
 
 class foodInfo extends StatefulWidget
 {
