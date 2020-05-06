@@ -158,6 +158,7 @@ class _messages extends State <messages> {
                         Text(
                         _model.message,
                         style: TextStyle(color: Color(0xFF101321)),),
+                        SizedBox(height: 5,),
                         Text(title, style: TextStyle(color: Color(0xFF101321)),)
                       ]
                     ),
