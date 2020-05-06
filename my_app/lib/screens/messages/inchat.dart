@@ -47,6 +47,22 @@ class _inChat extends State<inChat>
       );
     }
 
+    void _showDialogPickedUp(){
+      showDialog(context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: new Text("Congrats! Your food has been picked up. Your conversation with the user has been deleted"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {Navigator.pop(context);}
+              )
+            ]
+          );
+        }
+      );
+    }
+
     void _showDialogDecline(){
       showDialog(context: context,
         builder: (BuildContext context){
@@ -233,13 +249,14 @@ class _inChat extends State<inChat>
                       },
                       child: Text("Accept",
                           textAlign: TextAlign.center,
-                          //style: style.copyWith(
-                            // color: Colors.white, fontWeight: FontWeight.bold)),
                       ),
                     )
                   ),
+
                   if(user.uid != client) Text("Order Status:", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  
                   SizedBox(height: 20,),
+                  
                   if(user.uid ==  client ) 
                   Material(
                       elevation: 5.0,
@@ -248,7 +265,6 @@ class _inChat extends State<inChat>
                       child: MaterialButton(
                         minWidth: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        
                           onPressed: ()async{
                           await DatabaseService(id:foodID).editfoodStatus(
                             "none",
@@ -267,7 +283,38 @@ class _inChat extends State<inChat>
                         
                       )
                     ),
+
+                    SizedBox (height: 20,),
+
                     if(user.uid != client) Text(status, style: TextStyle(color: Colors.white, fontSize: 20),),
+
+                    if (user.uid == client && status == "accepted")
+                    Material(
+                      elevation: 5.0,
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: Theme.of(context).primaryColor,
+                      child: MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          onPressed: ()async{
+                          await DatabaseService(id:foodID).editfoodStatus(
+                            host,
+                            "picked up"
+                          );
+                          await DatabaseService(id:requestID).updaterequestStatus("picked up");
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => messages()));
+                          _showDialogPickedUp();
+                          Firestore.instance.collection("convo").document(widget.convoID).delete();
+                          },
+                        child: Text("Picked Up",
+                            textAlign: TextAlign.center,
+                            //style: style.copyWith(
+                              // color: Colors.white, fontWeight: FontWeight.bold)),
+                        ), 
+                        
+                      )
+                    ),
+
                   ]
                   );
                 }
