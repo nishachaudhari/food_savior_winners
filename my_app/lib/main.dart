@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xFF94AE3F),         // light forest green
           backgroundColor: Color(0xFF243754),      // dark calm blue
           accentColor: Color(0xFFEBEBEB),    // very light grey white
-          canvasColor: Color(0xFF94AE3F),
-
+          //canvasColor: Color(0xFF94AE3F),
+          canvasColor: Color(0xFFEBEBEB),
           // Define the default font family.
           fontFamily: 'Roboto',
         ),
